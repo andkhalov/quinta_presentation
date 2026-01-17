@@ -147,6 +147,7 @@ img { max-width: 100%; height: auto; }
     justify-content: space-between;
     padding: var(--space-md) var(--space-lg);
     max-width: 1400px;
+    position: relative;
     margin: 0 auto;
     position: relative;
 }

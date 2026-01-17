@@ -1,0 +1,309 @@
+{% extends 'calculator/base.html' %}
+{% load static %}
+
+{% block title %}Стратегии заработка{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'calculator/js/quiz.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">🎯 Стратегии заработка</h1>
+        <p class="page-subtitle">Найдите свой путь к финансовому успеху с Quinta Essentia</p>
+    </div>
+</div>
+
+<!-- Quiz Section -->
+<section class="section section-light" id="strategy-quiz">
+    <div class="container">
+        <div class="quiz-container">
+            <h2 class="quiz-title">🔍 Какая стратегия подходит именно вам?</h2>
+            <p class="quiz-subtitle">Ответьте на 5 простых вопросов, и мы подберём оптимальную стратегию</p>
+            
+            <div class="quiz-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 20%"></div>
+                </div>
+                <span class="progress-text">Вопрос 1 из 5</span>
+            </div>
+            
+            <div id="quiz-questions">
+                <!-- Questions will be inserted by JavaScript -->
+            </div>
+            
+            <div id="quiz-result">
+                <!-- Result will be inserted by JavaScript -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- All Strategies Overview -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">📊 Сравнение стратегий</h2>
+        <p class="section-subtitle">Детальное сравнение всех доступных путей развития</p>
+        
+        <div class="table-card" style="overflow-x: auto;">
+            <table class="data-table" style="min-width: 700px;">
+                <thead>
+                    <tr>
+                        <th>Параметр</th>
+                        <th>🛒 Клиент</th>
+                        <th>⚖️ Партнёр</th>
+                        <th>🏗️ Строитель</th>
+                        <th>👑 Лидер</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Время в день</strong></td>
+                        <td>30-60 мин</td>
+                        <td>2-3 часа</td>
+                        <td>4-6 часов</td>
+                        <td>6-8+ часов</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Личный PV</strong></td>
+                        <td>35-70</td>
+                        <td>70</td>
+                        <td>140-280</td>
+                        <td>280</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Рекрутинг/мес.</strong></td>
+                        <td>0-1</td>
+                        <td>2-3</td>
+                        <td>4-6</td>
+                        <td>6+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Целевой ранг</strong></td>
+                        <td>Novus-Inceptor</td>
+                        <td>Doctus-Primum</td>
+                        <td>Dux-Provectus</td>
+                        <td>Grandis+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Доход 6 мес.</strong></td>
+                        <td class="highlight">€ 50-100</td>
+                        <td class="highlight">€ 500-1000</td>
+                        <td class="highlight">€ 1500-3000</td>
+                        <td class="highlight">€ 3000-5000</td>
+                    </tr>
+                    <tr class="featured">
+                        <td><strong>Доход 12 мес.</strong></td>
+                        <td class="highlight">€ 100-200</td>
+                        <td class="highlight">€ 1000-2000</td>
+                        <td class="highlight">€ 3000-6000</td>
+                        <td class="highlight">€ 10000+</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Навыки</strong></td>
+                        <td>Не требуются</td>
+                        <td>Базовое общение</td>
+                        <td>Продажи, обучение</td>
+                        <td>Лидерство</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Detailed Strategies -->
+<section class="section section-dark">
+    <div class="container">
+        <h2 class="section-title" style="color: var(--primary-light);">💡 Подробное описание стратегий</h2>
+        
+        <div class="strategies-grid">
+            <!-- Consumer Strategy -->
+            <div class="strategy-detail" style="--strategy-color: #2D5016; background: rgba(255,255,255,0.05);">
+                <div class="strategy-header">
+                    <span class="strategy-icon-lg">🛒</span>
+                    <div class="strategy-titles">
+                        <h3 style="color: white;">Лояльный клиент</h3>
+                        <span class="strategy-personality" style="color: rgba(255,255,255,0.7);">Практичный минималист</span>
+                    </div>
+                </div>
+                <p class="strategy-description" style="color: rgba(255,255,255,0.8);">
+                    Эта стратегия идеально подходит тем, кто в первую очередь ценит качество продукции 
+                    Quinta Essentia и хочет получать её по лучшей цене. Минимум усилий — максимум выгоды 
+                    от личного потребления.
+                </p>
+                <div class="strategy-focus">
+                    <h4 style="color: rgba(255,255,255,0.6);">Ваш план действий</h4>
+                    <ul style="color: rgba(255,255,255,0.8);">
+                        <li>Зарегистрируйтесь как консультант (это бесплатно)</li>
+                        <li>Делайте минимальную активность 35 PV в месяц</li>
+                        <li>Получайте кешбэк 5% от каждой покупки</li>
+                        <li>Рассказывайте о продукте знакомым</li>
+                        <li>Получайте бонус с продаж за рекомендации</li>
+                    </ul>
+                </div>
+                <div class="strategy-income-forecast">
+                    <h4 style="color: rgba(255,255,255,0.6);">Ожидаемый результат</h4>
+                    <p style="color: var(--primary-light); font-size: 1.25rem; font-weight: 600;">
+                        Экономия €100-300 в год + бонусы €50-200/мес.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Balanced Strategy -->
+            <div class="strategy-detail" style="--strategy-color: #B8860B; background: rgba(255,255,255,0.05);">
+                <div class="strategy-header">
+                    <span class="strategy-icon-lg">⚖️</span>
+                    <div class="strategy-titles">
+                        <h3 style="color: white;">Активный партнёр</h3>
+                        <span class="strategy-personality" style="color: rgba(255,255,255,0.7);">Сбалансированный практик</span>
+                    </div>
+                </div>
+                <p class="strategy-description" style="color: rgba(255,255,255,0.8);">
+                    Оптимальный выбор для большинства людей. Вы инвестируете несколько часов в день 
+                    и постепенно строите стабильный дополнительный доход. Без чрезмерного напряжения, 
+                    но с реальными результатами.
+                </p>
+                <div class="strategy-focus">
+                    <h4 style="color: rgba(255,255,255,0.6);">Ваш план действий</h4>
+                    <ul style="color: rgba(255,255,255,0.8);">
+                        <li>Делайте активность 70 PV ежемесячно</li>
+                        <li>Приглашайте 2-3 новых консультанта в месяц</li>
+                        <li>Помогайте им сделать первые шаги</li>
+                        <li>Изучайте продукт и маркетинг-план</li>
+                        <li>Стремитесь к рангу Doctus за 3-4 месяца</li>
+                    </ul>
+                </div>
+                <div class="strategy-income-forecast">
+                    <h4 style="color: rgba(255,255,255,0.6);">Ожидаемый результат</h4>
+                    <p style="color: var(--primary-light); font-size: 1.25rem; font-weight: 600;">
+                        €500-2000 в месяц через 6-12 месяцев
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Builder Strategy -->
+            <div class="strategy-detail" style="--strategy-color: #DAA520; background: rgba(255,255,255,0.05);">
+                <div class="strategy-header">
+                    <span class="strategy-icon-lg">🏗️</span>
+                    <div class="strategy-titles">
+                        <h3 style="color: white;">Строитель сети</h3>
+                        <span class="strategy-personality" style="color: rgba(255,255,255,0.7);">Целеустремлённый достигатор</span>
+                    </div>
+                </div>
+                <p class="strategy-description" style="color: rgba(255,255,255,0.8);">
+                    Вы серьёзно настроены на построение бизнеса и готовы инвестировать значительное время. 
+                    Ваша цель — выйти на доход, который позволит рассматривать это как основную работу 
+                    или заменить текущую зарплату.
+                </p>
+                <div class="strategy-focus">
+                    <h4 style="color: rgba(255,255,255,0.6);">Ваш план действий</h4>
+                    <ul style="color: rgba(255,255,255,0.8);">
+                        <li>Максимизируйте личную активность (140-280 PV)</li>
+                        <li>Рекрутируйте 4-6 консультантов ежемесячно</li>
+                        <li>Создайте систему обучения в команде</li>
+                        <li>Проводите регулярные встречи и созвоны</li>
+                        <li>Цель — ранг Dux за 6 месяцев, Provectus за год</li>
+                    </ul>
+                </div>
+                <div class="strategy-income-forecast">
+                    <h4 style="color: rgba(255,255,255,0.6);">Ожидаемый результат</h4>
+                    <p style="color: var(--primary-light); font-size: 1.25rem; font-weight: 600;">
+                        €3000-6000 в месяц через год
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Leader Strategy -->
+            <div class="strategy-detail" style="--strategy-color: #8B4513; background: rgba(255,255,255,0.05);">
+                <div class="strategy-header">
+                    <span class="strategy-icon-lg">👑</span>
+                    <div class="strategy-titles">
+                        <h3 style="color: white;">Сетевой лидер</h3>
+                        <span class="strategy-personality" style="color: rgba(255,255,255,0.7);">Прирождённый лидер</span>
+                    </div>
+                </div>
+                <p class="strategy-description" style="color: rgba(255,255,255,0.8);">
+                    Путь к финансовой свободе для тех, кто готов посвятить себя построению большой организации. 
+                    Вы не просто строите бизнес — вы создаёте команду лидеров и систему, которая работает без 
+                    вашего постоянного участия.
+                </p>
+                <div class="strategy-focus">
+                    <h4 style="color: rgba(255,255,255,0.6);">Ваш план действий</h4>
+                    <ul style="color: rgba(255,255,255,0.8);">
+                        <li>Станьте экспертом в продукте и маркетинг-плане</li>
+                        <li>Найдите и развивайте лидеров в своей команде</li>
+                        <li>Проводите обучения, мероприятия, конференции</li>
+                        <li>Создайте систему дупликации</li>
+                        <li>Цель — ранг Grandis за год, Sapiens за 2 года</li>
+                    </ul>
+                </div>
+                <div class="strategy-income-forecast">
+                    <h4 style="color: rgba(255,255,255,0.6);">Ожидаемый результат</h4>
+                    <p style="color: var(--primary-light); font-size: 1.25rem; font-weight: 600;">
+                        €10 000+ в месяц + пассивный доход
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Success Stories / Social Proof -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">🌟 Истории успеха</h2>
+        <p class="section-subtitle">Реальные примеры людей, которые достигли результатов</p>
+        
+        <div class="income-cards">
+            <div class="income-card">
+                <span class="income-icon">👩‍💼</span>
+                <div class="income-team">Мама в декрете</div>
+                <div class="income-amount">€ 1 200/мес</div>
+                <div class="income-period">За 8 месяцев</div>
+                <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted);">
+                    "Начала с 2 часов в день, пока ребёнок спал. Теперь доход больше, чем на прежней работе."
+                </p>
+            </div>
+            
+            <div class="income-card">
+                <span class="income-icon">👨‍🏫</span>
+                <div class="income-team">Учитель</div>
+                <div class="income-amount">€ 800/мес</div>
+                <div class="income-period">За 6 месяцев</div>
+                <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted);">
+                    "Дополнительный доход без отказа от любимой работы. Помогаю коллегам начать так же."
+                </p>
+            </div>
+            
+            <div class="income-card featured">
+                <span class="income-badge">Топ-лидер</span>
+                <span class="income-icon">🏆</span>
+                <div class="income-team">Предприниматель</div>
+                <div class="income-amount">€ 8 500/мес</div>
+                <div class="income-period">За 18 месяцев</div>
+                <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted);">
+                    "Закрыл свой бизнес с головной болью и построил команду мечты. Работаю когда хочу и откуда хочу."
+                </p>
+            </div>
+            
+            <div class="income-card">
+                <span class="income-icon">👩‍⚕️</span>
+                <div class="income-team">Врач</div>
+                <div class="income-amount">€ 2 000/мес</div>
+                <div class="income-period">За 10 месяцев</div>
+                <p style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-muted);">
+                    "Продукт помогает моим пациентам, а я получаю доход за рекомендации. Идеальное сочетание."
+                </p>
+            </div>
+        </div>
+        
+        <div class="section-cta">
+            <a href="{% url 'calculator:calculator' %}" class="btn btn-primary btn-lg">
+                💰 Рассчитать свой доход
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

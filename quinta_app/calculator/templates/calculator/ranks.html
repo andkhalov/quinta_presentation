@@ -1,0 +1,729 @@
+{% extends 'calculator/base.html' %}
+{% load static %}
+
+{% block title %}Система рангов{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">👑 Система рангов</h1>
+        <p class="page-subtitle">12 уровней карьерного роста — от новичка до топ-лидера</p>
+    </div>
+</div>
+
+<!-- Visual Ladder - Clear progression -->
+<section class="section" style="padding: 2rem 0;">
+    <div class="container">
+        <div class="ranks-progression">
+            <!-- Stage 1: Начальные ранги (накопительные) -->
+            <div class="rank-stage">
+                <div class="stage-header">
+                    <span class="stage-badge start">📈 Накопительные</span>
+                    <span class="stage-desc">Достигаются один раз и не теряются</span>
+                </div>
+                <div class="stage-ranks">
+                    <div class="rank-card" style="--rank-clr: #8BC34A;">
+                        <div class="rank-icon">🌱</div>
+                        <div class="rank-details">
+                            <strong class="rank-name">Novus</strong>
+                            <span class="rank-meaning">Новичок</span>
+                        </div>
+                        <div class="rank-requirement">
+                            <span class="req-label">Вход:</span>
+                            <span class="req-value">35 PV личные покупки</span>
+                        </div>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                    <div class="rank-card" style="--rank-clr: #4CAF50;">
+                        <div class="rank-icon">🌿</div>
+                        <div class="rank-details">
+                            <strong class="rank-name">Inceptor</strong>
+                            <span class="rank-meaning">Начинающий</span>
+                        </div>
+                        <div class="rank-requirement">
+                            <span class="req-label">Накопить:</span>
+                            <span class="req-value">1 050 PV всего</span>
+                        </div>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                    <div class="rank-card" style="--rank-clr: #009688;">
+                        <div class="rank-icon">🌲</div>
+                        <div class="rank-details">
+                            <strong class="rank-name">Cognitor</strong>
+                            <span class="rank-meaning">Знающий</span>
+                        </div>
+                        <div class="rank-requirement">
+                            <span class="req-label">Накопить:</span>
+                            <span class="req-value">3 000 PV всего</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stage 2: Лидерские ранги -->
+            <div class="rank-stage">
+                <div class="stage-header">
+                    <span class="stage-badge leader">⭐ Лидерские</span>
+                    <span class="stage-desc">Подтверждаются ежемесячно по обороту команды</span>
+                </div>
+                <div class="stage-ranks">
+                    <div class="rank-card featured" style="--rank-clr: #00BCD4;">
+                        <div class="rank-icon">⭐</div>
+                        <div class="rank-details">
+                            <strong class="rank-name">Doctus</strong>
+                            <span class="rank-meaning">Эксперт</span>
+                        </div>
+                        <div class="rank-requirement">
+                            <span class="req-label">Команда/мес:</span>
+                            <span class="req-value">2 500 PV</span>
+                        </div>
+                        <div class="rank-bonus">🎁 500€ единоразово</div>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                    <div class="rank-card featured" style="--rank-clr: #03A9F4;">
+                        <div class="rank-icon">✨</div>
+                        <div class="rank-details">
+                            <strong class="rank-name">Primum</strong>
+                            <span class="rank-meaning">Первый</span>
+                        </div>
+                        <div class="rank-requirement">
+                            <span class="req-label">Команда/мес:</span>
+                            <span class="req-value">5 000 PV</span>
+                        </div>
+                        <div class="rank-bonus">🎁 2 000€ единоразово</div>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                    <div class="rank-card featured" style="--rank-clr: #2196F3;">
+                        <div class="rank-icon">💎</div>
+                        <div class="rank-details">
+                            <strong class="rank-name">Dux</strong>
+                            <span class="rank-meaning">Лидер</span>
+                        </div>
+                        <div class="rank-requirement">
+                            <span class="req-label">Команда/мес:</span>
+                            <span class="req-value">11 000 PV</span>
+                        </div>
+                        <div class="rank-bonus monthly">💵 1 000€/месяц</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stage 3: Топ-лидеры -->
+            <div class="rank-stage">
+                <div class="stage-header">
+                    <span class="stage-badge top">🏆 Топ-лидеры</span>
+                    <span class="stage-desc">Максимальный доход + бонусы от компании</span>
+                </div>
+                <div class="stage-ranks">
+                    <div class="rank-card premium" style="--rank-clr: #673AB7;">
+                        <div class="rank-icon">👑</div>
+                        <div class="rank-details">
+                            <strong class="rank-name">Provectus</strong>
+                            <span class="rank-meaning">Продвинутый</span>
+                        </div>
+                        <div class="rank-requirement">
+                            <span class="req-label">Команда/мес:</span>
+                            <span class="req-value">23 000 PV</span>
+                        </div>
+                        <div class="rank-bonus monthly">💵 2 000€/месяц</div>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                    <div class="rank-card premium" style="--rank-clr: #9C27B0;">
+                        <div class="rank-icon">🏆</div>
+                        <div class="rank-details">
+                            <strong class="rank-name">Grandis</strong>
+                            <span class="rank-meaning">Великий</span>
+                        </div>
+                        <div class="rank-requirement">
+                            <span class="req-label">Команда/мес:</span>
+                            <span class="req-value">45 000 PV</span>
+                        </div>
+                        <div class="rank-bonus premium">🚗 Авто или 3 500€/мес</div>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                    <div class="rank-card premium" style="--rank-clr: #E91E63;">
+                        <div class="rank-icon">🌟</div>
+                        <div class="rank-details">
+                            <strong class="rank-name">Oraculi+</strong>
+                            <span class="rank-meaning">Мудрец</span>
+                        </div>
+                        <div class="rank-requirement">
+                            <span class="req-label">Команда/мес:</span>
+                            <span class="req-value">90 000+ PV</span>
+                        </div>
+                        <div class="rank-bonus premium">🏎️ Премиум авто + TOP</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick explanation -->
+        <div class="ranks-explainer">
+            <div class="explainer-item">
+                <span class="explainer-icon">📈</span>
+                <div>
+                    <strong>Накопительные</strong>
+                    <p>Novus → Cognitor: накапливайте общий оборот (свои покупки + команда). Достигнув — сохраняете навсегда.</p>
+                </div>
+            </div>
+            <div class="explainer-item">
+                <span class="explainer-icon">⭐</span>
+                <div>
+                    <strong>Лидерские</strong>
+                    <p>Doctus+: поддерживайте месячный оборот команды. Открывают лидерский бонус и награды.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Requirements Table -->
+<section class="section section-light" style="padding: 2rem 0;">
+    <div class="container">
+        <h2 class="section-title" style="margin-bottom: 1.5rem;">📋 Полная таблица требований</h2>
+        
+        <div class="ranks-table-wrapper">
+            <table class="ranks-table">
+                <thead>
+                    <tr>
+                        <th>Ранг</th>
+                        <th>ЛТ (личный)</th>
+                        <th>OT (накоп.)</th>
+                        <th>T (группа)</th>
+                        <th>КТ (команд.)</th>
+                        <th>Структура</th>
+                        <th>Глубина бонуса</th>
+                        <th>Награда</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="rank-start">
+                        <td><span class="rank-badge-sm" style="--clr: #8BC34A;">🌱</span> <strong>Novus</strong></td>
+                        <td>35</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>3 уровня</td>
+                        <td>—</td>
+                    </tr>
+                    <tr class="rank-start">
+                        <td><span class="rank-badge-sm" style="--clr: #4CAF50;">🌿</span> <strong>Inceptor</strong></td>
+                        <td>35</td>
+                        <td>1 050</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>4 уровня</td>
+                        <td>—</td>
+                    </tr>
+                    <tr class="rank-start">
+                        <td><span class="rank-badge-sm" style="--clr: #009688;">🌲</span> <strong>Cognitor</strong></td>
+                        <td>35</td>
+                        <td>3 000</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>5 уровней</td>
+                        <td>—</td>
+                    </tr>
+                    <tr class="rank-mid">
+                        <td><span class="rank-badge-sm" style="--clr: #00BCD4;">⭐</span> <strong>Doctus</strong></td>
+                        <td>70</td>
+                        <td>10 000</td>
+                        <td>2 500</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>∞ (+1%)</td>
+                        <td class="reward">🎁 500€</td>
+                    </tr>
+                    <tr class="rank-mid">
+                        <td><span class="rank-badge-sm" style="--clr: #03A9F4;">✨</span> <strong>Primum</strong></td>
+                        <td>70</td>
+                        <td>10 000</td>
+                        <td>5 000</td>
+                        <td>1 500</td>
+                        <td>—</td>
+                        <td>∞ + Лидер 1ур</td>
+                        <td class="reward">🎁 2000€</td>
+                    </tr>
+                    <tr class="rank-mid">
+                        <td><span class="rank-badge-sm" style="--clr: #2196F3;">💎</span> <strong>Dux</strong></td>
+                        <td>70</td>
+                        <td>10 000</td>
+                        <td>11 000</td>
+                        <td>1 350</td>
+                        <td>1 Primum</td>
+                        <td>∞ + Лидер 2ур</td>
+                        <td class="reward monthly">💵 1000€/м</td>
+                    </tr>
+                    <tr class="rank-top">
+                        <td><span class="rank-badge-sm" style="--clr: #673AB7;">👑</span> <strong>Provectus</strong></td>
+                        <td>70</td>
+                        <td>10 000</td>
+                        <td>23 000</td>
+                        <td>1 200</td>
+                        <td>1 Primum + 2 Doctus</td>
+                        <td>∞ + Лидер 3ур</td>
+                        <td class="reward monthly">💵 2000€/м</td>
+                    </tr>
+                    <tr class="rank-top">
+                        <td><span class="rank-badge-sm" style="--clr: #9C27B0;">🏆</span> <strong>Grandis</strong></td>
+                        <td>70</td>
+                        <td>10 000</td>
+                        <td>45 000</td>
+                        <td>1 100</td>
+                        <td>1 Dux + 1 Primum + 2 Doctus</td>
+                        <td>∞ + Лидер 4ур</td>
+                        <td class="reward premium">🚗 Авто</td>
+                    </tr>
+                    <tr class="rank-top">
+                        <td><span class="rank-badge-sm" style="--clr: #E91E63;">🌟</span> <strong>Oraculi</strong></td>
+                        <td>70</td>
+                        <td>10 000</td>
+                        <td>90 000</td>
+                        <td>1 100</td>
+                        <td>1 Provectus + 1 Dux + 2 Primum</td>
+                        <td>∞ + Лидер 5ур</td>
+                        <td>—</td>
+                    </tr>
+                    <tr class="rank-elite">
+                        <td><span class="rank-badge-sm" style="--clr: #F44336;">💫</span> <strong>Sapiens</strong></td>
+                        <td>70</td>
+                        <td>10 000</td>
+                        <td>150 000</td>
+                        <td>1 000</td>
+                        <td>1 Grandis + 2 Provectus + 2 Dux</td>
+                        <td>∞ + Лидер 5ур</td>
+                        <td class="reward premium">🏎️ Премиум</td>
+                    </tr>
+                    <tr class="rank-elite">
+                        <td><span class="rank-badge-sm" style="--clr: #FF5722;">🔮</span> <strong>Superator</strong></td>
+                        <td>70</td>
+                        <td>10 000</td>
+                        <td>280 000</td>
+                        <td>1 000</td>
+                        <td>2 Grandis + 2 Provectus</td>
+                        <td>∞ + Лидер 5ур</td>
+                        <td>—</td>
+                    </tr>
+                    <tr class="rank-elite">
+                        <td><span class="rank-badge-sm" style="--clr: #FF9800;">👸</span> <strong>Principal</strong></td>
+                        <td>70</td>
+                        <td>10 000</td>
+                        <td>500 000</td>
+                        <td>800</td>
+                        <td>6 Grandis</td>
+                        <td>∞ + Лидер 5ур</td>
+                        <td class="reward premium">🌟 3% от компании</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Legend -->
+        <div class="table-legend">
+            <div class="legend-item"><strong>ЛТ</strong> — личный товарооборот (ваши покупки)</div>
+            <div class="legend-item"><strong>OT</strong> — накопленный оборот за всё время</div>
+            <div class="legend-item"><strong>T</strong> — групповой оборот текущего месяца</div>
+            <div class="legend-item"><strong>КТ</strong> — командный оборот (макс. на 1 ветку)</div>
+        </div>
+    </div>
+</section>
+
+<!-- Rewards Summary -->
+<section class="section" style="padding: 2rem 0;">
+    <div class="container">
+        <h2 class="section-title" style="margin-bottom: 1.5rem;">🎁 Награды за ранги</h2>
+        
+        <div class="rewards-timeline">
+            <div class="reward-step">
+                <div class="reward-icon">⭐</div>
+                <div class="reward-name">Doctus</div>
+                <div class="reward-value">500€</div>
+                <div class="reward-type">единоразово</div>
+            </div>
+            <div class="reward-connector">→</div>
+            <div class="reward-step">
+                <div class="reward-icon">✨</div>
+                <div class="reward-name">Primum</div>
+                <div class="reward-value">2 000€</div>
+                <div class="reward-type">единоразово</div>
+            </div>
+            <div class="reward-connector">→</div>
+            <div class="reward-step">
+                <div class="reward-icon">💎</div>
+                <div class="reward-name">Dux</div>
+                <div class="reward-value">1 000€</div>
+                <div class="reward-type">ежемесячно</div>
+            </div>
+            <div class="reward-connector">→</div>
+            <div class="reward-step">
+                <div class="reward-icon">👑</div>
+                <div class="reward-name">Provectus</div>
+                <div class="reward-value">2 000€</div>
+                <div class="reward-type">ежемесячно</div>
+            </div>
+            <div class="reward-connector">→</div>
+            <div class="reward-step premium">
+                <div class="reward-icon">🏆</div>
+                <div class="reward-name">Grandis</div>
+                <div class="reward-value">🚗 Авто</div>
+                <div class="reward-type">или 3500€/мес</div>
+            </div>
+            <div class="reward-connector">→</div>
+            <div class="reward-step premium">
+                <div class="reward-icon">💫</div>
+                <div class="reward-name">Sapiens+</div>
+                <div class="reward-value">🏎️ Премиум</div>
+                <div class="reward-type">+ TOP бонус</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Ranks Progression Styles */
+.ranks-progression {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.rank-stage {
+    margin-bottom: 2rem;
+}
+
+.stage-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eee;
+}
+
+.stage-badge {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.stage-badge.start {
+    background: linear-gradient(135deg, #8BC34A, #4CAF50);
+    color: white;
+}
+
+.stage-badge.leader {
+    background: linear-gradient(135deg, #00BCD4, #2196F3);
+    color: white;
+}
+
+.stage-badge.top {
+    background: linear-gradient(135deg, #673AB7, #E91E63);
+    color: white;
+}
+
+.stage-desc {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.stage-ranks {
+    display: flex;
+    align-items: stretch;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.rank-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    min-width: 180px;
+    flex: 1;
+    max-width: 220px;
+    border-left: 4px solid var(--rank-clr);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.rank-card.featured {
+    background: linear-gradient(135deg, white 0%, #f0f9ff 100%);
+}
+
+.rank-card.premium {
+    background: linear-gradient(135deg, #fffbf0 0%, #fff3e0 100%);
+}
+
+.rank-icon {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.rank-details {
+    text-align: center;
+}
+
+.rank-name {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    display: block;
+}
+
+.rank-meaning {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.rank-requirement {
+    background: #f5f5f5;
+    padding: 0.5rem;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.req-label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.req-value {
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.rank-bonus {
+    background: var(--green);
+    color: white;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.rank-bonus.monthly {
+    background: var(--blue);
+}
+
+.rank-bonus.premium {
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+}
+
+.rank-arrow {
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    padding: 0 0.25rem;
+}
+
+/* Explainer */
+.ranks-explainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 12px;
+}
+
+.explainer-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.explainer-icon {
+    font-size: 1.5rem;
+}
+
+.explainer-item strong {
+    display: block;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+}
+
+.explainer-item p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Table Styles */
+.ranks-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.ranks-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.ranks-table th {
+    background: var(--brand-dark);
+    color: white;
+    padding: 0.75rem 0.5rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.ranks-table td {
+    padding: 0.6rem 0.5rem;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+}
+
+.ranks-table tr:last-child td {
+    border-bottom: none;
+}
+
+.rank-badge-sm {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--clr);
+    margin-right: 0.25rem;
+}
+
+.rank-start td { background: #f9fff9; }
+.rank-mid td { background: #f0f7ff; }
+.rank-top td { background: #fff9f0; }
+.rank-elite td { background: #fff5f5; }
+
+.ranks-table .reward {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.ranks-table .reward.monthly {
+    color: var(--blue);
+}
+
+.ranks-table .reward.premium {
+    color: var(--orange);
+    font-weight: 700;
+}
+
+.table-legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    font-size: 0.8rem;
+}
+
+.legend-item strong {
+    color: var(--brand-dark);
+}
+
+/* Rewards Timeline */
+.rewards-timeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.reward-step {
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 100px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.reward-step.premium {
+    background: linear-gradient(135deg, var(--brand-dark), #4a3a32);
+    color: white;
+}
+
+.reward-step .reward-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.reward-step .reward-name {
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.reward-step .reward-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--green);
+    margin: 0.25rem 0;
+}
+
+.reward-step.premium .reward-value {
+    color: var(--green-light);
+}
+
+.reward-step .reward-type {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.reward-step.premium .reward-type {
+    color: rgba(255,255,255,0.7);
+}
+
+.reward-connector {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .stage-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .stage-ranks {
+        flex-direction: column;
+    }
+    
+    .rank-card {
+        max-width: 100%;
+    }
+    
+    .rank-arrow {
+        transform: rotate(90deg);
+        justify-content: center;
+    }
+    
+    .rewards-timeline {
+        flex-direction: column;
+    }
+    
+    .reward-connector {
+        transform: rotate(90deg);
+    }
+}
+</style>
+{% endblock %}

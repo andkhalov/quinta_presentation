@@ -1,0 +1,348 @@
+{% extends 'calculator/base.html' %}
+{% load static %}
+
+{% block title %}Симулятор роста{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'calculator/js/simulator.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">🚀 Симулятор роста</h1>
+        <p class="page-subtitle">Смоделируйте развитие вашего бизнеса на год вперёд</p>
+    </div>
+</div>
+
+<section class="section" id="simulator-app">
+    <div class="container">
+        <div class="simulator-layout">
+            <!-- Controls Panel -->
+            <div class="simulator-controls">
+                <h2>⚙️ Параметры модели</h2>
+                
+                <div class="control-group">
+                    <label for="sim-strategy">Стратегия развития</label>
+                    <select id="sim-strategy">
+                        <option value="consumer">🛒 Лояльный клиент</option>
+                        <option value="balanced" selected>⚖️ Активный партнёр</option>
+                        <option value="builder">🏗️ Строитель сети</option>
+                        <option value="leader">👑 Сетевой лидер</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="sim-personal-pv">Личный товарооборот</label>
+                    <input type="range" id="sim-personal-pv" min="35" max="280" value="70" step="35">
+                    <span class="range-value" id="sim-personal-pv-value">70 PV</span>
+                </div>
+                
+                <div class="control-group">
+                    <label for="sim-new-consultants">Новых консультантов в месяц</label>
+                    <input type="range" id="sim-new-consultants" min="0" max="10" value="2">
+                    <span class="range-value" id="sim-new-consultants-value">2</span>
+                </div>
+                
+                <div class="control-group">
+                    <label for="sim-team-growth">Рост команды (в месяц)</label>
+                    <input type="range" id="sim-team-growth" min="0" max="50" value="15">
+                    <span class="range-value" id="sim-team-growth-value">15%</span>
+                </div>
+                
+                <div class="control-group">
+                    <label for="sim-retention">Удержание команды</label>
+                    <input type="range" id="sim-retention" min="50" max="100" value="85">
+                    <span class="range-value" id="sim-retention-value">85%</span>
+                </div>
+                
+                <div class="control-group">
+                    <label for="sim-months">Период моделирования</label>
+                    <input type="range" id="sim-months" min="3" max="24" value="12">
+                    <span class="range-value" id="sim-months-value">12 мес.</span>
+                </div>
+            </div>
+            
+            <!-- Results Panel -->
+            <div class="simulator-results">
+                <h2>📈 Результаты моделирования</h2>
+                
+                <div class="sim-summary">
+                    <div class="sim-stat">
+                        <span class="stat-label">Итоговый ранг</span>
+                        <span class="stat-value" id="sim-final-rank">Novus</span>
+                    </div>
+                    <div class="sim-stat">
+                        <span class="stat-label">Доход в последний месяц</span>
+                        <span class="stat-value" id="sim-final-income">€ 0</span>
+                    </div>
+                    <div class="sim-stat">
+                        <span class="stat-label">Размер команды</span>
+                        <span class="stat-value" id="sim-total-team">0</span>
+                    </div>
+                    <div class="sim-stat">
+                        <span class="stat-label">Заработано за период</span>
+                        <span class="stat-value" id="sim-total-earned">€ 0</span>
+                    </div>
+                </div>
+                
+                <!-- График роста -->
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">📈 Динамика роста</h3>
+                    <div class="sim-chart" style="height: 350px;">
+                        <canvas id="simulator-chart"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Круговая диаграмма и столбчатая -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">🥧 Структура дохода</h3>
+                        <div style="height: 250px;">
+                            <canvas id="income-pie-chart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 style="margin-bottom: 1rem;">📊 Помесячный доход</h3>
+                        <div style="height: 250px;">
+                            <canvas id="income-bar-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Пояснения -->
+                <div class="chart-legend" style="margin-bottom: 2rem;">
+                    <div class="legend-title">📖 Пояснения к графикам</div>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #B8860B;"></div>
+                            <div class="legend-text">
+                                <strong>Золотая линия — Доход (€)</strong>
+                                <span>Ваш общий месячный доход в EUR</span>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: #17b22a;"></div>
+                            <div class="legend-text">
+                                <strong>Зелёная линия — Команда</strong>
+                                <span>Количество консультантов в вашей структуре</span>
+                            </div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background: var(--blue);"></div>
+                            <div class="legend-text">
+                                <strong>Ранг</strong>
+                                <span>Квалификация определяется по ЛТ, ОТ и Т</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-bottom: 1rem;">📅 Помесячная таблица</h3>
+                <div class="sim-timeline" id="sim-timeline">
+                    <!-- Timeline items will be inserted by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Strategies Explanation -->
+<section class="section section-light">
+    <div class="container">
+        <h2 class="section-title">🎯 Стратегии развития</h2>
+        <p class="section-subtitle">Выберите стратегию, соответствующую вашим целям и возможностям</p>
+        
+        <div class="strategies-grid">
+            <div class="strategy-detail" style="--strategy-color: #2D5016">
+                <div class="strategy-header">
+                    <span class="strategy-icon-lg">🛒</span>
+                    <div class="strategy-titles">
+                        <h3>Лояльный клиент</h3>
+                        <span class="strategy-personality">Минимальные усилия</span>
+                    </div>
+                </div>
+                <p class="strategy-description">
+                    Используйте продукцию со скидкой и получайте небольшой бонус за рекомендации. 
+                    Идеально для тех, кто ценит качество Quinta Essentia и хочет экономить.
+                </p>
+                <div class="strategy-focus">
+                    <h4>Фокус</h4>
+                    <ul>
+                        <li>Личное потребление продукции</li>
+                        <li>Рекомендации близким друзьям</li>
+                        <li>Минимальная активность</li>
+                    </ul>
+                </div>
+                <div class="strategy-income-forecast">
+                    <h4>Прогноз дохода</h4>
+                    <div class="forecast-items">
+                        <div class="forecast-item">
+                            <span class="forecast-period">3 мес.</span>
+                            <span class="forecast-amount">€ 30-50</span>
+                        </div>
+                        <div class="forecast-item">
+                            <span class="forecast-period">6 мес.</span>
+                            <span class="forecast-amount">€ 50-100</span>
+                        </div>
+                        <div class="forecast-item">
+                            <span class="forecast-period">12 мес.</span>
+                            <span class="forecast-amount">€ 100-200</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="strategy-detail" style="--strategy-color: #B8860B">
+                <div class="strategy-header">
+                    <span class="strategy-icon-lg">⚖️</span>
+                    <div class="strategy-titles">
+                        <h3>Активный партнёр</h3>
+                        <span class="strategy-personality">Сбалансированный подход</span>
+                    </div>
+                </div>
+                <p class="strategy-description">
+                    Оптимальный баланс между затраченным временем и результатом. 
+                    Постепенное построение стабильного дополнительного дохода.
+                </p>
+                <div class="strategy-focus">
+                    <h4>Фокус</h4>
+                    <ul>
+                        <li>Регулярная активность 70 PV</li>
+                        <li>2-4 новых консультанта в месяц</li>
+                        <li>Базовое обучение команды</li>
+                    </ul>
+                </div>
+                <div class="strategy-income-forecast">
+                    <h4>Прогноз дохода</h4>
+                    <div class="forecast-items">
+                        <div class="forecast-item">
+                            <span class="forecast-period">3 мес.</span>
+                            <span class="forecast-amount">€ 100-300</span>
+                        </div>
+                        <div class="forecast-item featured">
+                            <span class="forecast-period">6 мес.</span>
+                            <span class="forecast-amount">€ 500-1000</span>
+                        </div>
+                        <div class="forecast-item">
+                            <span class="forecast-period">12 мес.</span>
+                            <span class="forecast-amount">€ 1000-2000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="strategy-detail" style="--strategy-color: #DAA520">
+                <div class="strategy-header">
+                    <span class="strategy-icon-lg">🏗️</span>
+                    <div class="strategy-titles">
+                        <h3>Строитель сети</h3>
+                        <span class="strategy-personality">Серьёзный подход</span>
+                    </div>
+                </div>
+                <p class="strategy-description">
+                    Для тех, кто готов инвестировать время и энергию в построение полноценного бизнеса. 
+                    Цель — выход на доход, сопоставимый с хорошей зарплатой.
+                </p>
+                <div class="strategy-focus">
+                    <h4>Фокус</h4>
+                    <ul>
+                        <li>Максимизация личной активности</li>
+                        <li>4-6 новых консультантов в месяц</li>
+                        <li>Системное обучение и поддержка</li>
+                    </ul>
+                </div>
+                <div class="strategy-income-forecast">
+                    <h4>Прогноз дохода</h4>
+                    <div class="forecast-items">
+                        <div class="forecast-item">
+                            <span class="forecast-period">3 мес.</span>
+                            <span class="forecast-amount">€ 300-700</span>
+                        </div>
+                        <div class="forecast-item">
+                            <span class="forecast-period">6 мес.</span>
+                            <span class="forecast-amount">€ 1500-3000</span>
+                        </div>
+                        <div class="forecast-item featured">
+                            <span class="forecast-period">12 мес.</span>
+                            <span class="forecast-amount">€ 3000-6000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="strategy-detail" style="--strategy-color: #8B4513">
+                <div class="strategy-header">
+                    <span class="strategy-icon-lg">👑</span>
+                    <div class="strategy-titles">
+                        <h3>Сетевой лидер</h3>
+                        <span class="strategy-personality">Путь к финансовой свободе</span>
+                    </div>
+                </div>
+                <p class="strategy-description">
+                    Стратегия для прирождённых лидеров, готовых посвятить себя построению большой организации 
+                    и достижению финансовой независимости.
+                </p>
+                <div class="strategy-focus">
+                    <h4>Фокус</h4>
+                    <ul>
+                        <li>Развитие лидеров в команде</li>
+                        <li>Проведение обучений и событий</li>
+                        <li>Масштабирование и дупликация</li>
+                    </ul>
+                </div>
+                <div class="strategy-income-forecast">
+                    <h4>Прогноз дохода</h4>
+                    <div class="forecast-items">
+                        <div class="forecast-item">
+                            <span class="forecast-period">6 мес.</span>
+                            <span class="forecast-amount">€ 3000-5000</span>
+                        </div>
+                        <div class="forecast-item featured">
+                            <span class="forecast-period">12 мес.</span>
+                            <span class="forecast-amount">€ 8000-15000</span>
+                        </div>
+                        <div class="forecast-item">
+                            <span class="forecast-period">24 мес.</span>
+                            <span class="forecast-amount">€ 20000+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tips for Success -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">🔑 Ключи к успеху</h2>
+        
+        <div class="tips-grid">
+            <div class="tip-card">
+                <div class="tip-icon">📊</div>
+                <h3>Системность</h3>
+                <p>Ежедневные небольшие действия важнее редких больших усилий. Выделите время на бизнес каждый день.</p>
+            </div>
+            
+            <div class="tip-card">
+                <div class="tip-icon">🎓</div>
+                <h3>Обучение</h3>
+                <p>Изучайте продукт, маркетинг-план, техники продаж. Знания = уверенность = результат.</p>
+            </div>
+            
+            <div class="tip-card">
+                <div class="tip-icon">🤝</div>
+                <h3>Дупликация</h3>
+                <p>Обучайте партнёров делать то же, что делаете вы. Ваш успех — в успехе вашей команды.</p>
+            </div>
+            
+            <div class="tip-card">
+                <div class="tip-icon">🎯</div>
+                <h3>Цели</h3>
+                <p>Ставьте конкретные цели по доходу и рангам. Визуализируйте и двигайтесь к ним.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,783 @@
+{% extends 'calculator/base.html' %}
+{% load static %}
+
+{% block title %}Справочник{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">📚 Справочник маркетинг-плана</h1>
+        <p class="page-subtitle">Полное руководство по программе вознаграждений Quinta Essentia</p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="reference-layout">
+            <!-- Navigation -->
+            <nav class="reference-nav">
+                <h3>Содержание</h3>
+                <ul>
+                    <li><a href="#basics">Основы</a></li>
+                    <li><a href="#glossary">Глоссарий</a></li>
+                    <li><a href="#pv-system">Система PV</a></li>
+                    <li><a href="#activity">Активность</a></li>
+                    <li><a href="#cashback">Кешбэк</a></li>
+                    <li><a href="#sales-bonus">Бонус с продаж</a></li>
+                    <li><a href="#team-bonus">Командный бонус</a></li>
+                    <li><a href="#leadership-bonus">Лидерский бонус</a></li>
+                    <li><a href="#top-bonus">TOP бонус</a></li>
+                    <li><a href="#ranks">Ранги</a></li>
+                    <li><a href="#rewards">Награды</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Content -->
+            <div class="reference-content">
+                <!-- Basics -->
+                <div class="ref-section" id="basics">
+                    <h2>📖 Основы маркетинг-плана</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Что такое маркетинг-план Quinta Essentia?</h3>
+                        <p>
+                            Маркетинг-план — это система вознаграждений, определяющая как консультанты компании 
+                            получают доход. В Quinta Essentia используется многоуровневая модель с 
+                            <strong>5 видами бонусов</strong>.
+                        </p>
+                        
+                        <div class="ref-highlight">
+                            <strong>🎯 Ключевой принцип:</strong> Вы зарабатываете не только на личных продажах, 
+                            но и на развитии команды. Чем больше и успешнее ваша команда — тем выше ваш доход.
+                        </div>
+                    </div>
+                    
+                    <div class="ref-card">
+                        <h3>5 источников дохода</h3>
+                        <table class="bonus-table">
+                            <thead>
+                                <tr>
+                                    <th>Бонус</th>
+                                    <th>Описание</th>
+                                    <th>Ставка</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>💳 Кешбэк</strong></td>
+                                    <td>Возврат от личных покупок</td>
+                                    <td class="highlight">5-12.5%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>📈 Бонус продаж</strong></td>
+                                    <td>С покупок лично приглашённых</td>
+                                    <td class="highlight">2.5-7.5%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>👥 Командный</strong></td>
+                                    <td>С товарооборота всей структуры</td>
+                                    <td class="highlight">1-5%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>👑 Лидерский</strong></td>
+                                    <td>С Doctus-линий (для Primum+)</td>
+                                    <td class="highlight">2.5%</td>
+                                </tr>
+                                <tr class="featured">
+                                    <td><strong>🏆 TOP бонус</strong></td>
+                                    <td>Доля от оборота компании</td>
+                                    <td class="highlight">0.5-0.8%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Glossary -->
+                <div class="ref-section" id="glossary">
+                    <h2>📝 Глоссарий терминов</h2>
+                    
+                    <div class="glossary-grid">
+                        <div class="glossary-card">
+                            <h3>PV (Point Value)</h3>
+                            <p>Баллы за покупку продукции. Основная единица расчёта бонусов.</p>
+                            <div class="glossary-example">
+                                <span class="example-label">Курс:</span> 1 PV = 1 EUR
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-card">
+                            <h3>ЛТ (Личный Товарооборот)</h3>
+                            <p>Сумма PV от ваших личных покупок за текущий месяц.</p>
+                            <div class="glossary-example">
+                                <span class="example-label">Мин. активность:</span> 35-70 PV
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-card">
+                            <h3>OT (Общий Товарооборот)</h3>
+                            <p>Накопленный групповой товарооборот за всё время.</p>
+                            <div class="glossary-example">
+                                <span class="example-label">Для Inceptor:</span> OT ≥ 1050 PV
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-card">
+                            <h3>T (Групповой Товарооборот)</h3>
+                            <p>Месячный товарооборот всей вашей структуры.</p>
+                            <div class="glossary-example">
+                                <span class="example-label">Для Doctus:</span> T ≥ 2500 PV
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-card">
+                            <h3>КТ (Командный Товарооборот)</h3>
+                            <p>Месячный T, исключая Doctus+ линии.</p>
+                            <div class="glossary-example">
+                                <span class="example-label">Важно:</span> Для лидерских бонусов
+                            </div>
+                        </div>
+                        
+                        <div class="glossary-card">
+                            <h3>Уровень глубины</h3>
+                            <p>Расстояние от вас до консультанта в структуре.</p>
+                            <div class="glossary-example">
+                                <span class="example-label">1 уровень:</span> Лично приглашённые
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PV System -->
+                <div class="ref-section" id="pv-system">
+                    <h2>💱 Система PV</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Что такое PV и зачем они нужны?</h3>
+                        <p>
+                            PV (Point Value) — внутренняя валюта компании для расчёта бонусов. 
+                            Каждый продукт имеет стоимость в евро и эквивалент в PV. Все бонусы 
+                            начисляются в PV, а затем конвертируются в евро.
+                        </p>
+                        
+                        <div class="currency-info">
+                            <div class="currency-item">
+                                <span class="currency-name">1 PV</span>
+                                <span>=</span>
+                                <span class="currency-rate">1 EUR</span>
+                            </div>
+                        </div>
+                        
+                        <table class="bonus-table">
+                            <thead>
+                                <tr>
+                                    <th>Пример покупки</th>
+                                    <th>PV</th>
+                                    <th>≈ EUR</th>
+                                    <th>≈ KZT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Минимальная активация</td>
+                                    <td class="highlight">35 PV</td>
+                                    <td>35€</td>
+                                    <td>~18 500 ₸</td>
+                                </tr>
+                                <tr>
+                                    <td>Активность Doctus+</td>
+                                    <td class="highlight">70 PV</td>
+                                    <td>70€</td>
+                                    <td>~37 000 ₸</td>
+                                </tr>
+                                <tr>
+                                    <td>Оптимальный уровень</td>
+                                    <td class="highlight">140 PV</td>
+                                    <td>140€</td>
+                                    <td>~74 000 ₸</td>
+                                </tr>
+                                <tr class="featured">
+                                    <td>Максимальный кешбэк</td>
+                                    <td class="highlight">280 PV</td>
+                                    <td>280€</td>
+                                    <td>~148 000 ₸</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Activity -->
+                <div class="ref-section" id="activity">
+                    <h2>✅ Активность</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Условия получения бонусов</h3>
+                        <p>
+                            Чтобы получать бонусы, консультант должен поддерживать минимальную активность — 
+                            делать личные покупки на определённую сумму в PV каждый месяц.
+                        </p>
+                        
+                        <table class="bonus-table">
+                            <thead>
+                                <tr>
+                                    <th>Ситуация</th>
+                                    <th>Требуемый ЛТ</th>
+                                    <th>В EUR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Первая активация</td>
+                                    <td class="highlight">70 PV</td>
+                                    <td>70€</td>
+                                </tr>
+                                <tr>
+                                    <td>Ранги Novus — Cognitor</td>
+                                    <td class="highlight">35 PV</td>
+                                    <td>35€</td>
+                                </tr>
+                                <tr class="featured">
+                                    <td>Ранг Doctus и выше</td>
+                                    <td class="highlight">70 PV</td>
+                                    <td>70€</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="ref-highlight">
+                            <strong>⚠️ Важно:</strong> Без выполнения активности вы не получаете командный 
+                            и лидерский бонусы за текущий месяц, но сохраняете свой ранг.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cashback -->
+                <div class="ref-section" id="cashback">
+                    <h2>💳 Кешбэк</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Механика расчёта</h3>
+                        <p>Кешбэк — это возврат части стоимости ваших личных покупок.</p>
+                        
+                        <div class="ref-formula">
+                            Кешбэк = ЛТ × Ставка кешбэка
+                        </div>
+                        
+                        <table class="bonus-table">
+                            <thead>
+                                <tr>
+                                    <th>ЛТ (личный PV)</th>
+                                    <th>Ставка</th>
+                                    <th>Пример кешбэка</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>35-69 PV</td>
+                                    <td class="highlight">5%</td>
+                                    <td>35 × 5% = <strong>1.75€</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>70-139 PV</td>
+                                    <td class="highlight">7.5%</td>
+                                    <td>70 × 7.5% = <strong>5.25€</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>140-279 PV</td>
+                                    <td class="highlight">10%</td>
+                                    <td>140 × 10% = <strong>14€</strong></td>
+                                </tr>
+                                <tr class="featured">
+                                    <td>280+ PV</td>
+                                    <td class="highlight">12.5%</td>
+                                    <td>280 × 12.5% = <strong>35€</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="ref-note">
+                            💡 <strong>Совет:</strong> При покупках на 140 PV в месяц вы получаете 14€ кешбэка просто так!
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sales Bonus -->
+                <div class="ref-section" id="sales-bonus">
+                    <h2>📈 Бонус с продаж</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Механика расчёта</h3>
+                        <p>
+                            Бонус с продаж — это разница между вашей персональной скидкой и скидкой 
+                            ваших лично приглашённых консультантов (ЛП).
+                        </p>
+                        
+                        <div class="ref-formula">
+                            Бонус = (Ваша ставка − Ставка ЛП) × PV консультанта
+                        </div>
+                        
+                        <table class="bonus-table">
+                            <thead>
+                                <tr>
+                                    <th>Активных ЛП</th>
+                                    <th>При ЛТ 70</th>
+                                    <th>При ЛТ 140</th>
+                                    <th>При ЛТ 280</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2</td>
+                                    <td>2.5%</td>
+                                    <td>4.5%</td>
+                                    <td>5.5%</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>3%</td>
+                                    <td>5%</td>
+                                    <td>6%</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>3.5%</td>
+                                    <td>5.5%</td>
+                                    <td>6.5%</td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>4%</td>
+                                    <td>6%</td>
+                                    <td>7%</td>
+                                </tr>
+                                <tr class="featured">
+                                    <td>10+</td>
+                                    <td>4.5%</td>
+                                    <td>6.5%</td>
+                                    <td class="highlight">7.5%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="ref-highlight">
+                            <strong>Пример:</strong> 10 ЛП × 70 PV × 7.5% = <strong>52.5€/мес</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Team Bonus -->
+                <div class="ref-section" id="team-bonus">
+                    <h2>👥 Командный бонус</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Механика расчёта</h3>
+                        <p>
+                            Командный бонус начисляется с товарооборота всей вашей структуры. 
+                            Глубина выплат зависит от вашего ранга.
+                        </p>
+                        
+                        <table class="bonus-table">
+                            <thead>
+                                <tr>
+                                    <th>Ранг</th>
+                                    <th>Глубина</th>
+                                    <th>1 ур.</th>
+                                    <th>2 ур.</th>
+                                    <th>3 ур.</th>
+                                    <th>4 ур.</th>
+                                    <th>5+ ур.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>🌱 Novus</td>
+                                    <td>3 ур.</td>
+                                    <td class="highlight">5%</td>
+                                    <td>2.5%</td>
+                                    <td>2.5%</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>🌿 Inceptor</td>
+                                    <td>4 ур.</td>
+                                    <td class="highlight">5%</td>
+                                    <td>2.5%</td>
+                                    <td>2.5%</td>
+                                    <td>2.5%</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>🌲 Cognitor</td>
+                                    <td>5 ур.</td>
+                                    <td class="highlight">5%</td>
+                                    <td>2.5%</td>
+                                    <td>2.5%</td>
+                                    <td>2.5%</td>
+                                    <td>1.5%</td>
+                                </tr>
+                                <tr class="featured">
+                                    <td>⭐ Doctus+</td>
+                                    <td>7+ ур.</td>
+                                    <td class="highlight">5%</td>
+                                    <td>2.5%</td>
+                                    <td>2.5%</td>
+                                    <td>2.5%</td>
+                                    <td>1-2.5%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="ref-highlight">
+                            <strong>Пример:</strong> Команда 100 чел., средний ЛТ 50 PV = 5000 PV × ~3% = <strong>150€/мес</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Leadership Bonus -->
+                <div class="ref-section" id="leadership-bonus">
+                    <h2>👑 Лидерский бонус</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Условия получения</h3>
+                        <p>
+                            Лидерский бонус открывается с ранга <strong>Primum</strong> и выплачивается с товарооборота 
+                            консультантов ранга Doctus и выше в вашей структуре.
+                        </p>
+                        
+                        <div class="ref-formula">
+                            Лидерский бонус = (ЛТ + КТ) Doctus-линии × 2.5% × Уровней
+                        </div>
+                        
+                        <table class="bonus-table">
+                            <thead>
+                                <tr>
+                                    <th>Ваш ранг</th>
+                                    <th>Глубина Doctus-линий</th>
+                                    <th>Пример дохода</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>✨ Primum</td>
+                                    <td>1 уровень</td>
+                                    <td>2.5% × 2500 PV = <strong>62€</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>💎 Dux</td>
+                                    <td>2 уровня</td>
+                                    <td>2.5% × 5000 PV = <strong>125€</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>👑 Provectus</td>
+                                    <td>3 уровня</td>
+                                    <td>2.5% × 7500 PV = <strong>187€</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>🏆 Grandis</td>
+                                    <td>4 уровня</td>
+                                    <td>2.5% × 10000 PV = <strong>250€</strong></td>
+                                </tr>
+                                <tr class="featured">
+                                    <td>🌟 Oraculi+</td>
+                                    <td>5 уровней</td>
+                                    <td>2.5% × 12500 PV = <strong>312€</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- TOP Bonus -->
+                <div class="ref-section" id="top-bonus">
+                    <h2>🏆 TOP Бонус</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Условия получения</h3>
+                        <p>
+                            TOP бонус — это доля от месячного оборота всей компании, которая распределяется 
+                            между топ-лидерами уровня <strong>Sapiens</strong> и выше.
+                        </p>
+                        
+                        <table class="bonus-table">
+                            <thead>
+                                <tr>
+                                    <th>Ранг</th>
+                                    <th>Доля от оборота</th>
+                                    <th>Макс. доля на человека</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>💫 Sapiens</td>
+                                    <td class="highlight">0.8%</td>
+                                    <td>10% от пула</td>
+                                </tr>
+                                <tr>
+                                    <td>🔮 Superator</td>
+                                    <td class="highlight">0.7%</td>
+                                    <td>15% от пула</td>
+                                </tr>
+                                <tr class="featured">
+                                    <td>👸 Principal</td>
+                                    <td class="highlight">0.5%</td>
+                                    <td>20% от пула</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="ref-note">
+                            💡 Бонус делится поровну между всеми консультантами данного ранга, 
+                            но не более указанного % от общего пула.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Ranks -->
+                <div class="ref-section" id="ranks">
+                    <h2>🎖️ Система рангов</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Полная таблица требований</h3>
+                        
+                        <div class="ref-table" style="overflow-x: auto;">
+                            <table class="bonus-table" style="min-width: 700px;">
+                                <thead>
+                                    <tr>
+                                        <th>Ранг</th>
+                                        <th>ЛТ</th>
+                                        <th>OT</th>
+                                        <th>T</th>
+                                        <th>КТ</th>
+                                        <th>Структура</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>🌱 Novus</td>
+                                        <td>35</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                    </tr>
+                                    <tr>
+                                        <td>🌿 Inceptor</td>
+                                        <td>35</td>
+                                        <td>1 050</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                    </tr>
+                                    <tr>
+                                        <td>🌲 Cognitor</td>
+                                        <td>35</td>
+                                        <td>3 000</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                    </tr>
+                                    <tr>
+                                        <td>⭐ Doctus</td>
+                                        <td>70</td>
+                                        <td>10 000</td>
+                                        <td class="highlight">2 500</td>
+                                        <td>—</td>
+                                        <td>—</td>
+                                    </tr>
+                                    <tr>
+                                        <td>✨ Primum</td>
+                                        <td>70</td>
+                                        <td>10 000</td>
+                                        <td class="highlight">5 000</td>
+                                        <td>1 500</td>
+                                        <td>1 Doctus</td>
+                                    </tr>
+                                    <tr>
+                                        <td>💎 Dux</td>
+                                        <td>70</td>
+                                        <td>10 000</td>
+                                        <td class="highlight">11 000</td>
+                                        <td>1 350</td>
+                                        <td>1 Primum, 1 Doctus</td>
+                                    </tr>
+                                    <tr>
+                                        <td>👑 Provectus</td>
+                                        <td>70</td>
+                                        <td>10 000</td>
+                                        <td class="highlight">23 000</td>
+                                        <td>1 200</td>
+                                        <td>1 Primum, 2 Doctus</td>
+                                    </tr>
+                                    <tr>
+                                        <td>🏆 Grandis</td>
+                                        <td>70</td>
+                                        <td>10 000</td>
+                                        <td class="highlight">45 000</td>
+                                        <td>1 100</td>
+                                        <td>1 Dux, 1 Primum, 2 Doctus</td>
+                                    </tr>
+                                    <tr>
+                                        <td>🌟 Oraculi</td>
+                                        <td>70</td>
+                                        <td>10 000</td>
+                                        <td class="highlight">90 000</td>
+                                        <td>1 100</td>
+                                        <td>1 Provectus, 1 Dux, 2 Primum</td>
+                                    </tr>
+                                    <tr>
+                                        <td>💫 Sapiens</td>
+                                        <td>70</td>
+                                        <td>10 000</td>
+                                        <td class="highlight">150 000</td>
+                                        <td>1 000</td>
+                                        <td>1 Grandis, 2 Provectus, 2 Dux</td>
+                                    </tr>
+                                    <tr>
+                                        <td>🔮 Superator</td>
+                                        <td>70</td>
+                                        <td>10 000</td>
+                                        <td class="highlight">280 000</td>
+                                        <td>1 000</td>
+                                        <td>2 Grandis, 2 Provectus</td>
+                                    </tr>
+                                    <tr class="featured">
+                                        <td>👸 Principal</td>
+                                        <td>70</td>
+                                        <td>10 000</td>
+                                        <td class="highlight">500 000</td>
+                                        <td>800</td>
+                                        <td>6 Grandis</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="ref-note">
+                            <strong>📊 ЛТ</strong> = личный товарооборот, <strong>OT</strong> = общий накопительный, 
+                            <strong>T</strong> = месячный групповой, <strong>КТ</strong> = командный товарооборот
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rewards -->
+                <div class="ref-section" id="rewards">
+                    <h2>🎁 Награды за ранги</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Единоразовые и регулярные награды</h3>
+                        
+                        <table class="bonus-table">
+                            <thead>
+                                <tr>
+                                    <th>Ранг</th>
+                                    <th>Награда</th>
+                                    <th>Тип</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>⭐ Doctus</td>
+                                    <td class="highlight">500€</td>
+                                    <td>🎯 Единоразово</td>
+                                </tr>
+                                <tr>
+                                    <td>✨ Primum</td>
+                                    <td class="highlight">2 000€</td>
+                                    <td>🎯 Единоразово</td>
+                                </tr>
+                                <tr>
+                                    <td>💎 Dux</td>
+                                    <td class="highlight">1 000€/мес</td>
+                                    <td>🔄 Ежемесячно*</td>
+                                </tr>
+                                <tr>
+                                    <td>👑 Provectus</td>
+                                    <td class="highlight">2 000€/мес</td>
+                                    <td>🔄 Ежемесячно*</td>
+                                </tr>
+                                <tr>
+                                    <td>🏆 Grandis</td>
+                                    <td class="highlight">Авто или 3 500€/мес</td>
+                                    <td>🔄 Ежемесячно*</td>
+                                </tr>
+                                <tr class="featured">
+                                    <td>💫 Sapiens</td>
+                                    <td class="highlight">Премиум авто + TOP бонус</td>
+                                    <td>🌟 Топ-уровень</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="ref-note">
+                            * Ежемесячные бонусы выплачиваются при сохранении соответствующего ранга.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- FAQ -->
+                <div class="ref-section" id="faq">
+                    <h2>❓ Частые вопросы</h2>
+                    
+                    <div class="ref-card">
+                        <h3>Нужно ли платить за регистрацию?</h3>
+                        <p>Нет, регистрация бесплатна. Вы платите только за продукцию, которую покупаете.</p>
+                    </div>
+                    
+                    <div class="ref-card">
+                        <h3>Что будет, если я не сделаю активность?</h3>
+                        <p>
+                            Вы не получите командный и лидерский бонусы за этот месяц, но сохраните свой ранг 
+                            и структуру. Кешбэк начисляется только при наличии личных покупок.
+                        </p>
+                    </div>
+                    
+                    <div class="ref-card">
+                        <h3>Как быстро можно достичь ранга Doctus?</h3>
+                        <p>
+                            При активной работе — за <strong>2-4 месяца</strong>. Нужно накопить 10 000 PV группового 
+                            товарооборота и выйти на 2 500 PV в месяц.
+                        </p>
+                    </div>
+                    
+                    <div class="ref-card">
+                        <h3>Можно ли потерять ранг?</h3>
+                        <p>
+                            Ранги <strong>Novus-Cognitor</strong> (накопительные) не теряются. Ранги <strong>Doctus и выше</strong> 
+                            подтверждаются ежемесячно по показателям T и КТ.
+                        </p>
+                    </div>
+                    
+                    <div class="ref-card">
+                        <h3>Когда выплачиваются бонусы?</h3>
+                        <p>
+                            Бонусы рассчитываются по итогам месяца и выплачиваются в начале следующего 
+                            месяца на ваш счёт в личном кабинете.
+                        </p>
+                    </div>
+                    
+                    <div class="ref-card">
+                        <h3>Какой минимальный доход в первый месяц?</h3>
+                        <p>
+                            При активации 70 PV вы сразу получаете <strong>5.25€ кешбэка</strong>. 
+                            Если пригласите 2 консультанта с активностью 70 PV, добавится ещё ~<strong>3.5€</strong> бонуса с продаж.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="section-cta" style="text-align: center; margin-top: var(--space-3xl);">
+                    <a href="{% url 'calculator:calculator' %}" class="btn btn-primary btn-lg">
+                        🧮 Рассчитать доход
+                    </a>
+                    <a href="{% url 'calculator:charts' %}" class="btn btn-secondary btn-lg" style="margin-left: var(--space-md);">
+                        📊 Интерактивные графики
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

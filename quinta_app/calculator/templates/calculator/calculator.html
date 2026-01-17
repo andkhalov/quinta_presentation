@@ -1,0 +1,412 @@
+{% extends 'calculator/base.html' %}
+{% load static %}
+
+{% block title %}Калькулятор дохода{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'calculator/js/calculator.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="page-header" style="padding: 1.5rem 0;">
+    <div class="container">
+        <h1 class="page-title" style="font-size: 1.75rem; margin-bottom: 0.25rem;">💰 Калькулятор дохода</h1>
+        <p class="page-subtitle" style="margin: 0; font-size: 0.9rem;">Рассчитайте потенциальный доход</p>
+    </div>
+</div>
+
+<section class="section" id="calculator-app" style="padding: 1.5rem 0;">
+    <div class="container">
+        <div class="calc-grid-compact">
+            <!-- Left: Parameters -->
+            <div class="calc-params">
+                <div class="params-section">
+                    <h3 class="params-title">📊 Основные параметры</h3>
+                    <div class="params-grid">
+                        <div class="param-row">
+                            <label>Личный PV (ЛТ)</label>
+                            <div class="param-control">
+                                <input type="range" id="lt-pv-slider" min="0" max="500" value="70" step="35">
+                                <input type="number" id="lt-pv" value="70" min="0" max="1000" class="param-input">
+                            </div>
+                        </div>
+                        <div class="param-row">
+                            <label>Консультантов (ЛП)</label>
+                            <div class="param-control">
+                                <input type="range" id="invited-count-slider" min="0" max="30" value="4">
+                                <input type="number" id="invited-count" value="4" min="0" max="100" class="param-input">
+                            </div>
+                        </div>
+                        <div class="param-row">
+                            <label>Групповой PV (T)</label>
+                            <div class="param-control">
+                                <input type="range" id="team-pv-slider" min="0" max="50000" value="3000" step="500">
+                                <input type="number" id="team-pv" value="3000" min="0" max="100000" class="param-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="params-section">
+                    <h3 class="params-title">👥 Уровни команды</h3>
+                    <div class="levels-grid">
+                        <div class="level-row">
+                            <span class="level-label">1 ур <small>(5%)</small></span>
+                            <input type="range" id="level1-pv-slider" min="0" max="5000" value="1000" step="100">
+                            <input type="number" id="level1-pv" value="1000" class="level-input">
+                        </div>
+                        <div class="level-row">
+                            <span class="level-label">2 ур <small>(2.5%)</small></span>
+                            <input type="range" id="level2-pv-slider" min="0" max="5000" value="800" step="100">
+                            <input type="number" id="level2-pv" value="800" class="level-input">
+                        </div>
+                        <div class="level-row">
+                            <span class="level-label">3 ур <small>(2.5%)</small></span>
+                            <input type="range" id="level3-pv-slider" min="0" max="5000" value="500" step="100">
+                            <input type="number" id="level3-pv" value="500" class="level-input">
+                        </div>
+                        <div class="level-row">
+                            <span class="level-label">4 ур <small>(2.5%)</small></span>
+                            <input type="range" id="level4-pv-slider" min="0" max="5000" value="400" step="100">
+                            <input type="number" id="level4-pv" value="400" class="level-input">
+                        </div>
+                        <div class="level-row">
+                            <span class="level-label">5 ур <small>(1.5%)</small></span>
+                            <input type="range" id="level5-pv-slider" min="0" max="5000" value="300" step="100">
+                            <input type="number" id="level5-pv" value="300" class="level-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Center: Results -->
+            <div class="calc-results">
+                <div class="total-box">
+                    <div class="total-label">Доход в месяц</div>
+                    <div class="total-value" id="total-income">€ 0</div>
+                    <div class="total-sub" id="total-income-pv">0 PV</div>
+                    <div class="rank-badge" id="current-rank">🌱 Novus</div>
+                </div>
+                
+                <div class="breakdown-compact">
+                    <div class="breakdown-row">
+                        <span>🎁 Кешбэк</span>
+                        <span id="cashback-percent" class="pct">7.5%</span>
+                        <span id="cashback-value" class="val">€0</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span>💼 Бонус продаж</span>
+                        <span id="sales-bonus-percent" class="pct">3%</span>
+                        <span id="sales-bonus-value" class="val">€0</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span>👥 Командный</span>
+                        <span id="team-bonus-percent" class="pct">5-2.5%</span>
+                        <span id="team-bonus-value" class="val">€0</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span>👑 Лидерский</span>
+                        <span id="leadership-bonus-percent" class="pct">2.5%</span>
+                        <span id="leadership-bonus-value" class="val">€0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right: Chart -->
+            <div class="calc-chart">
+                <canvas id="income-chart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Quick Reference Tables -->
+        <div class="quick-ref">
+            <div class="ref-table">
+                <h4>Кешбэк</h4>
+                <table>
+                    <tr><td>35 PV</td><td><strong>5%</strong></td></tr>
+                    <tr><td>70 PV</td><td><strong>7.5%</strong></td></tr>
+                    <tr><td>140 PV</td><td><strong>10%</strong></td></tr>
+                    <tr class="highlight"><td>280 PV</td><td><strong>12.5%</strong></td></tr>
+                </table>
+            </div>
+            <div class="ref-table">
+                <h4>Бонус продаж</h4>
+                <table>
+                    <tr><td>2 ЛП</td><td>2.5-5.5%</td></tr>
+                    <tr><td>6 ЛП</td><td>3.5-6.5%</td></tr>
+                    <tr class="highlight"><td>10+ ЛП</td><td><strong>4.5-7.5%</strong></td></tr>
+                </table>
+            </div>
+            <div class="ref-table">
+                <h4>Ранги</h4>
+                <table>
+                    <tr><td>🌱 Novus</td><td>35 ЛТ</td></tr>
+                    <tr><td>⭐ Doctus</td><td>2500 T</td></tr>
+                    <tr><td>💎 Dux</td><td>11000 T</td></tr>
+                    <tr class="highlight"><td>🏆 Grandis</td><td>45000 T</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.calc-grid-compact {
+    display: grid;
+    grid-template-columns: 1fr 280px 200px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.calc-params {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.params-section {
+    margin-bottom: 1rem;
+}
+
+.params-section:last-child {
+    margin-bottom: 0;
+}
+
+.params-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem;
+    color: var(--brand-dark);
+}
+
+.params-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.param-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.param-row label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-medium);
+}
+
+.param-control {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.param-control input[type="range"] {
+    flex: 1;
+    height: 6px;
+}
+
+.param-input {
+    width: 60px;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    text-align: right;
+}
+
+.levels-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.level-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 55px;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.level-label {
+    font-size: 0.75rem;
+    color: var(--text-medium);
+}
+
+.level-label small {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.level-row input[type="range"] {
+    height: 5px;
+}
+
+.level-input {
+    width: 55px;
+    padding: 0.2rem 0.4rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-align: right;
+}
+
+.calc-results {
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.total-box {
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.total-label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+.total-value {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.total-sub {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.rank-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.breakdown-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.breakdown-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.8rem;
+}
+
+.breakdown-row:last-child {
+    border-bottom: none;
+}
+
+.breakdown-row .pct {
+    background: var(--bg-light);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.breakdown-row .val {
+    font-weight: 700;
+    color: var(--green);
+    min-width: 50px;
+    text-align: right;
+}
+
+.calc-chart {
+    background: white;
+    border-radius: 12px;
+    padding: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    min-height: 240px;
+}
+
+.quick-ref {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.ref-table {
+    background: white;
+    border-radius: 10px;
+    padding: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.ref-table h4 {
+    font-size: 0.8rem;
+    margin: 0 0 0.5rem;
+    color: var(--brand-dark);
+}
+
+.ref-table table {
+    width: 100%;
+    font-size: 0.75rem;
+}
+
+.ref-table td {
+    padding: 0.25rem 0;
+}
+
+.ref-table td:last-child {
+    text-align: right;
+    color: var(--green);
+}
+
+.ref-table tr.highlight {
+    background: var(--green-light);
+    font-weight: 600;
+}
+
+.ref-table tr.highlight td {
+    padding: 0.35rem 0.25rem;
+    border-radius: 4px;
+    color: var(--green-dark);
+}
+
+@media (max-width: 1024px) {
+    .calc-grid-compact {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .calc-chart {
+        grid-column: span 2;
+        height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .calc-grid-compact {
+        grid-template-columns: 1fr;
+    }
+    
+    .calc-chart {
+        grid-column: auto;
+    }
+    
+    .quick-ref {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

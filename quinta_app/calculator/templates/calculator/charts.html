@@ -1,0 +1,1066 @@
+{% extends 'calculator/base.html' %}
+{% load static %}
+
+{% block title %}Интерактивные графики{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">📊 Интерактивные графики</h1>
+        <p class="page-subtitle">Двигайте ползунки и смотрите как меняются ваши доходы в реальном времени</p>
+    </div>
+</div>
+
+<!-- График кешбэка -->
+<section class="section">
+    <div class="container">
+        <div class="chart-section">
+            <h2 class="section-title">🎁 Кешбэк от личных покупок</h2>
+            <p class="section-subtitle">Чем больше ваш личный товарооборот — тем выше процент возврата</p>
+            
+            <div class="chart-controls">
+                <div class="control-group">
+                    <label for="cashback-lt">Личный товарооборот (ЛТ): <span id="cashback-lt-value">70</span> PV</label>
+                    <input type="range" id="cashback-lt" class="slider-full" min="0" max="500" value="70" step="5">
+                    <div class="slider-labels">
+                        <span>0</span>
+                        <span>35</span>
+                        <span>70</span>
+                        <span>140</span>
+                        <span>280</span>
+                        <span>500</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-result">
+                <div class="result-cards">
+                    <div class="result-card">
+                        <span class="result-label">Ваша ставка</span>
+                        <span class="result-value" id="cashback-percent">7.5%</span>
+                    </div>
+                    <div class="result-card primary">
+                        <span class="result-label">Кешбэк PV</span>
+                        <span class="result-value" id="cashback-pv">5.25</span>
+                    </div>
+                    <div class="result-card accent">
+                        <span class="result-label">Кешбэк EUR</span>
+                        <span class="result-value" id="cashback-eur">€5.25</span>
+                    </div>
+                    <div class="result-card">
+                        <span class="result-label">Кешбэк KZT</span>
+                        <span class="result-value" id="cashback-kzt">₸2,783</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container" style="height: 300px;">
+                <canvas id="cashbackChart"></canvas>
+            </div>
+            
+            <div class="chart-legend">
+                <div class="legend-title">📖 Пояснения</div>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--green);"></div>
+                        <div class="legend-text">
+                            <strong>ЛТ — Личный Товарооборот</strong>
+                            <span>Сумма ваших личных покупок и покупок ваших клиентов за месяц в PV</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--blue);"></div>
+                        <div class="legend-text">
+                            <strong>PV — Point Value (баллы)</strong>
+                            <span>Условные единицы для расчёта. 1 PV = 1 EUR</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--orange);"></div>
+                        <div class="legend-text">
+                            <strong>Серый столбик</strong>
+                            <span>Ставка кешбэка, которую вы ещё не достигли</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #B8860B;"></div>
+                        <div class="legend-text">
+                            <strong>Золотой столбик</strong>
+                            <span>Ваша текущая активная ставка кешбэка</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- График бонуса с продаж -->
+<section class="section section-light">
+    <div class="container">
+        <div class="chart-section">
+            <h2 class="section-title">💼 Бонус с продаж</h2>
+            <p class="section-subtitle">Зависит от вашего ЛТ и количества активных партнёров</p>
+            
+            <div class="chart-controls">
+                <div class="controls-row">
+                    <div class="control-group">
+                        <label for="sales-lt">Ваш ЛТ: <span id="sales-lt-value">140</span> PV</label>
+                        <input type="range" id="sales-lt" class="slider-full" min="35" max="280" value="140" step="35">
+                    </div>
+                    <div class="control-group">
+                        <label for="sales-partners">Партнёров: <span id="sales-partners-value">6</span></label>
+                        <input type="range" id="sales-partners" class="slider-full" min="0" max="20" value="6" step="1">
+                    </div>
+                    <div class="control-group">
+                        <label for="sales-volume">Объём структуры: <span id="sales-volume-value">5,000</span> PV</label>
+                        <input type="range" id="sales-volume" class="slider-full" min="0" max="50000" value="5000" step="500">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-result">
+                <div class="result-cards">
+                    <div class="result-card">
+                        <span class="result-label">Ваша ставка</span>
+                        <span class="result-value" id="sales-percent">5.5%</span>
+                    </div>
+                    <div class="result-card primary">
+                        <span class="result-label">Бонус PV</span>
+                        <span class="result-value" id="sales-pv">275</span>
+                    </div>
+                    <div class="result-card accent">
+                        <span class="result-label">Бонус EUR</span>
+                        <span class="result-value" id="sales-eur">€275</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container" style="height: 300px;">
+                <canvas id="salesBonusChart"></canvas>
+            </div>
+            
+            <div class="chart-legend">
+                <div class="legend-title">📖 Пояснения</div>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #B8860B;"></div>
+                        <div class="legend-text">
+                            <strong>ЛП — Лично Приглашённые</strong>
+                            <span>Консультанты, которых вы пригласили напрямую (1-я линия)</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #DAA520;"></div>
+                        <div class="legend-text">
+                            <strong>Ставка растёт с ЛТ и количеством ЛП</strong>
+                            <span>Чем выше ваш личный оборот и больше партнёров — тем выше %</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 8px;">
+                    <strong>Таблица ставок бонуса с продаж:</strong>
+                    <table class="data-table" style="margin-top: 0.5rem; font-size: 0.85rem;">
+                        <thead>
+                            <tr><th>ЛП</th><th>70 PV</th><th>140 PV</th><th>280 PV</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2</td><td>2.5%</td><td>4.5%</td><td>5.5%</td></tr>
+                            <tr><td>4</td><td>3.0%</td><td>5.0%</td><td>6.0%</td></tr>
+                            <tr><td>6</td><td>3.5%</td><td>5.5%</td><td>6.5%</td></tr>
+                            <tr><td>8</td><td>4.0%</td><td>6.0%</td><td>7.0%</td></tr>
+                            <tr><td>10+</td><td>4.5%</td><td>6.5%</td><td>7.5%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- График командного бонуса -->
+<section class="section">
+    <div class="container">
+        <div class="chart-section">
+            <h2 class="section-title">👥 Командный бонус по уровням</h2>
+            <p class="section-subtitle">Введите объёмы по каждому уровню и увидите структуру дохода</p>
+            
+            <div class="chart-controls">
+                <div class="control-group">
+                    <label for="team-rank">Ваш ранг:</label>
+                    <select id="team-rank" class="select-control">
+                        <option value="Novus">🌱 Novus (3 уровня)</option>
+                        <option value="Inceptor">🌿 Inceptor (4 уровня)</option>
+                        <option value="Cognitor">💡 Cognitor (5 уровней)</option>
+                        <option value="Doctus" selected>📚 Doctus (∞ уровней)</option>
+                        <option value="Primum">⭐ Primum</option>
+                        <option value="Dux">🏅 Dux</option>
+                    </select>
+                </div>
+                
+                <div class="levels-controls">
+                    <div class="level-control">
+                        <label>1 уровень: <span id="team-l1-value">2,000</span> PV</label>
+                        <input type="range" id="team-l1" class="slider-full" min="0" max="20000" value="2000" step="100">
+                    </div>
+                    <div class="level-control">
+                        <label>2 уровень: <span id="team-l2-value">3,000</span> PV</label>
+                        <input type="range" id="team-l2" class="slider-full" min="0" max="20000" value="3000" step="100">
+                    </div>
+                    <div class="level-control">
+                        <label>3 уровень: <span id="team-l3-value">4,000</span> PV</label>
+                        <input type="range" id="team-l3" class="slider-full" min="0" max="20000" value="4000" step="100">
+                    </div>
+                    <div class="level-control">
+                        <label>4 уровень: <span id="team-l4-value">5,000</span> PV</label>
+                        <input type="range" id="team-l4" class="slider-full" min="0" max="20000" value="5000" step="100">
+                    </div>
+                    <div class="level-control">
+                        <label>5 уровень: <span id="team-l5-value">3,000</span> PV</label>
+                        <input type="range" id="team-l5" class="slider-full" min="0" max="20000" value="3000" step="100">
+                    </div>
+                    <div class="level-control">
+                        <label>6+ уровень: <span id="team-l6-value">5,000</span> PV</label>
+                        <input type="range" id="team-l6" class="slider-full" min="0" max="50000" value="5000" step="500">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-result">
+                <div class="result-cards">
+                    <div class="result-card">
+                        <span class="result-label">Общий объём</span>
+                        <span class="result-value" id="team-total-volume">22,000 PV</span>
+                    </div>
+                    <div class="result-card primary">
+                        <span class="result-label">Командный бонус</span>
+                        <span class="result-value" id="team-bonus-pv">620 PV</span>
+                    </div>
+                    <div class="result-card accent">
+                        <span class="result-label">В EUR</span>
+                        <span class="result-value" id="team-bonus-eur">€620</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container" style="height: 350px;">
+                <canvas id="teamBonusChart"></canvas>
+            </div>
+            
+            <div class="chart-legend">
+                <div class="legend-title">📖 Пояснения</div>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #e0e0e0;"></div>
+                        <div class="legend-text">
+                            <strong>Серые столбики — Объём PV</strong>
+                            <span>Товарооборот консультантов на каждом уровне глубины</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #B8860B;"></div>
+                        <div class="legend-text">
+                            <strong>Золотые столбики — Ваш бонус</strong>
+                            <span>Сколько вы заработаете с каждого уровня</span>
+                        </div>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: var(--green);"></div>
+                        <div class="legend-text">
+                            <strong>Уровни глубины</strong>
+                            <span>1 ур = ваши ЛП, 2 ур = ЛП ваших ЛП, и т.д.</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; padding: 1rem; background: white; border-radius: 8px;">
+                    <strong>Проценты командного бонуса по рангам:</strong>
+                    <table class="data-table" style="margin-top: 0.5rem; font-size: 0.85rem;">
+                        <thead>
+                            <tr><th>Уровень</th><th>Novus</th><th>Inceptor</th><th>Doctus+</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1 уровень</td><td>5%</td><td>5%</td><td>5%</td></tr>
+                            <tr><td>2 уровень</td><td>2.5%</td><td>2.5%</td><td>2.5%</td></tr>
+                            <tr><td>3 уровень</td><td>2.5%</td><td>2.5%</td><td>2.5%</td></tr>
+                            <tr><td>4 уровень</td><td>—</td><td>2.5%</td><td>2.5%</td></tr>
+                            <tr><td>5+ уровень</td><td>—</td><td>—</td><td>1-1.5%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- График роста дохода -->
+<section class="section section-dark">
+    <div class="container">
+        <div class="chart-section">
+            <h2 class="section-title" style="color: var(--primary-light);">📈 Прогноз роста дохода</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.7);">Моделирование дохода на 12 месяцев</p>
+            
+            <div class="chart-controls" style="background: rgba(255,255,255,0.1); border-radius: 16px; padding: 24px;">
+                <div class="controls-row">
+                    <div class="control-group">
+                        <label style="color: white;">Стратегия:</label>
+                        <select id="growth-strategy" class="select-control">
+                            <option value="client">🛒 Клиентский путь</option>
+                            <option value="seller">💼 Активный продавец</option>
+                            <option value="builder" selected>👥 Строитель команды</option>
+                            <option value="hybrid">🎯 Гибридная стратегия</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label style="color: white;">Новых партнёров/мес: <span id="growth-partners-value">3</span></label>
+                        <input type="range" id="growth-partners" class="slider-full" min="0" max="10" value="3" step="1">
+                    </div>
+                    <div class="control-group">
+                        <label style="color: white;">Рост команды %: <span id="growth-rate-value">20</span>%</label>
+                        <input type="range" id="growth-rate" class="slider-full" min="5" max="50" value="20" step="5">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-result">
+                <div class="result-cards">
+                    <div class="result-card" style="background: rgba(255,255,255,0.1);">
+                        <span class="result-label" style="color: rgba(255,255,255,0.7);">3 месяца</span>
+                        <span class="result-value" style="color: white;" id="growth-3m">€450</span>
+                    </div>
+                    <div class="result-card" style="background: rgba(255,255,255,0.1);">
+                        <span class="result-label" style="color: rgba(255,255,255,0.7);">6 месяцев</span>
+                        <span class="result-value" style="color: white;" id="growth-6m">€1,200</span>
+                    </div>
+                    <div class="result-card primary">
+                        <span class="result-label">12 месяцев</span>
+                        <span class="result-value" id="growth-12m">€3,500</span>
+                    </div>
+                    <div class="result-card accent">
+                        <span class="result-label">Всего заработано</span>
+                        <span class="result-value" id="growth-total">€18,000</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-container" style="height: 400px; background: rgba(255,255,255,0.05); border-radius: 16px; padding: 16px;">
+                <canvas id="growthChart"></canvas>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Итоговый расчёт -->
+<section class="section">
+    <div class="container">
+        <div class="chart-section">
+            <h2 class="section-title">💰 Полный расчёт дохода</h2>
+            <p class="section-subtitle">Соберите все бонусы вместе</p>
+            
+            <div class="total-income-calculator">
+                <div class="total-sliders">
+                    <div class="slider-group">
+                        <label>Личный товарооборот (ЛТ): <span id="total-lt-value">70</span> PV</label>
+                        <input type="range" id="total-lt" class="slider-full" min="35" max="500" value="70" step="35">
+                    </div>
+                    <div class="slider-group">
+                        <label>Партнёров в 1 линии: <span id="total-partners-value">6</span></label>
+                        <input type="range" id="total-partners" class="slider-full" min="0" max="20" value="6" step="1">
+                    </div>
+                    <div class="slider-group">
+                        <label>Объём структуры: <span id="total-structure-value">10,000</span> PV</label>
+                        <input type="range" id="total-structure" class="slider-full" min="0" max="100000" value="10000" step="1000">
+                    </div>
+                </div>
+                
+                <div class="total-breakdown">
+                    <div class="breakdown-item">
+                        <span class="breakdown-icon">🎁</span>
+                        <span class="breakdown-name">Кешбэк</span>
+                        <span class="breakdown-value" id="breakdown-cashback">€5.25</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-icon">💼</span>
+                        <span class="breakdown-name">Бонус с продаж</span>
+                        <span class="breakdown-value" id="breakdown-sales">€350</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-icon">👥</span>
+                        <span class="breakdown-name">Командный бонус</span>
+                        <span class="breakdown-value" id="breakdown-team">€280</span>
+                    </div>
+                    <div class="breakdown-item total">
+                        <span class="breakdown-icon">💰</span>
+                        <span class="breakdown-name">ИТОГО в месяц</span>
+                        <span class="breakdown-value" id="breakdown-total">€635</span>
+                    </div>
+                </div>
+                
+                <div class="chart-container" style="height: 280px;">
+                    <canvas id="totalChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.chart-section {
+    margin-bottom: 2rem;
+}
+
+.chart-controls {
+    margin-bottom: 2rem;
+}
+
+.controls-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.control-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.slider-full {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(to right, #e0e0e0, var(--primary));
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider-full::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary);
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.slider-full::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.select-control {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
+}
+
+.select-control:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.levels-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.level-control {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.level-control label {
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.chart-result {
+    margin-bottom: 2rem;
+}
+
+.result-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.result-card {
+    background: #f5f5f5;
+    padding: 1.25rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.result-card.primary {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+}
+
+.result-card.accent {
+    background: linear-gradient(135deg, var(--secondary), var(--secondary-light));
+    color: white;
+}
+
+.result-label {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+}
+
+.result-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.chart-container {
+    position: relative;
+}
+
+.total-income-calculator {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.total-sliders {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.slider-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.total-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.breakdown-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+}
+
+.breakdown-item.total {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+}
+
+.breakdown-icon {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.breakdown-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.breakdown-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    .total-income-calculator {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Константы
+const PV_TO_EUR = 1.0;
+const EUR_TO_KZT = 530;
+
+// Данные кешбэка
+const cashbackRates = [
+    { min: 0, max: 34, percent: 0 },
+    { min: 35, max: 69, percent: 5 },
+    { min: 70, max: 139, percent: 7.5 },
+    { min: 140, max: 279, percent: 10 },
+    { min: 280, max: Infinity, percent: 12.5 }
+];
+
+// Данные бонуса продаж
+const salesBonusTable = {
+    2: { 70: 2.5, 140: 4.5, 280: 5.5 },
+    4: { 70: 3.0, 140: 5.0, 280: 6.0 },
+    6: { 70: 3.5, 140: 5.5, 280: 6.5 },
+    8: { 70: 4.0, 140: 6.0, 280: 7.0 },
+    10: { 70: 4.5, 140: 6.5, 280: 7.5 }
+};
+
+// Командный бонус по рангам
+const teamBonusRates = {
+    'Novus': {1: 5, 2: 2.5, 3: 2.5},
+    'Inceptor': {1: 5, 2: 2.5, 3: 2.5, 4: 2.5},
+    'Cognitor': {1: 5, 2: 2.5, 3: 2.5, 4: 2.5, 5: 1.5},
+    'Doctus': {1: 5, 2: 2.5, 3: 2.5, 4: 2.5, 5: 1.5, 6: 1, deep: 1},
+    'Primum': {1: 5, 2: 2.5, 3: 2.5, 4: 2.5, 5: 1.5, 6: 1.5, 7: 1, deep: 1},
+    'Dux': {1: 5, 2: 2.5, 3: 2.5, 4: 2.5, 5: 1.5, 6: 1.5, 7: 1.5, deep: 1}
+};
+
+// Хелперы
+function formatNumber(n) {
+    return n.toLocaleString('ru-RU', {maximumFractionDigits: 0});
+}
+
+function formatCurrency(n, symbol = '€') {
+    return symbol + formatNumber(n);
+}
+
+// ========== КЕШБЭК ==========
+let cashbackChart;
+
+function getCashbackPercent(lt) {
+    for (const rate of cashbackRates) {
+        if (lt >= rate.min && lt <= rate.max) return rate.percent;
+    }
+    return 0;
+}
+
+function updateCashback() {
+    const lt = parseInt(document.getElementById('cashback-lt').value);
+    document.getElementById('cashback-lt-value').textContent = lt;
+    
+    const percent = getCashbackPercent(lt);
+    const bonusPV = lt * percent / 100;
+    const bonusEUR = bonusPV * PV_TO_EUR;
+    const bonusKZT = bonusEUR * EUR_TO_KZT;
+    
+    document.getElementById('cashback-percent').textContent = percent + '%';
+    document.getElementById('cashback-pv').textContent = bonusPV.toFixed(2);
+    document.getElementById('cashback-eur').textContent = formatCurrency(bonusEUR);
+    document.getElementById('cashback-kzt').textContent = '₸' + formatNumber(bonusKZT);
+    
+    // Обновляем график
+    cashbackChart.data.datasets[0].data = cashbackRates.slice(1).map(r => 
+        lt >= r.min ? r.percent : 0
+    );
+    cashbackChart.data.datasets[0].backgroundColor = cashbackRates.slice(1).map(r => 
+        lt >= r.min ? '#B8860B' : '#e0e0e0'
+    );
+    cashbackChart.update();
+}
+
+function initCashbackChart() {
+    const ctx = document.getElementById('cashbackChart').getContext('2d');
+    cashbackChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['35+ PV', '70+ PV', '140+ PV', '280+ PV'],
+            datasets: [{
+                label: 'Ставка кешбэка',
+                data: [5, 7.5, 10, 12.5],
+                backgroundColor: ['#B8860B', '#B8860B', '#e0e0e0', '#e0e0e0'],
+                borderRadius: 8
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => ctx.raw + '%'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 15,
+                    ticks: { callback: v => v + '%' }
+                }
+            }
+        }
+    });
+}
+
+// ========== БОНУС С ПРОДАЖ ==========
+let salesChart;
+
+function getSalesBonusPercent(partners, lt) {
+    let applicablePartners = 0;
+    for (const p of [2, 4, 6, 8, 10]) {
+        if (partners >= p) applicablePartners = p;
+    }
+    if (applicablePartners === 0) return 0;
+    
+    let applicableLT = 0;
+    for (const l of [70, 140, 280]) {
+        if (lt >= l) applicableLT = l;
+    }
+    if (applicableLT === 0) return 0;
+    
+    return salesBonusTable[applicablePartners]?.[applicableLT] || 0;
+}
+
+function updateSalesBonus() {
+    const lt = parseInt(document.getElementById('sales-lt').value);
+    const partners = parseInt(document.getElementById('sales-partners').value);
+    const volume = parseInt(document.getElementById('sales-volume').value);
+    
+    document.getElementById('sales-lt-value').textContent = lt;
+    document.getElementById('sales-partners-value').textContent = partners;
+    document.getElementById('sales-volume-value').textContent = formatNumber(volume);
+    
+    const percent = getSalesBonusPercent(partners, lt);
+    const bonusPV = volume * percent / 100;
+    const bonusEUR = bonusPV * PV_TO_EUR;
+    
+    document.getElementById('sales-percent').textContent = percent + '%';
+    document.getElementById('sales-pv').textContent = formatNumber(bonusPV);
+    document.getElementById('sales-eur').textContent = formatCurrency(bonusEUR);
+    
+    // Обновляем график
+    const ltLevels = [70, 140, 280];
+    salesChart.data.datasets = ltLevels.map((ltLevel, i) => ({
+        label: `ЛТ ${ltLevel}`,
+        data: [2, 4, 6, 8, 10].map(p => salesBonusTable[p]?.[ltLevel] || 0),
+        backgroundColor: lt >= ltLevel ? ['#B8860B', '#DAA520', '#8B6914'][i] : '#e0e0e0',
+        borderRadius: 4
+    }));
+    salesChart.update();
+}
+
+function initSalesChart() {
+    const ctx = document.getElementById('salesBonusChart').getContext('2d');
+    salesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['2 ЛП', '4 ЛП', '6 ЛП', '8 ЛП', '10 ЛП'],
+            datasets: []
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => ctx.dataset.label + ': ' + ctx.raw + '%'
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 10,
+                    ticks: { callback: v => v + '%' }
+                }
+            }
+        }
+    });
+}
+
+// ========== КОМАНДНЫЙ БОНУС ==========
+let teamChart;
+
+function updateTeamBonus() {
+    const rank = document.getElementById('team-rank').value;
+    const levels = [
+        parseInt(document.getElementById('team-l1').value),
+        parseInt(document.getElementById('team-l2').value),
+        parseInt(document.getElementById('team-l3').value),
+        parseInt(document.getElementById('team-l4').value),
+        parseInt(document.getElementById('team-l5').value),
+        parseInt(document.getElementById('team-l6').value)
+    ];
+    
+    // Обновляем подписи
+    for (let i = 0; i < 6; i++) {
+        document.getElementById(`team-l${i+1}-value`).textContent = formatNumber(levels[i]);
+    }
+    
+    const rates = teamBonusRates[rank] || teamBonusRates['Novus'];
+    let totalBonus = 0;
+    const bonusByLevel = [];
+    
+    for (let i = 0; i < 6; i++) {
+        const level = i + 1;
+        let percent = rates[level] || rates.deep || 0;
+        if (level > Object.keys(rates).filter(k => k !== 'deep').length && !rates.deep) {
+            percent = 0;
+        }
+        const bonus = levels[i] * percent / 100;
+        totalBonus += bonus;
+        bonusByLevel.push(bonus);
+    }
+    
+    const totalVolume = levels.reduce((a, b) => a + b, 0);
+    const bonusEUR = totalBonus * PV_TO_EUR;
+    
+    document.getElementById('team-total-volume').textContent = formatNumber(totalVolume) + ' PV';
+    document.getElementById('team-bonus-pv').textContent = formatNumber(totalBonus) + ' PV';
+    document.getElementById('team-bonus-eur').textContent = formatCurrency(bonusEUR);
+    
+    // Обновляем график
+    teamChart.data.datasets[0].data = levels;
+    teamChart.data.datasets[1].data = bonusByLevel;
+    teamChart.update();
+}
+
+function initTeamChart() {
+    const ctx = document.getElementById('teamBonusChart').getContext('2d');
+    teamChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['1 ур (5%)', '2 ур (2.5%)', '3 ур (2.5%)', '4 ур (2.5%)', '5 ур (1.5%)', '6+ ур (1%)'],
+            datasets: [
+                {
+                    label: 'Объём PV',
+                    data: [2000, 3000, 4000, 5000, 3000, 5000],
+                    backgroundColor: '#e0e0e0',
+                    borderRadius: 4,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Бонус PV',
+                    data: [100, 75, 100, 125, 45, 50],
+                    backgroundColor: '#B8860B',
+                    borderRadius: 4,
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'top' }
+            },
+            scales: {
+                y: {
+                    type: 'linear',
+                    position: 'left',
+                    title: { display: true, text: 'Объём PV' }
+                },
+                y1: {
+                    type: 'linear',
+                    position: 'right',
+                    title: { display: true, text: 'Бонус PV' },
+                    grid: { drawOnChartArea: false }
+                }
+            }
+        }
+    });
+}
+
+// ========== РОСТ ДОХОДА ==========
+let growthChart;
+
+function calculateGrowth(strategy, partnersPerMonth, growthRate) {
+    const baseIncome = {
+        'client': 50,
+        'seller': 200,
+        'builder': 300,
+        'hybrid': 400
+    }[strategy];
+    
+    const multiplier = {
+        'client': 1.1,
+        'seller': 1.3,
+        'builder': 1.4,
+        'hybrid': 1.5
+    }[strategy];
+    
+    const months = [];
+    let income = baseIncome;
+    let totalEarned = 0;
+    
+    for (let m = 1; m <= 12; m++) {
+        income = income * (1 + growthRate/100) + partnersPerMonth * 50;
+        income = Math.min(income, 50000); // Cap
+        months.push(Math.round(income));
+        totalEarned += income;
+    }
+    
+    return { months, total: totalEarned };
+}
+
+function updateGrowth() {
+    const strategy = document.getElementById('growth-strategy').value;
+    const partners = parseInt(document.getElementById('growth-partners').value);
+    const rate = parseInt(document.getElementById('growth-rate').value);
+    
+    document.getElementById('growth-partners-value').textContent = partners;
+    document.getElementById('growth-rate-value').textContent = rate;
+    
+    const result = calculateGrowth(strategy, partners, rate);
+    
+    document.getElementById('growth-3m').textContent = formatCurrency(result.months[2]);
+    document.getElementById('growth-6m').textContent = formatCurrency(result.months[5]);
+    document.getElementById('growth-12m').textContent = formatCurrency(result.months[11]);
+    document.getElementById('growth-total').textContent = formatCurrency(result.total);
+    
+    growthChart.data.datasets[0].data = result.months;
+    growthChart.update();
+}
+
+function initGrowthChart() {
+    const ctx = document.getElementById('growthChart').getContext('2d');
+    growthChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['М1', 'М2', 'М3', 'М4', 'М5', 'М6', 'М7', 'М8', 'М9', 'М10', 'М11', 'М12'],
+            datasets: [{
+                label: 'Доход €',
+                data: [],
+                borderColor: '#B8860B',
+                backgroundColor: 'rgba(184, 134, 11, 0.1)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 6,
+                pointBackgroundColor: '#B8860B'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { callback: v => '€' + v }
+                }
+            }
+        }
+    });
+}
+
+// ========== ИТОГОВЫЙ РАСЧЁТ ==========
+let totalChart;
+
+function updateTotal() {
+    const lt = parseInt(document.getElementById('total-lt').value);
+    const partners = parseInt(document.getElementById('total-partners').value);
+    const structure = parseInt(document.getElementById('total-structure').value);
+    
+    document.getElementById('total-lt-value').textContent = lt;
+    document.getElementById('total-partners-value').textContent = partners;
+    document.getElementById('total-structure-value').textContent = formatNumber(structure);
+    
+    // Кешбэк
+    const cashbackPercent = getCashbackPercent(lt);
+    const cashback = lt * cashbackPercent / 100 * PV_TO_EUR;
+    
+    // Бонус с продаж
+    const salesPercent = getSalesBonusPercent(partners, lt);
+    const sales = structure * salesPercent / 100 * PV_TO_EUR;
+    
+    // Командный (упрощённо ~3%)
+    const team = structure * 0.03 * PV_TO_EUR;
+    
+    const total = cashback + sales + team;
+    
+    document.getElementById('breakdown-cashback').textContent = formatCurrency(cashback);
+    document.getElementById('breakdown-sales').textContent = formatCurrency(sales);
+    document.getElementById('breakdown-team').textContent = formatCurrency(team);
+    document.getElementById('breakdown-total').textContent = formatCurrency(total);
+    
+    totalChart.data.datasets[0].data = [cashback, sales, team];
+    totalChart.update();
+}
+
+function initTotalChart() {
+    const ctx = document.getElementById('totalChart').getContext('2d');
+    totalChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Кешбэк', 'Бонус с продаж', 'Командный'],
+            datasets: [{
+                data: [5, 300, 300],
+                backgroundColor: ['#B8860B', '#2D5016', '#8B4513'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => ctx.label + ': €' + ctx.raw.toFixed(0)
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Инициализация
+document.addEventListener('DOMContentLoaded', function() {
+    // Кешбэк
+    initCashbackChart();
+    document.getElementById('cashback-lt').addEventListener('input', updateCashback);
+    updateCashback();
+    
+    // Бонус с продаж
+    initSalesChart();
+    document.getElementById('sales-lt').addEventListener('input', updateSalesBonus);
+    document.getElementById('sales-partners').addEventListener('input', updateSalesBonus);
+    document.getElementById('sales-volume').addEventListener('input', updateSalesBonus);
+    updateSalesBonus();
+    
+    // Командный бонус
+    initTeamChart();
+    document.getElementById('team-rank').addEventListener('change', updateTeamBonus);
+    for (let i = 1; i <= 6; i++) {
+        document.getElementById(`team-l${i}`).addEventListener('input', updateTeamBonus);
+    }
+    updateTeamBonus();
+    
+    // Рост дохода
+    initGrowthChart();
+    document.getElementById('growth-strategy').addEventListener('change', updateGrowth);
+    document.getElementById('growth-partners').addEventListener('input', updateGrowth);
+    document.getElementById('growth-rate').addEventListener('input', updateGrowth);
+    updateGrowth();
+    
+    // Итого
+    initTotalChart();
+    document.getElementById('total-lt').addEventListener('input', updateTotal);
+    document.getElementById('total-partners').addEventListener('input', updateTotal);
+    document.getElementById('total-structure').addEventListener('input', updateTotal);
+    updateTotal();
+});
+</script>
+{% endblock %}

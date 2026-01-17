@@ -1,0 +1,327 @@
+{% extends 'calculator/base.html' %}
+{% load static %}
+
+{% block title %}Quinta Essentia - Калькулятор маркетинга{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">
+            <span class="hero-subtitle">Маркетинг-план</span>
+            Quinta Essentia
+        </h1>
+        <p class="hero-description">
+            Интерактивный калькулятор доходов, визуализация рангов и стратегий.
+            Узнайте, сколько вы можете заработать!
+        </p>
+        <div class="hero-stats">
+            <div class="stat-card">
+                <span class="stat-number">12</span>
+                <span class="stat-label">Рангов</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">6</span>
+                <span class="stat-label">Видов бонусов</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">7</span>
+                <span class="stat-label">Уровней глубины</span>
+            </div>
+        </div>
+        <div class="hero-actions">
+            <a href="{% url 'calculator:calculator' %}" class="btn btn-primary btn-lg">
+                🧮 Рассчитать доход
+            </a>
+            <a href="{% url 'calculator:strategies' %}" class="btn btn-secondary btn-lg">
+                🎯 Выбрать стратегию
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">💰 Сколько можно заработать?</h2>
+        <p class="section-subtitle">Примерный доход в зависимости от размера команды. Нажмите на карточку для подробного расчёта</p>
+        
+        <div class="income-cards">
+            <a href="{% url 'calculator:charts' %}?team=10&lt=70&invited=4" class="income-card">
+                <div class="income-icon">👤</div>
+                <div class="income-team">10 консультантов</div>
+                <div class="income-amount">от 50,000 ₸</div>
+                <div class="income-period">в месяц</div>
+                <div class="income-details">
+                    <small>Ранг: Doctus • Кэшбэк + командный бонус</small>
+                </div>
+            </a>
+            <a href="{% url 'calculator:charts' %}?team=30&lt=140&invited=8" class="income-card featured">
+                <div class="income-badge">Популярно</div>
+                <div class="income-icon">👥</div>
+                <div class="income-team">30 консультантов</div>
+                <div class="income-amount">от 150,000 ₸</div>
+                <div class="income-period">в месяц</div>
+                <div class="income-details">
+                    <small>Ранг: Dux • Все виды бонусов активны</small>
+                </div>
+            </a>
+            <a href="{% url 'calculator:charts' %}?team=100&lt=280&invited=15" class="income-card">
+                <div class="income-icon">👥👥</div>
+                <div class="income-team">100 консультантов</div>
+                <div class="income-amount">от 500,000 ₸</div>
+                <div class="income-period">в месяц</div>
+                <div class="income-details">
+                    <small>Ранг: Grandis • Лидерский бонус + авто</small>
+                </div>
+            </a>
+            <a href="{% url 'calculator:charts' %}?team=300&lt=280&invited=25" class="income-card premium">
+                <div class="income-badge">Топ</div>
+                <div class="income-icon">🏆</div>
+                <div class="income-team">300+ консультантов</div>
+                <div class="income-amount">от 1,500,000 ₸</div>
+                <div class="income-period">в месяц</div>
+                <div class="income-details">
+                    <small>Ранг: Principal • Максимальный доход</small>
+                </div>
+            </a>
+        </div>
+        
+        <div class="section-cta">
+            <a href="{% url 'calculator:charts' %}" class="btn btn-primary">
+                📊 Открыть интерактивные графики
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section section-dark">
+    <div class="container">
+        <h2 class="section-title">🎯 Виды доходов</h2>
+        <p class="section-subtitle">6 источников заработка в Quinta Essentia</p>
+        
+        <div class="bonus-grid">
+            <div class="bonus-card">
+                <div class="bonus-icon" style="background: linear-gradient(135deg, var(--green), var(--green-dark));">💳</div>
+                <h3>Кэшбэк</h3>
+                <p>Возврат от личных покупок и покупок ваших клиентов. Чем больше ваш личный оборот (ЛТ), тем выше процент</p>
+                <div class="bonus-range">
+                    <span class="range-min">5%</span>
+                    <div class="range-bar">
+                        <div class="range-fill" style="width: 50%;"></div>
+                    </div>
+                    <span class="range-max">12.5%</span>
+                </div>
+                <div class="bonus-example">
+                    <small>Пример: при ЛТ 140 PV = 14 EUR кэшбэк/мес</small>
+                </div>
+            </div>
+            
+            <div class="bonus-card">
+                <div class="bonus-icon" style="background: linear-gradient(135deg, var(--orange), var(--orange-dark));">📈</div>
+                <h3>Бонус продаж</h3>
+                <p>Процент от оборота лично приглашённых консультантов. Растёт с количеством приглашённых и вашим ЛТ</p>
+                <div class="bonus-range">
+                    <span class="range-min">2.5%</span>
+                    <div class="range-bar">
+                        <div class="range-fill" style="width: 60%;"></div>
+                    </div>
+                    <span class="range-max">7.5%</span>
+                </div>
+                <div class="bonus-example">
+                    <small>Пример: 10 партнёров по 70 PV = 52.5 EUR/мес</small>
+                </div>
+            </div>
+            
+            <div class="bonus-card">
+                <div class="bonus-icon" style="background: linear-gradient(135deg, var(--blue), var(--blue-dark));">👥</div>
+                <h3>Командный бонус</h3>
+                <p>Доход от оборота всей структуры на 3-7 уровней в глубину. Проценты зависят от вашего ранга</p>
+                <div class="bonus-range">
+                    <span class="range-min">1%</span>
+                    <div class="range-bar">
+                        <div class="range-fill" style="width: 70%;"></div>
+                    </div>
+                    <span class="range-max">5%</span>
+                </div>
+                <div class="bonus-example">
+                    <small>1 ур: 5% • 2-3 ур: 2.5% • 4-7 ур: 1-2.5%</small>
+                </div>
+            </div>
+            
+            <div class="bonus-card">
+                <div class="bonus-icon" style="background: linear-gradient(135deg, var(--red), var(--red-dark));">👑</div>
+                <h3>Лидерский бонус</h3>
+                <p>2.5% от оборота партнёров ранга Doctus и выше. Доступен с ранга Primum, глубина растёт с рангом</p>
+                <div class="bonus-range">
+                    <span class="range-min">1 ур.</span>
+                    <div class="range-bar">
+                        <div class="range-fill" style="width: 80%;"></div>
+                    </div>
+                    <span class="range-max">5 ур.</span>
+                </div>
+                <div class="bonus-example">
+                    <small>Открывается с ранга Primum (T_PV 5000+)</small>
+                </div>
+            </div>
+            
+            <div class="bonus-card">
+                <div class="bonus-icon" style="background: linear-gradient(135deg, #F59E0B, #D97706);">🎁</div>
+                <h3>Ранговый бонус</h3>
+                <p>Единоразовые и ежемесячные награды за достижение и подтверждение рангов</p>
+                <div class="bonus-rewards">
+                    <span>Doctus: 500€</span>
+                    <span>•</span>
+                    <span>Grandis: авто</span>
+                </div>
+                <div class="bonus-example">
+                    <small>Primum: 2000€ • Dux: 1000€/мес</small>
+                </div>
+            </div>
+            
+            <div class="bonus-card">
+                <div class="bonus-icon" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">🌟</div>
+                <h3>ТОП бонус</h3>
+                <p>Доля от общего оборота компании для топ-лидеров ранга Principal</p>
+                <div class="bonus-range">
+                    <span class="range-min">0.5%</span>
+                    <div class="range-bar">
+                        <div class="range-fill" style="width: 40%;"></div>
+                    </div>
+                    <span class="range-max">3%</span>
+                </div>
+                <div class="bonus-example">
+                    <small>Principal: 3% от оборота всей компании</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-cta">
+            <a href="{% url 'calculator:bonuses' %}" class="btn btn-light btn-lg">
+                Подробнее о бонусах →
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">🏆 Карьерная лестница</h2>
+        <p class="section-subtitle">12 рангов от Novus до Principal</p>
+        
+        <div class="ranks-ladder">
+            {% for rank in ranks %}
+            <div class="rank-step" style="--rank-color: {{ rank.color }};">
+                <div class="rank-icon">{{ rank.icon }}</div>
+                <div class="rank-info">
+                    <span class="rank-name">{{ rank.name }}</span>
+                    <span class="rank-name-ru">{{ rank.name_ru }}</span>
+                </div>
+                <div class="rank-requirement">
+                    {% if rank.t > 0 %}
+                    {{ rank.t|floatformat:0 }} PV T
+                    {% elif rank.ot > 0 %}
+                    {{ rank.ot|floatformat:0 }} PV ОТ
+                    {% else %}
+                    {{ rank.lt }} PV ЛТ
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="section-cta">
+            <a href="{% url 'calculator:ranks' %}" class="btn btn-primary btn-lg">
+                Подробнее о рангах →
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section section-gradient">
+    <div class="container">
+        <h2 class="section-title">🎮 Выберите свой путь</h2>
+        <p class="section-subtitle">4 стратегии работы для разных типов личности</p>
+        
+        <div class="strategies-preview">
+            {% for strategy in strategies %}
+            <div class="strategy-card" style="--strategy-color: {{ strategy.color }};">
+                <div class="strategy-icon">{{ strategy.icon }}</div>
+                <h3 class="strategy-name">{{ strategy.name }}</h3>
+                <p class="strategy-personality">{{ strategy.personality }}</p>
+                <p class="strategy-desc">{{ strategy.description }}</p>
+                <div class="strategy-income">
+                    <span class="income-label">Доход за 12 мес:</span>
+                    <span class="income-value">
+                        {{ strategy.expected_income.12_months.min|floatformat:0 }} - 
+                        {{ strategy.expected_income.12_months.max|floatformat:0 }} ₸
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="section-cta">
+            <a href="{% url 'calculator:strategies' %}" class="btn btn-light btn-lg">
+                Пройти тест →
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">🚀 Быстрый старт</h2>
+        <p class="section-subtitle">3 простых шага к первому доходу</p>
+        
+        <div class="steps-container">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Регистрация</h3>
+                    <p>Станьте консультантом с минимальным входом 35 PV (= 35 EUR)</p>
+                    <div class="step-highlight">
+                        <span>35 PV</span>
+                        <span>=</span>
+                        <span>~18,500 ₸</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step-arrow">→</div>
+            
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Активность</h3>
+                    <p>Поддерживайте личный товарооборот от 35 PV в месяц</p>
+                    <div class="step-highlight">
+                        <span>Кэшбэк</span>
+                        <span>от</span>
+                        <span>5%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step-arrow">→</div>
+            
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Рост</h3>
+                    <p>Приглашайте партнеров и увеличивайте доход</p>
+                    <div class="step-highlight">
+                        <span>Доход</span>
+                        <span>до</span>
+                        <span>∞</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-cta">
+            <a href="{% url 'calculator:calculator' %}" class="btn btn-primary btn-lg">
+                Рассчитать мой доход →
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,63 @@
+# Raw materials - исходные файлы расшифровок
+raw_materials/
+3 итерация.pptx
+IMG_6008.txt
+Презентация Варлам и Нина.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Static files collected
+staticfiles/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+.docker/
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+
+# Generated graphics (can be regenerated)
+# presentation_materials/graphics/*.png
+
+# Temporary files
+*.tmp
+*.temp

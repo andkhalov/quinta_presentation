@@ -1,0 +1,519 @@
+{% extends 'calculator/base.html' %}
+{% load static %}
+
+{% block title %}Система бонусов{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">💰 Система бонусов</h1>
+        <p class="page-subtitle">5 источников дохода — зарабатывайте со всех сразу</p>
+    </div>
+</div>
+
+<!-- Quick Overview Cards -->
+<section class="section" style="padding: 1.5rem 0;">
+    <div class="container">
+        <div class="bonuses-overview">
+            <div class="bonus-mini" style="--bonus-clr: var(--green);">
+                <span class="bonus-icon">🎁</span>
+                <div class="bonus-text">
+                    <strong>Кешбэк</strong>
+                    <span>5-12.5%</span>
+                </div>
+            </div>
+            <div class="bonus-mini" style="--bonus-clr: var(--blue);">
+                <span class="bonus-icon">💼</span>
+                <div class="bonus-text">
+                    <strong>Бонус продаж</strong>
+                    <span>2.5-7.5%</span>
+                </div>
+            </div>
+            <div class="bonus-mini" style="--bonus-clr: var(--orange);">
+                <span class="bonus-icon">👥</span>
+                <div class="bonus-text">
+                    <strong>Командный</strong>
+                    <span>1-5%</span>
+                </div>
+            </div>
+            <div class="bonus-mini" style="--bonus-clr: var(--red);">
+                <span class="bonus-icon">👑</span>
+                <div class="bonus-text">
+                    <strong>Лидерский</strong>
+                    <span>2.5% × 5</span>
+                </div>
+            </div>
+            <div class="bonus-mini" style="--bonus-clr: #9C27B0;">
+                <span class="bonus-icon">🏆</span>
+                <div class="bonus-text">
+                    <strong>Награды</strong>
+                    <span>500€ — авто</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Detailed Bonuses -->
+<section class="section section-light" style="padding: 2rem 0;">
+    <div class="container">
+        <!-- Cashback -->
+        <div class="bonus-block">
+            <div class="bonus-header-row">
+                <div class="bonus-title-group">
+                    <span class="bonus-emoji">🎁</span>
+                    <div>
+                        <h2>Кешбэк</h2>
+                        <p>Возврат с личных покупок</p>
+                    </div>
+                </div>
+                <div class="bonus-range-badge">5% → 12.5%</div>
+            </div>
+            
+            <div class="bonus-body">
+                <div class="bonus-desc">
+                    <h4>Как работает?</h4>
+                    <p>При каждой покупке вы получаете обратно часть стоимости. Процент зависит от вашего личного оборота (ЛТ) в месяц.</p>
+                    <ul class="bonus-points">
+                        <li>✓ Начисляется автоматически</li>
+                        <li>✓ Чем больше ЛТ — тем выше %</li>
+                        <li>✓ Максимум 12.5% при 280+ PV</li>
+                    </ul>
+                </div>
+                <div class="bonus-table-block">
+                    <table class="bonus-data-table">
+                        <thead>
+                            <tr><th>Личный PV</th><th>Ставка</th><th>Пример</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>35 PV</td><td class="rate">5%</td><td>~2 PV</td></tr>
+                            <tr><td>70 PV</td><td class="rate">7.5%</td><td>~5 PV</td></tr>
+                            <tr><td>140 PV</td><td class="rate">10%</td><td>~14 PV</td></tr>
+                            <tr class="highlight"><td>280+ PV</td><td class="rate">12.5%</td><td>~35 PV</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sales Bonus -->
+        <div class="bonus-block">
+            <div class="bonus-header-row">
+                <div class="bonus-title-group">
+                    <span class="bonus-emoji">💼</span>
+                    <div>
+                        <h2>Бонус с продаж</h2>
+                        <p>% от оборота приглашённых</p>
+                    </div>
+                </div>
+                <div class="bonus-range-badge blue">2.5% → 7.5%</div>
+            </div>
+            
+            <div class="bonus-body">
+                <div class="bonus-desc">
+                    <h4>Как работает?</h4>
+                    <p>Вы получаете процент от оборота лично приглашённых консультантов. Ставка зависит от количества ЛП и вашего ЛТ.</p>
+                    <ul class="bonus-points">
+                        <li>✓ Платится с 1-й линии (ЛП)</li>
+                        <li>✓ Растёт с количеством ЛП</li>
+                        <li>✓ Выше при большем вашем ЛТ</li>
+                    </ul>
+                </div>
+                <div class="bonus-table-block">
+                    <table class="bonus-data-table">
+                        <thead>
+                            <tr><th>ЛП</th><th>70 PV</th><th>140 PV</th><th>280 PV</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>2</td><td>2.5%</td><td>4.5%</td><td>5.5%</td></tr>
+                            <tr><td>4</td><td>3.0%</td><td>5.0%</td><td>6.0%</td></tr>
+                            <tr><td>6</td><td>3.5%</td><td>5.5%</td><td>6.5%</td></tr>
+                            <tr><td>8</td><td>4.0%</td><td>6.0%</td><td>7.0%</td></tr>
+                            <tr class="highlight"><td>10+</td><td>4.5%</td><td>6.5%</td><td class="rate">7.5%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Team Bonus -->
+        <div class="bonus-block">
+            <div class="bonus-header-row">
+                <div class="bonus-title-group">
+                    <span class="bonus-emoji">👥</span>
+                    <div>
+                        <h2>Командный бонус</h2>
+                        <p>% с оборота всей структуры</p>
+                    </div>
+                </div>
+                <div class="bonus-range-badge orange">3-7+ уровней</div>
+            </div>
+            
+            <div class="bonus-body">
+                <div class="bonus-desc">
+                    <h4>Как работает?</h4>
+                    <p>Вы получаете процент с оборота всей структуры на нескольких уровнях вглубь. Глубина зависит от вашего ранга.</p>
+                    
+                    <div class="levels-visual-compact">
+                        <div class="level-chip"><span>1 ур</span> <strong>5%</strong></div>
+                        <div class="level-chip"><span>2 ур</span> <strong>2.5%</strong></div>
+                        <div class="level-chip"><span>3 ур</span> <strong>2.5%</strong></div>
+                        <div class="level-chip"><span>4 ур</span> <strong>2.5%</strong></div>
+                        <div class="level-chip"><span>5 ур</span> <strong>1.5%</strong></div>
+                        <div class="level-chip"><span>6+ ур</span> <strong>1%</strong></div>
+                    </div>
+                </div>
+                <div class="bonus-table-block">
+                    <table class="bonus-data-table">
+                        <thead>
+                            <tr><th>Ранг</th><th>Уровни</th><th>Ставки</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>🌱 Novus</td><td>3</td><td>5%, 2.5%, 2.5%</td></tr>
+                            <tr><td>🌿 Inceptor</td><td>4</td><td>+ 2.5% на 4 ур</td></tr>
+                            <tr><td>🌲 Cognitor</td><td>5</td><td>+ 1.5% на 5 ур</td></tr>
+                            <tr class="highlight"><td>⭐ Doctus+</td><td>∞</td><td>+ 1% бесконечно</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Leadership Bonus -->
+        <div class="bonus-block">
+            <div class="bonus-header-row">
+                <div class="bonus-title-group">
+                    <span class="bonus-emoji">👑</span>
+                    <div>
+                        <h2>Лидерский бонус</h2>
+                        <p>Бонус за развитие лидеров</p>
+                    </div>
+                </div>
+                <div class="bonus-range-badge red">от Primum</div>
+            </div>
+            
+            <div class="bonus-body">
+                <div class="bonus-desc">
+                    <h4>Как работает?</h4>
+                    <p>Когда в вашей структуре появляются консультанты ранга Doctus+, вы получаете дополнительный бонус с их оборота.</p>
+                    <ul class="bonus-points">
+                        <li>✓ Открывается с Primum</li>
+                        <li>✓ 2.5% с каждого уровня</li>
+                        <li>✓ До 5 уровней глубины</li>
+                    </ul>
+                </div>
+                <div class="bonus-table-block">
+                    <table class="bonus-data-table">
+                        <thead>
+                            <tr><th>Ваш ранг</th><th>Глубина</th><th>Итого</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>✨ Primum</td><td>1 ур</td><td class="rate">2.5%</td></tr>
+                            <tr><td>💎 Dux</td><td>2 ур</td><td class="rate">5%</td></tr>
+                            <tr><td>👑 Provectus</td><td>3 ур</td><td class="rate">7.5%</td></tr>
+                            <tr><td>🏆 Grandis</td><td>4 ур</td><td class="rate">10%</td></tr>
+                            <tr class="highlight"><td>🌟 Oraculi+</td><td>5 ур</td><td class="rate">12.5%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Rank Rewards -->
+<section class="section" style="padding: 2rem 0; background: linear-gradient(135deg, var(--brand-dark), #4a3a32);">
+    <div class="container">
+        <h2 class="section-title" style="color: white; margin-bottom: 1.5rem;">🎁 Награды за ранги</h2>
+        
+        <div class="rewards-grid-compact">
+            <div class="reward-card-mini">
+                <div class="reward-rank">⭐ Doctus</div>
+                <div class="reward-val">500€</div>
+                <div class="reward-note">единоразово</div>
+            </div>
+            <div class="reward-card-mini">
+                <div class="reward-rank">✨ Primum</div>
+                <div class="reward-val">2 000€</div>
+                <div class="reward-note">единоразово</div>
+            </div>
+            <div class="reward-card-mini monthly">
+                <div class="reward-rank">💎 Dux</div>
+                <div class="reward-val">1 000€</div>
+                <div class="reward-note">ежемесячно</div>
+            </div>
+            <div class="reward-card-mini monthly">
+                <div class="reward-rank">👑 Provectus</div>
+                <div class="reward-val">2 000€</div>
+                <div class="reward-note">ежемесячно</div>
+            </div>
+            <div class="reward-card-mini premium">
+                <div class="reward-rank">🏆 Grandis</div>
+                <div class="reward-val">🚗 Авто</div>
+                <div class="reward-note">или 3500€/мес</div>
+            </div>
+            <div class="reward-card-mini premium">
+                <div class="reward-rank">💫 Sapiens</div>
+                <div class="reward-val">🏎️ Премиум</div>
+                <div class="reward-note">+ TOP бонус</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="padding: 2rem 0; text-align: center;">
+    <div class="container">
+        <h2 class="section-title">🚀 Рассчитайте свой доход</h2>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{% url 'calculator:calculator' %}" class="btn btn-primary btn-lg">💰 Калькулятор</a>
+            <a href="{% url 'calculator:charts' %}" class="btn btn-secondary btn-lg">📊 Графики</a>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Overview cards */
+.bonuses-overview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.bonus-mini {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--bonus-clr);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.bonus-mini .bonus-icon {
+    font-size: 1.5rem;
+}
+
+.bonus-mini .bonus-text strong {
+    display: block;
+    font-size: 0.85rem;
+}
+
+.bonus-mini .bonus-text span {
+    font-size: 0.75rem;
+    color: var(--bonus-clr);
+    font-weight: 600;
+}
+
+/* Bonus blocks */
+.bonus-block {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.bonus-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.bonus-title-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bonus-emoji {
+    font-size: 2rem;
+}
+
+.bonus-title-group h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.bonus-title-group p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.bonus-range-badge {
+    background: var(--green);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.bonus-range-badge.blue { background: var(--blue); }
+.bonus-range-badge.orange { background: var(--orange); }
+.bonus-range-badge.red { background: var(--red); }
+
+.bonus-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.bonus-desc h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+}
+
+.bonus-desc p {
+    font-size: 0.85rem;
+    color: var(--text-medium);
+    margin-bottom: 1rem;
+}
+
+.bonus-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.bonus-points li {
+    font-size: 0.8rem;
+    padding: 0.25rem 0;
+    color: var(--text-medium);
+}
+
+.levels-visual-compact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.level-chip {
+    background: var(--bg-light);
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+}
+
+.level-chip strong {
+    color: var(--green);
+}
+
+/* Tables */
+.bonus-table-block {
+    overflow-x: auto;
+}
+
+.bonus-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.bonus-data-table th {
+    background: var(--bg-light);
+    padding: 0.6rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--text-medium);
+}
+
+.bonus-data-table td {
+    padding: 0.5rem 0.6rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.bonus-data-table .rate {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.bonus-data-table tr.highlight {
+    background: var(--green-light);
+}
+
+.bonus-data-table tr.highlight td {
+    font-weight: 600;
+}
+
+/* Rewards grid */
+.rewards-grid-compact {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+}
+
+.reward-card-mini {
+    background: rgba(255,255,255,0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+}
+
+.reward-card-mini.monthly {
+    background: rgba(255,255,255,0.15);
+}
+
+.reward-card-mini.premium {
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+}
+
+.reward-rank {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+}
+
+.reward-val {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--green-light);
+}
+
+.reward-card-mini.premium .reward-val {
+    color: white;
+}
+
+.reward-note {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+@media (max-width: 1024px) {
+    .bonuses-overview {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .rewards-grid-compact {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .bonuses-overview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .bonus-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .bonus-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .rewards-grid-compact {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+</style>
+{% endblock %}

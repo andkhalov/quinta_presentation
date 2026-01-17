@@ -27,21 +27,21 @@
                             <label>Личный PV (ЛТ)</label>
                             <div class="param-control">
                                 <input type="range" id="lt-pv-slider" min="0" max="500" value="70" step="35">
-                                <input type="number" id="lt-pv" value="70" min="0" max="1000" class="param-input">
+                                <span id="lt-pv" class="param-value">70</span>
                             </div>
                         </div>
                         <div class="param-row">
                             <label>Консультантов (ЛП)</label>
                             <div class="param-control">
                                 <input type="range" id="invited-count-slider" min="0" max="30" value="4">
-                                <input type="number" id="invited-count" value="4" min="0" max="100" class="param-input">
+                                <span id="invited-count" class="param-value">4</span>
                             </div>
                         </div>
                         <div class="param-row">
                             <label>Групповой PV (T)</label>
                             <div class="param-control">
                                 <input type="range" id="team-pv-slider" min="0" max="50000" value="3000" step="500">
-                                <input type="number" id="team-pv" value="3000" min="0" max="100000" class="param-input">
+                                <span id="team-pv" class="param-value">3000</span>
                             </div>
                         </div>
                     </div>
@@ -53,27 +53,27 @@
                         <div class="level-row">
                             <span class="level-label">1 ур <small>(5%)</small></span>
                             <input type="range" id="level1-pv-slider" min="0" max="5000" value="1000" step="100">
-                            <input type="number" id="level1-pv" value="1000" class="level-input">
+                            <span id="level1-pv" class="level-value">1000</span>
                         </div>
                         <div class="level-row">
                             <span class="level-label">2 ур <small>(2.5%)</small></span>
                             <input type="range" id="level2-pv-slider" min="0" max="5000" value="800" step="100">
-                            <input type="number" id="level2-pv" value="800" class="level-input">
+                            <span id="level2-pv" class="level-value">800</span>
                         </div>
                         <div class="level-row">
                             <span class="level-label">3 ур <small>(2.5%)</small></span>
                             <input type="range" id="level3-pv-slider" min="0" max="5000" value="500" step="100">
-                            <input type="number" id="level3-pv" value="500" class="level-input">
+                            <span id="level3-pv" class="level-value">500</span>
                         </div>
                         <div class="level-row">
                             <span class="level-label">4 ур <small>(2.5%)</small></span>
                             <input type="range" id="level4-pv-slider" min="0" max="5000" value="400" step="100">
-                            <input type="number" id="level4-pv" value="400" class="level-input">
+                            <span id="level4-pv" class="level-value">400</span>
                         </div>
                         <div class="level-row">
                             <span class="level-label">5 ур <small>(1.5%)</small></span>
                             <input type="range" id="level5-pv-slider" min="0" max="5000" value="300" step="100">
-                            <input type="number" id="level5-pv" value="300" class="level-input">
+                            <span id="level5-pv" class="level-value">300</span>
                         </div>
                     </div>
                 </div>
@@ -210,13 +210,12 @@
     height: 6px;
 }
 
-.param-input {
-    width: 60px;
-    padding: 0.25rem 0.5rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.param-value {
+    min-width: 50px;
     font-size: 0.85rem;
+    font-weight: 600;
     text-align: right;
+    color: var(--green-dark);
 }
 
 .levels-grid {
@@ -246,13 +245,12 @@
     height: 5px;
 }
 
-.level-input {
-    width: 55px;
-    padding: 0.2rem 0.4rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.level-value {
+    min-width: 45px;
     font-size: 0.8rem;
+    font-weight: 600;
     text-align: right;
+    color: var(--green-dark);
 }
 
 .calc-results {
@@ -431,9 +429,8 @@
         gap: 0.35rem;
     }
     
-    .param-input {
-        width: 50px;
-        padding: 0.2rem 0.35rem;
+    .param-value {
+        min-width: 40px;
         font-size: 0.8rem;
     }
     
@@ -451,9 +448,8 @@
         font-size: 0.7rem;
     }
     
-    .level-input {
-        width: 45px;
-        padding: 0.15rem 0.3rem;
+    .level-value {
+        min-width: 40px;
         font-size: 0.75rem;
     }
     
@@ -539,8 +535,8 @@
         font-size: 0.7rem;
     }
     
-    .param-input {
-        width: 45px;
+    .param-value {
+        min-width: 35px;
         font-size: 0.75rem;
     }
     
@@ -552,8 +548,8 @@
         font-size: 0.65rem;
     }
     
-    .level-input {
-        width: 40px;
+    .level-value {
+        min-width: 35px;
         font-size: 0.7rem;
     }
     

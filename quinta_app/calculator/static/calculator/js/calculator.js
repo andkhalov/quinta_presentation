@@ -97,15 +97,12 @@ class QuintaCalculator {
         ];
         
         inputFields.forEach(id => {
-            const inputEl = document.getElementById(id);
+            const valueEl = document.getElementById(id);
             const sliderEl = document.getElementById(id + '-slider');
             
-            if (inputEl) {
-                inputEl.addEventListener('input', (e) => this.handleInput(id, e.target.value));
-            }
             if (sliderEl) {
                 sliderEl.addEventListener('input', (e) => {
-                    if (inputEl) inputEl.value = e.target.value;
+                    if (valueEl) valueEl.textContent = e.target.value;
                     this.handleInput(id, e.target.value);
                 });
             }

@@ -398,14 +398,167 @@
 @media (max-width: 768px) {
     .calc-grid-compact {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
     
+    .calc-params {
+        padding: 0.75rem;
+    }
+    
+    .params-title {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .params-grid {
+        gap: 0.5rem;
+    }
+    
+    /* Компактные параметры - лейбл сверху */
+    .param-row {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+    
+    .param-row label {
+        font-size: 0.75rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .param-control {
+        gap: 0.35rem;
+    }
+    
+    .param-input {
+        width: 50px;
+        padding: 0.2rem 0.35rem;
+        font-size: 0.8rem;
+    }
+    
+    /* Уровни команды ещё компактнее */
+    .levels-grid {
+        gap: 0.35rem;
+    }
+    
+    .level-row {
+        grid-template-columns: 55px 1fr 45px;
+        gap: 0.35rem;
+    }
+    
+    .level-label {
+        font-size: 0.7rem;
+    }
+    
+    .level-input {
+        width: 45px;
+        padding: 0.15rem 0.3rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Результаты */
+    .calc-results {
+        padding: 0.75rem;
+    }
+    
+    .total-box {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .total-value {
+        font-size: 1.75rem;
+    }
+    
+    .total-label,
+    .total-sub {
+        font-size: 0.7rem;
+    }
+    
+    .rank-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+    }
+    
+    .breakdown-compact {
+        gap: 0.35rem;
+    }
+    
+    .breakdown-row {
+        font-size: 0.75rem;
+        padding: 0.3rem 0;
+        gap: 0.3rem;
+    }
+    
+    .breakdown-row .pct {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.3rem;
+    }
+    
+    .breakdown-row .val {
+        min-width: 40px;
+        font-size: 0.75rem;
+    }
+    
+    /* График компактнее */
     .calc-chart {
         grid-column: auto;
+        padding: 0.5rem;
+        min-height: 180px;
     }
     
+    /* Справочные таблицы */
     .quick-ref {
         grid-template-columns: 1fr;
+        gap: 0.75rem;
+        margin-top: 1rem;
+    }
+    
+    .ref-table {
+        padding: 0.5rem;
+    }
+    
+    .ref-table h4 {
+        font-size: 0.75rem;
+        margin-bottom: 0.35rem;
+    }
+    
+    .ref-table table {
+        font-size: 0.7rem;
+    }
+    
+    .ref-table td {
+        padding: 0.2rem 0;
+    }
+}
+
+@media (max-width: 380px) {
+    /* Ещё более компактный режим для маленьких экранов */
+    .param-row label {
+        font-size: 0.7rem;
+    }
+    
+    .param-input {
+        width: 45px;
+        font-size: 0.75rem;
+    }
+    
+    .level-row {
+        grid-template-columns: 50px 1fr 40px;
+    }
+    
+    .level-label {
+        font-size: 0.65rem;
+    }
+    
+    .level-input {
+        width: 40px;
+        font-size: 0.7rem;
+    }
+    
+    .total-value {
+        font-size: 1.5rem;
     }
 }
 </style>

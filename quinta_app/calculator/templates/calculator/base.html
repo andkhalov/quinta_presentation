@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'calculator/js/main.js' %}" defer></script>
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -57,7 +58,7 @@
                     <span>Презентация</span>
                 </a>
             </div>
-            <button class="nav-toggle" id="navToggle" onclick="toggleNav()">
+            <button class="nav-toggle" id="navToggle" aria-label="Открыть меню">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -76,13 +77,41 @@
                 <span>Quinta Essentia Marketing Calculator</span>
             </div>
             <div class="footer-info">
-                <p><strong>1 PV = 1 EUR</strong> | 1 EUR ≈ 530 KZT</p>
+                <p><strong>1 PV = 1 EUR</strong></p>
                 <p>Все расчеты носят справочный характер</p>
             </div>
         </div>
     </footer>
 
-    <script src="{% static 'calculator/js/main.js' %}"></script>
     {% block extra_scripts %}{% endblock %}
+    <script>
+        // Mobile navigation - inline for guaranteed execution
+        (function() {
+            const navToggle = document.getElementById('navToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navMenu.classList.toggle('open');
+                    navToggle.classList.toggle('open');
+                });
+                
+                document.addEventListener('click', function(e) {
+                    if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                        navMenu.classList.remove('open');
+                        navToggle.classList.remove('open');
+                    }
+                });
+                
+                navMenu.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        navMenu.classList.remove('open');
+                        navToggle.classList.remove('open');
+                    });
+                });
+            }
+        })();
+    </script>
 </body>
 </html>

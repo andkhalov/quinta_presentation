@@ -148,6 +148,7 @@ img { max-width: 100%; height: auto; }
     padding: var(--space-md) var(--space-lg);
     max-width: 1400px;
     margin: 0 auto;
+    position: relative;
 }
 
 .nav-logo {
@@ -1674,6 +1675,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 @media (max-width: 768px) {
+    /* Mobile Navigation */
     .nav-menu {
         display: none;
         position: absolute;
@@ -1682,8 +1684,12 @@ input[type="range"]::-webkit-slider-thumb:hover {
         right: 0;
         background: var(--brand-dark);
         flex-direction: column;
-        padding: var(--space-md);
-        gap: var(--space-xs);
+        padding: var(--space-lg);
+        gap: var(--space-sm);
+        box-shadow: var(--shadow-lg);
+        z-index: 999;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
     }
     
     .nav-menu.open {
@@ -1692,23 +1698,162 @@ input[type="range"]::-webkit-slider-thumb:hover {
     
     .nav-toggle {
         display: flex;
+        z-index: 1001;
     }
     
-    .hero-title { font-size: 2rem; }
-    .hero-stats { gap: var(--space-md); }
+    .nav-toggle.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
     
+    .nav-toggle.open span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+    
+    .nav-link {
+        padding: var(--space-md);
+        font-size: 1rem;
+        border-radius: var(--radius-md);
+    }
+    
+    .nav-link:hover,
+    .nav-link.active {
+        background: rgba(23, 178, 42, 0.2);
+    }
+    
+    /* Hero adjustments */
+    .hero {
+        padding: var(--space-2xl) 0;
+    }
+    
+    .hero-title { 
+        font-size: 1.75rem; 
+        line-height: 1.3;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.875rem;
+        letter-spacing: 1px;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .hero-stats { 
+        gap: var(--space-sm);
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .stat-card {
+        min-width: 90px;
+        padding: var(--space-md);
+    }
+    
+    .stat-number {
+        font-size: 1.75rem;
+    }
+    
+    .stat-label {
+        font-size: 0.75rem;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        gap: var(--space-sm);
+        padding: 0 var(--space-md);
+    }
+    
+    .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Section adjustments */
+    .section {
+        padding: var(--space-2xl) 0;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    /* Container padding */
+    .container {
+        padding: 0 var(--space-md);
+    }
+    
+    /* Page header */
+    .page-header {
+        padding: var(--space-xl) 0;
+    }
+    
+    .page-title {
+        font-size: 1.75rem;
+    }
+    
+    .page-subtitle {
+        font-size: 1rem;
+    }
+    
+    /* Cards */
+    .income-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .income-card {
+        padding: var(--space-lg);
+    }
+    
+    .bonus-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .strategies-preview {
+        grid-template-columns: 1fr;
+    }
+    
+    .strategies-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Steps */
     .steps-container {
         flex-direction: column;
+    }
+    
+    .step-card {
+        max-width: none;
+        width: 100%;
     }
     
     .step-arrow {
         transform: rotate(90deg);
     }
     
+    /* Quiz */
+    .quiz-container {
+        padding: var(--space-lg);
+        margin: 0 var(--space-md);
+    }
+    
     .quiz-options {
         grid-template-columns: 1fr;
     }
     
+    .quiz-option {
+        padding: var(--space-md);
+    }
+    
+    /* Calculator */
     .total-income-calculator {
         grid-template-columns: 1fr;
     }
@@ -1720,29 +1865,128 @@ input[type="range"]::-webkit-slider-thumb:hover {
     .sim-summary {
         grid-template-columns: 1fr;
     }
+    
+    /* Tables */
+    .tables-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .table-card {
+        padding: var(--space-lg);
+        overflow-x: auto;
+    }
+    
+    .data-table {
+        font-size: 0.875rem;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: var(--space-sm);
+    }
+    
+    /* Ranks */
+    .ranks-ladder {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .rank-step {
+        min-width: auto;
+    }
+    
+    /* Footer */
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-lg);
+    }
+    
+    .footer-info {
+        text-align: center;
+    }
+    
+    /* Tips */
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Controls */
+    .controls-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .levels-controls {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
-    h1 { font-size: 1.75rem; }
-    h2 { font-size: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.25rem; }
+    h3 { font-size: 1.1rem; }
+    
+    .hero-title {
+        font-size: 1.5rem;
+    }
     
     .hero-stats .stat-card {
-        min-width: 100px;
-        padding: var(--space-md);
+        min-width: 80px;
+        padding: var(--space-sm);
     }
     
-    .stat-number { font-size: 2rem; }
-    
-    .hero-actions {
-        flex-direction: column;
-    }
+    .stat-number { font-size: 1.5rem; }
     
     .btn-lg {
-        width: 100%;
+        padding: var(--space-md) var(--space-lg);
+        font-size: 1rem;
     }
     
     .result-cards {
         grid-template-columns: 1fr;
+    }
+    
+    /* Income cards */
+    .income-icon {
+        font-size: 2rem;
+    }
+    
+    .income-amount {
+        font-size: 1.5rem;
+    }
+    
+    /* Strategy cards */
+    .strategy-icon {
+        font-size: 2rem;
+    }
+    
+    .strategy-name {
+        font-size: 1.1rem;
+    }
+    
+    /* Results */
+    .total-amount {
+        font-size: 2rem;
+    }
+    
+    /* Quiz */
+    .quiz-container {
+        padding: var(--space-md);
+    }
+    
+    .quiz-title {
+        font-size: 1.25rem;
+    }
+    
+    .option-icon {
+        font-size: 1.5rem;
+    }
+    
+    /* Bonus cards */
+    .bonus-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
     }
 }
 

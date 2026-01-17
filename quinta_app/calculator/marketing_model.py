@@ -5,7 +5,6 @@
 
 # Курс: 1 PV = 1 EUR (по условию задания)
 PV_TO_EUR = 1.0
-EUR_TO_KZT = 530  # Примерный курс EUR к KZT
 
 # Кэшбэк таблица
 CASHBACK_TABLE = [
@@ -223,14 +222,12 @@ def calculate_cashback(lt: float) -> dict:
     percent = get_cashback_percent(lt)
     bonus_pv = lt * percent / 100
     bonus_eur = bonus_pv * PV_TO_EUR
-    bonus_kzt = bonus_eur * EUR_TO_KZT
     
     return {
         'lt': lt,
         'percent': percent,
         'bonus_pv': round(bonus_pv, 2),
         'bonus_eur': round(bonus_eur, 2),
-        'bonus_kzt': round(bonus_kzt, 0),
     }
 
 
@@ -273,7 +270,6 @@ def calculate_sales_bonus(user_lt: int, partners: list) -> dict:
     total_volume = sum(p.get('structure_volume', 0) for p in partners)
     bonus_pv = total_volume * percent / 100
     bonus_eur = bonus_pv * PV_TO_EUR
-    bonus_kzt = bonus_eur * EUR_TO_KZT
     
     return {
         'lp_count': lp_count,
@@ -282,7 +278,6 @@ def calculate_sales_bonus(user_lt: int, partners: list) -> dict:
         'total_volume': total_volume,
         'bonus_pv': round(bonus_pv, 2),
         'bonus_eur': round(bonus_eur, 2),
-        'bonus_kzt': round(bonus_kzt, 0),
     }
 
 
@@ -335,14 +330,12 @@ def calculate_team_bonus(rank_name: str, team_volumes: list) -> dict:
         })
     
     bonus_eur = total_bonus_pv * PV_TO_EUR
-    bonus_kzt = bonus_eur * EUR_TO_KZT
     
     return {
         'rank': rank_name,
         'level_bonuses': level_bonuses,
         'total_bonus_pv': round(total_bonus_pv, 2),
         'total_bonus_eur': round(bonus_eur, 2),
-        'total_bonus_kzt': round(bonus_kzt, 0),
     }
 
 
@@ -358,7 +351,6 @@ def calculate_leader_bonus(rank_name: str, doctus_partners: list) -> dict:
             'partners': [],
             'total_bonus_pv': 0,
             'total_bonus_eur': 0,
-            'total_bonus_kzt': 0,
         }
     
     accessible_levels = LEADER_BONUS_LEVELS[rank_name]
@@ -380,7 +372,6 @@ def calculate_leader_bonus(rank_name: str, doctus_partners: list) -> dict:
             })
     
     bonus_eur = total_bonus_pv * PV_TO_EUR
-    bonus_kzt = bonus_eur * EUR_TO_KZT
     
     return {
         'rank': rank_name,
@@ -388,7 +379,6 @@ def calculate_leader_bonus(rank_name: str, doctus_partners: list) -> dict:
         'partners': partner_bonuses,
         'total_bonus_pv': round(total_bonus_pv, 2),
         'total_bonus_eur': round(bonus_eur, 2),
-        'total_bonus_kzt': round(bonus_kzt, 0),
     }
 
 
@@ -432,7 +422,6 @@ def calculate_total_income(
         leader_bonus['total_bonus_pv']
     )
     total_eur = total_pv * PV_TO_EUR
-    total_kzt = total_eur * EUR_TO_KZT
     
     return {
         'rank': rank,
@@ -444,7 +433,6 @@ def calculate_total_income(
         'total': {
             'pv': round(total_pv, 2),
             'eur': round(total_eur, 2),
-            'kzt': round(total_kzt, 0),
         }
     }
 
@@ -463,9 +451,9 @@ STRATEGIES = [
         'effort': 'Минимальные усилия',
         'income_type': 'Стабильный небольшой доход',
         'expected_income': {
-            '3_months': {'min': 5000, 'max': 15000, 'currency': 'KZT'},
-            '6_months': {'min': 10000, 'max': 30000, 'currency': 'KZT'},
-            '12_months': {'min': 20000, 'max': 50000, 'currency': 'KZT'},
+            '3_months': {'min': 10, 'max': 30, 'currency': 'EUR'},
+            '6_months': {'min': 20, 'max': 60, 'currency': 'EUR'},
+            '12_months': {'min': 40, 'max': 100, 'currency': 'EUR'},
         },
         'steps': [
             'Зарегистрируйтесь как консультант (35 PV)',
@@ -487,9 +475,9 @@ STRATEGIES = [
         'effort': 'Активная работа',
         'income_type': 'Высокий активный доход',
         'expected_income': {
-            '3_months': {'min': 50000, 'max': 150000, 'currency': 'KZT'},
-            '6_months': {'min': 100000, 'max': 300000, 'currency': 'KZT'},
-            '12_months': {'min': 200000, 'max': 500000, 'currency': 'KZT'},
+            '3_months': {'min': 100, 'max': 300, 'currency': 'EUR'},
+            '6_months': {'min': 200, 'max': 600, 'currency': 'EUR'},
+            '12_months': {'min': 400, 'max': 1000, 'currency': 'EUR'},
         },
         'steps': [
             'Зарегистрируйтесь с максимальным ЛТ (280 PV)',
@@ -511,9 +499,9 @@ STRATEGIES = [
         'effort': 'Систематическая работа',
         'income_type': 'Масштабируемый пассивный доход',
         'expected_income': {
-            '3_months': {'min': 100000, 'max': 300000, 'currency': 'KZT'},
-            '6_months': {'min': 300000, 'max': 700000, 'currency': 'KZT'},
-            '12_months': {'min': 500000, 'max': 1500000, 'currency': 'KZT'},
+            '3_months': {'min': 200, 'max': 600, 'currency': 'EUR'},
+            '6_months': {'min': 600, 'max': 1400, 'currency': 'EUR'},
+            '12_months': {'min': 1000, 'max': 3000, 'currency': 'EUR'},
         },
         'steps': [
             'Зарегистрируйтесь и пройдите обучение',
@@ -535,9 +523,9 @@ STRATEGIES = [
         'effort': 'Полная вовлеченность',
         'income_type': 'Максимальный комбинированный доход',
         'expected_income': {
-            '3_months': {'min': 150000, 'max': 400000, 'currency': 'KZT'},
-            '6_months': {'min': 400000, 'max': 1000000, 'currency': 'KZT'},
-            '12_months': {'min': 800000, 'max': 2500000, 'currency': 'KZT'},
+            '3_months': {'min': 300, 'max': 800, 'currency': 'EUR'},
+            '6_months': {'min': 800, 'max': 2000, 'currency': 'EUR'},
+            '12_months': {'min': 1500, 'max': 5000, 'currency': 'EUR'},
         },
         'steps': [
             'Зарегистрируйтесь с максимальным стартом',

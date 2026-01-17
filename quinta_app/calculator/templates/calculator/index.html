@@ -48,7 +48,7 @@
             <a href="{% url 'calculator:charts' %}?team=10&lt=70&invited=4" class="income-card">
                 <div class="income-icon">👤</div>
                 <div class="income-team">10 консультантов</div>
-                <div class="income-amount">от 50,000 ₸</div>
+                <div class="income-amount">от €100</div>
                 <div class="income-period">в месяц</div>
                 <div class="income-details">
                     <small>Ранг: Doctus • Кэшбэк + командный бонус</small>
@@ -58,7 +58,7 @@
                 <div class="income-badge">Популярно</div>
                 <div class="income-icon">👥</div>
                 <div class="income-team">30 консультантов</div>
-                <div class="income-amount">от 150,000 ₸</div>
+                <div class="income-amount">от €300</div>
                 <div class="income-period">в месяц</div>
                 <div class="income-details">
                     <small>Ранг: Dux • Все виды бонусов активны</small>
@@ -67,7 +67,7 @@
             <a href="{% url 'calculator:charts' %}?team=100&lt=280&invited=15" class="income-card">
                 <div class="income-icon">👥👥</div>
                 <div class="income-team">100 консультантов</div>
-                <div class="income-amount">от 500,000 ₸</div>
+                <div class="income-amount">от €1,000</div>
                 <div class="income-period">в месяц</div>
                 <div class="income-details">
                     <small>Ранг: Grandis • Лидерский бонус + авто</small>
@@ -77,7 +77,7 @@
                 <div class="income-badge">Топ</div>
                 <div class="income-icon">🏆</div>
                 <div class="income-team">300+ консультантов</div>
-                <div class="income-amount">от 1,500,000 ₸</div>
+                <div class="income-amount">от €3,000</div>
                 <div class="income-period">в месяц</div>
                 <div class="income-details">
                     <small>Ранг: Principal • Максимальный доход</small>
@@ -251,8 +251,8 @@
                 <div class="strategy-income">
                     <span class="income-label">Доход за 12 мес:</span>
                     <span class="income-value">
-                        {{ strategy.expected_income.12_months.min|floatformat:0 }} - 
-                        {{ strategy.expected_income.12_months.max|floatformat:0 }} ₸
+                        €{{ strategy.expected_income.12_months.min|floatformat:0 }} - 
+                        €{{ strategy.expected_income.12_months.max|floatformat:0 }}
                     </span>
                 </div>
             </div>
@@ -281,7 +281,7 @@
                     <div class="step-highlight">
                         <span>35 PV</span>
                         <span>=</span>
-                        <span>~18,500 ₸</span>
+                        <span>€35</span>
                     </div>
                 </div>
             </div>

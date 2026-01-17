@@ -12,7 +12,6 @@ def index(request):
         'ranks': mm.RANKS,
         'strategies': mm.STRATEGIES,
         'pv_to_eur': mm.PV_TO_EUR,
-        'eur_to_kzt': mm.EUR_TO_KZT,
     }
     return render(request, 'calculator/index.html', context)
 
@@ -23,7 +22,6 @@ def calculator(request):
         'cashback_table': mm.CASHBACK_TABLE,
         'sales_bonus_table': mm.SALES_BONUS_TABLE,
         'pv_to_eur': mm.PV_TO_EUR,
-        'eur_to_kzt': mm.EUR_TO_KZT,
     }
     return render(request, 'calculator/calculator.html', context)
 
@@ -66,7 +64,6 @@ def simulator(request):
         'ranks': mm.RANKS,
         'team_bonus': mm.TEAM_BONUS,
         'pv_to_eur': mm.PV_TO_EUR,
-        'eur_to_kzt': mm.EUR_TO_KZT,
     }
     return render(request, 'calculator/simulator.html', context)
 
@@ -83,7 +80,6 @@ def reference(request):
         'leader_bonus_levels': mm.LEADER_BONUS_LEVELS,
         'top_bonus': mm.TOP_BONUS,
         'pv_to_eur': mm.PV_TO_EUR,
-        'eur_to_kzt': mm.EUR_TO_KZT,
     }
     return render(request, 'calculator/reference.html', context)
 
@@ -96,7 +92,6 @@ def charts(request):
         'sales_bonus_table': mm.SALES_BONUS_TABLE,
         'team_bonus': mm.TEAM_BONUS,
         'pv_to_eur': mm.PV_TO_EUR,
-        'eur_to_kzt': mm.EUR_TO_KZT,
     }
     return render(request, 'calculator/charts.html', context)
 
@@ -112,7 +107,6 @@ def presentation(request):
         'leader_bonus_percent': mm.LEADER_BONUS_PERCENT,
         'leader_bonus_levels': mm.LEADER_BONUS_LEVELS,
         'pv_to_eur': mm.PV_TO_EUR,
-        'eur_to_kzt': mm.EUR_TO_KZT,
     }
     return render(request, 'calculator/presentation.html', context)
 

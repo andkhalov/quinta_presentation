@@ -1,29 +1,40 @@
 // Quinta Essentia Marketing Calculator - Main JavaScript
 
+// Mobile navigation toggle - global function for onclick
+function toggleNav() {
+    const navMenu = document.querySelector('.nav-menu');
+    const navToggle = document.querySelector('.nav-toggle');
+    if (navMenu && navToggle) {
+        navMenu.classList.toggle('open');
+        navToggle.classList.toggle('open');
+    }
+}
+
 // Mobile navigation toggle
 document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
     
     if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            navToggle.classList.toggle('active');
+        navToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('open');
+            navToggle.classList.toggle('open');
         });
         
         // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
-                navMenu.classList.remove('active');
-                navToggle.classList.remove('active');
+                navMenu.classList.remove('open');
+                navToggle.classList.remove('open');
             }
         });
         
         // Close menu when clicking a link
         navMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                navToggle.classList.remove('active');
+                navMenu.classList.remove('open');
+                navToggle.classList.remove('open');
             });
         });
     }

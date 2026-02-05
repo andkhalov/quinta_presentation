@@ -18,10 +18,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-quinta-essentia-calculator-dev-key-change-in-production'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', '1') == '1'
+DEBUG = False
+ALLOWED_HOSTS = ["calculator.quinta.pro", "127.0.0.1", "localhost"]
 
-ALLOWED_HOSTS = ['*']
 
+# когда будет nginx + https:
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+CSRF_TRUSTED_ORIGINS = ["https://calculator.quinta.pro"]
 
 # Application definition
 

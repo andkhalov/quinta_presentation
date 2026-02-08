@@ -1,8 +1,10 @@
 """Views for Quinta Essentia Marketing Calculator"""
 import json
+import os
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 from . import marketing_model as mm
 
 
@@ -142,3 +144,15 @@ def api_calculate(request):
     
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
+
+
+def download_starter_packs(request):
+    """Скачивание PDF со стартовыми пакетами"""
+    file_path = os.path.join(settings.BASE_DIR, 'downloads', 'QE_Product packs_300126.pdf')
+    if os.path.exists(file_path):
+        return FileResponse(
+            open(file_path, 'rb'),
+            as_attachment=True,
+            filename='QE_Starter_Packs.pdf'
+        )
+    raise Http404("Файл не найден")

@@ -14,4 +14,5 @@ urlpatterns = [
     path('charts/', views.charts, name='charts'),
     path('presentation/', views.presentation, name='presentation'),
     path('api/calculate/', views.api_calculate, name='api_calculate'),
+    path('download/starter-packs/', views.download_starter_packs, name='download_starter_packs'),
 ]

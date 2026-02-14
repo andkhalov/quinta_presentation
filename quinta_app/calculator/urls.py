@@ -15,4 +15,5 @@ urlpatterns = [
     path('presentation/', views.presentation, name='presentation'),
     path('api/calculate/', views.api_calculate, name='api_calculate'),
     path('download/starter-packs/', views.download_starter_packs, name='download_starter_packs'),
+    path('download/only-with-us/', views.download_only_with_us, name='download_only_with_us'),
 ]

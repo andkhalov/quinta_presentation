@@ -156,3 +156,15 @@ def download_starter_packs(request):
             filename='QE_Starter_Packs.pdf'
         )
     raise Http404("Файл не найден")
+
+
+def download_only_with_us(request):
+    """Скачивание PDF 'Только у нас'"""
+    file_path = os.path.join(settings.BASE_DIR, 'downloads', 'QE_only_with_us.pdf')
+    if os.path.exists(file_path):
+        return FileResponse(
+            open(file_path, 'rb'),
+            as_attachment=True,
+            filename='QE_Only_With_Us.pdf'
+        )
+    raise Http404("Файл не найден")

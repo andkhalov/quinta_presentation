@@ -3,6 +3,64 @@
 
 {% block title %}Quinta Essentia - Калькулятор маркетинга{% endblock %}
 
+{% block extra_head %}
+<style>
+.section-highlight-55 {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 50%, var(--blue) 100%);
+    padding: var(--space-2xl) 0;
+    position: relative;
+    overflow: hidden;
+}
+.section-highlight-55::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.06' fill-rule='evenodd'%3E%3Cpath d='M20 20.5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1z'/%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+}
+.highlight-banner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+    position: relative;
+    z-index: 1;
+}
+.highlight-number {
+    font-size: 4.5rem;
+    font-weight: 800;
+    color: white;
+    line-height: 1;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+.highlight-text {
+    flex: 1;
+}
+.highlight-text h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+}
+.highlight-text p {
+    color: rgba(255,255,255,0.85);
+    margin: 0;
+    font-size: 1rem;
+}
+@media (max-width: 768px) {
+    .highlight-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+    .highlight-number {
+        font-size: 3.5rem;
+    }
+    .highlight-text h3 {
+        font-size: 1.2rem;
+    }
+}
+</style>
+{% endblock extra_head %}
+
 {% block content %}
 <section class="hero">
     <div class="hero-content">
@@ -24,8 +82,8 @@
                 <span class="stat-label">Видов бонусов</span>
             </div>
             <div class="stat-card">
-                <span class="stat-number">7</span>
-                <span class="stat-label">Уровней глубины</span>
+                <span class="stat-number">55%</span>
+                <span class="stat-label">Оборота в сеть</span>
             </div>
         </div>
         <div class="hero-actions">
@@ -37,6 +95,9 @@
             </a>
             <a href="{% url 'calculator:download_starter_packs' %}" class="btn btn-orange btn-lg">
                 📦 Стартовые пакеты
+            </a>
+            <a href="{% url 'calculator:download_only_with_us' %}" class="btn btn-red btn-lg">
+                🔥 Только у нас
             </a>
         </div>
     </div>
@@ -96,6 +157,19 @@
     </div>
 </section>
 
+<section class="section section-highlight-55">
+    <div class="container">
+        <div class="highlight-banner">
+            <div class="highlight-number">55%</div>
+            <div class="highlight-text">
+                <h3>До 55% оборота перераспределяется по сети</h3>
+                <p>Кэшбэк + Бонус продаж + Командный + Лидерский + ТОП бонус</p>
+            </div>
+            <a href="{% url 'calculator:bonuses' %}" class="btn btn-light">Подробнее →</a>
+        </div>
+    </div>
+</section>
+
 <section class="section section-dark">
     <div class="container">
         <h2 class="section-title">🎯 Виды доходов</h2>
@@ -137,62 +211,62 @@
             <div class="bonus-card">
                 <div class="bonus-icon" style="background: linear-gradient(135deg, var(--blue), var(--blue-dark));">👥</div>
                 <h3>Командный бонус</h3>
-                <p>Доход от оборота всей структуры на 3-7 уровней в глубину. Проценты зависят от вашего ранга</p>
+                <p>Доход от оборота всей структуры на 7+ уровней в глубину. Суммарно до 20.5% от PV вашей команды</p>
                 <div class="bonus-range">
-                    <span class="range-min">1%</span>
+                    <span class="range-min">5%</span>
                     <div class="range-bar">
-                        <div class="range-fill" style="width: 70%;"></div>
+                        <div class="range-fill" style="width: 80%;"></div>
                     </div>
-                    <span class="range-max">5%</span>
+                    <span class="range-max">20.5%</span>
                 </div>
                 <div class="bonus-example">
-                    <small>1 ур: 5% • 2-3 ур: 2.5% • 4-7 ур: 1-2.5%</small>
+                    <small>1 ур: 5% • 2-4 ур: 2.5% • 5-7 ур: 1.5% • 8+: 1%</small>
                 </div>
             </div>
             
             <div class="bonus-card">
                 <div class="bonus-icon" style="background: linear-gradient(135deg, var(--red), var(--red-dark));">👑</div>
                 <h3>Лидерский бонус</h3>
-                <p>2.5% от оборота партнёров ранга Doctus и выше. Доступен с ранга Primum, глубина растёт с рангом</p>
+                <p>2.5% за каждый уровень Doctus-партнёров. До 5 уровней = до 12.5%. Доступен с ранга Primum</p>
                 <div class="bonus-range">
-                    <span class="range-min">1 ур.</span>
+                    <span class="range-min">2.5%</span>
                     <div class="range-bar">
                         <div class="range-fill" style="width: 80%;"></div>
                     </div>
-                    <span class="range-max">5 ур.</span>
+                    <span class="range-max">12.5%</span>
                 </div>
                 <div class="bonus-example">
-                    <small>Открывается с ранга Primum (T_PV 5000+)</small>
+                    <small>Primum: 1 ур. • Dux: 2 ур. • Oraculi+: 5 ур.</small>
                 </div>
             </div>
             
             <div class="bonus-card">
                 <div class="bonus-icon" style="background: linear-gradient(135deg, #F59E0B, #D97706);">🎁</div>
                 <h3>Ранговый бонус</h3>
-                <p>Единоразовые и ежемесячные награды за достижение и подтверждение рангов</p>
+                <p>Разовые награды за подтверждение рангов: от денежных бонусов до престижных подарков</p>
                 <div class="bonus-rewards">
-                    <span>Doctus: 500€</span>
-                    <span>•</span>
-                    <span>Grandis: авто</span>
+                    <span>100 PV</span>
+                    <span>→</span>
+                    <span>Престиж-авто</span>
                 </div>
                 <div class="bonus-example">
-                    <small>Primum: 2000€ • Dux: 1000€/мес</small>
+                    <small>Primum: 100 PV • Dux: 300 PV • Oraculi: VIP-поездка</small>
                 </div>
             </div>
             
             <div class="bonus-card">
                 <div class="bonus-icon" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">🌟</div>
                 <h3>ТОП бонус</h3>
-                <p>Доля от общего оборота компании для топ-лидеров ранга Principal</p>
+                <p>Ежеквартальная доля от оборота компании для топ-лидеров (Sapiens и выше). Общий пул: 2%</p>
                 <div class="bonus-range">
                     <span class="range-min">0.5%</span>
                     <div class="range-bar">
                         <div class="range-fill" style="width: 40%;"></div>
                     </div>
-                    <span class="range-max">3%</span>
+                    <span class="range-max">0.8%</span>
                 </div>
                 <div class="bonus-example">
-                    <small>Principal: 3% от оборота всей компании</small>
+                    <small>Sapiens: 0.8% • Superator: 0.7% • Principal: 0.5%</small>
                 </div>
             </div>
         </div>

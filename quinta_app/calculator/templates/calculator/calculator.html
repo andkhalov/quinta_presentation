@@ -4,7 +4,7 @@
 {% block title %}Калькулятор дохода{% endblock %}
 
 {% block extra_scripts %}
-<script src="{% static 'calculator/js/calculator.js' %}"></script>
+<script src="{% static 'calculator/js/calculator.js' %}?v=4"></script>
 {% endblock %}
 
 {% block content %}
@@ -41,83 +41,84 @@
                             <label>Групповой PV (T)</label>
                             <div class="param-control">
                                 <input type="range" id="team-pv-slider" min="0" max="50000" value="3000" step="500">
-                                <span id="team-pv" class="param-value">3000</span>
+                                <span id="team-pv" class="param-value">3 000</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="params-section">
                     <h3 class="params-title">👥 Уровни команды</h3>
                     <div class="levels-grid">
                         <div class="level-row">
                             <span class="level-label">1 ур <small>(5%)</small></span>
-                            <input type="range" id="level1-pv-slider" min="0" max="5000" value="1000" step="100">
-                            <span id="level1-pv" class="level-value">1000</span>
+                            <input type="range" id="level1-pv-slider" min="0" max="2800" value="1000" step="100">
+                            <span id="level1-pv" class="level-value">1 000</span>
                         </div>
                         <div class="level-row">
                             <span class="level-label">2 ур <small>(2.5%)</small></span>
-                            <input type="range" id="level2-pv-slider" min="0" max="5000" value="800" step="100">
-                            <span id="level2-pv" class="level-value">800</span>
+                            <input type="range" id="level2-pv-slider" min="0" max="28000" value="3000" step="500">
+                            <span id="level2-pv" class="level-value">3 000</span>
                         </div>
                         <div class="level-row">
                             <span class="level-label">3 ур <small>(2.5%)</small></span>
-                            <input type="range" id="level3-pv-slider" min="0" max="5000" value="500" step="100">
-                            <span id="level3-pv" class="level-value">500</span>
+                            <input type="range" id="level3-pv-slider" min="0" max="100000" value="10000" step="1000">
+                            <span id="level3-pv" class="level-value">10 000</span>
                         </div>
                         <div class="level-row">
                             <span class="level-label">4 ур <small>(2.5%)</small></span>
-                            <input type="range" id="level4-pv-slider" min="0" max="5000" value="400" step="100">
-                            <span id="level4-pv" class="level-value">400</span>
+                            <input type="range" id="level4-pv-slider" min="0" max="200000" value="15000" step="1000">
+                            <span id="level4-pv" class="level-value">15K</span>
                         </div>
                         <div class="level-row">
                             <span class="level-label">5 ур <small>(1.5%)</small></span>
-                            <input type="range" id="level5-pv-slider" min="0" max="5000" value="300" step="100">
-                            <span id="level5-pv" class="level-value">300</span>
+                            <input type="range" id="level5-pv-slider" min="0" max="500000" value="25000" step="5000">
+                            <span id="level5-pv" class="level-value">25K</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Center: Results -->
             <div class="calc-results">
                 <div class="total-box">
+                    <div class="gold-badge" id="gold-badge">✨ Ликвид и Терра x2</div>
                     <div class="total-label">Доход в месяц</div>
-                    <div class="total-value" id="total-income">€ 0</div>
+                    <div class="total-value" id="total-income">0 €</div>
                     <div class="total-sub" id="total-income-pv">0 PV</div>
                     <div class="rank-badge" id="current-rank">🌱 Novus</div>
                 </div>
-                
+
                 <div class="breakdown-compact">
                     <div class="breakdown-row">
                         <span>🎁 Кешбэк</span>
                         <span id="cashback-percent" class="pct">7.5%</span>
-                        <span id="cashback-value" class="val">€0</span>
+                        <span id="cashback-value" class="val">0 €</span>
                     </div>
                     <div class="breakdown-row">
                         <span>💼 Бонус продаж</span>
                         <span id="sales-bonus-percent" class="pct">3%</span>
-                        <span id="sales-bonus-value" class="val">€0</span>
+                        <span id="sales-bonus-value" class="val">0 €</span>
                     </div>
                     <div class="breakdown-row">
                         <span>👥 Командный</span>
                         <span id="team-bonus-percent" class="pct">5-2.5%</span>
-                        <span id="team-bonus-value" class="val">€0</span>
+                        <span id="team-bonus-value" class="val">0 €</span>
                     </div>
                     <div class="breakdown-row">
                         <span>👑 Лидерский</span>
                         <span id="leadership-bonus-percent" class="pct">2.5%</span>
-                        <span id="leadership-bonus-value" class="val">€0</span>
+                        <span id="leadership-bonus-value" class="val">0 €</span>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Right: Chart -->
             <div class="calc-chart">
                 <canvas id="income-chart"></canvas>
             </div>
         </div>
-        
+
         <!-- Quick Reference Tables -->
         <div class="quick-ref">
             <div class="ref-table">
@@ -163,6 +164,7 @@
     border-radius: 12px;
     padding: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .params-section {
@@ -178,6 +180,7 @@
     font-weight: 600;
     margin: 0 0 0.75rem;
     color: var(--brand-dark);
+    transition: color 0.4s ease;
 }
 
 .params-grid {
@@ -216,6 +219,7 @@
     font-weight: 600;
     text-align: right;
     color: var(--green-dark);
+    transition: color 0.4s ease;
 }
 
 .levels-grid {
@@ -226,7 +230,7 @@
 
 .level-row {
     display: grid;
-    grid-template-columns: 70px 1fr 55px;
+    grid-template-columns: 70px 1fr 65px;
     align-items: center;
     gap: 0.5rem;
 }
@@ -239,6 +243,7 @@
 .level-label small {
     color: var(--green);
     font-weight: 600;
+    transition: color 0.4s ease;
 }
 
 .level-row input[type="range"] {
@@ -246,11 +251,12 @@
 }
 
 .level-value {
-    min-width: 45px;
+    min-width: 65px;
     font-size: 0.8rem;
     font-weight: 600;
     text-align: right;
     color: var(--green-dark);
+    transition: color 0.4s ease;
 }
 
 .calc-results {
@@ -258,6 +264,7 @@
     border-radius: 12px;
     padding: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .total-box {
@@ -267,6 +274,8 @@
     padding: 1rem;
     text-align: center;
     margin-bottom: 1rem;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
 }
 
 .total-label {
@@ -278,6 +287,7 @@
     font-size: 2rem;
     font-weight: 800;
     line-height: 1.2;
+    transition: font-size 0.4s ease, text-shadow 0.4s ease;
 }
 
 .total-sub {
@@ -292,6 +302,26 @@
     border-radius: 20px;
     font-size: 0.8rem;
     margin-top: 0.5rem;
+    transition: background 0.4s ease, font-weight 0.4s ease;
+}
+
+/* Gold Badge */
+.gold-badge {
+    display: none;
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+    animation: goldPulse 2s ease-in-out infinite;
+}
+
+@keyframes goldPulse {
+    0%, 100% { opacity: 0.85; }
+    50% { opacity: 1; }
 }
 
 .breakdown-compact {
@@ -327,6 +357,7 @@
     color: var(--green);
     min-width: 50px;
     text-align: right;
+    transition: color 0.4s ease;
 }
 
 .calc-chart {
@@ -335,6 +366,7 @@
     padding: 0.75rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     min-height: 240px;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .quick-ref {
@@ -382,11 +414,140 @@
     color: var(--green-dark);
 }
 
+/* ===== INCOME DISPLAY STATES ===== */
+
+.total-box.state-grey {
+    background: linear-gradient(135deg, #9e9e9e, #616161);
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.total-box.state-green {
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    box-shadow: 0 4px 16px rgba(23, 178, 42, 0.3);
+    border-color: transparent;
+}
+
+/* Gold: dark gold gradient for white text contrast */
+.total-box.state-gold {
+    background: linear-gradient(135deg, #8B6914, #5C440D);
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(139, 105, 20, 0.4);
+    border-color: rgba(212, 160, 23, 0.4);
+    animation: glowGold 3s ease-in-out infinite;
+}
+
+.total-box.state-gold .total-value {
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.total-box.state-gold .rank-badge {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.total-box.state-blue {
+    background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(52, 89, 149, 0.4);
+    border-color: rgba(122, 154, 207, 0.4);
+    animation: glowBlue 3s ease-in-out infinite;
+}
+
+.total-box.state-blue .total-value {
+    font-size: 2.4rem;
+    font-weight: 900;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+.total-box.state-blue .rank-badge {
+    background: rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+}
+
+@keyframes glowGold {
+    0%, 100% { box-shadow: 0 8px 32px rgba(139, 105, 20, 0.3); }
+    50% { box-shadow: 0 8px 32px rgba(139, 105, 20, 0.5), 0 0 40px rgba(139, 105, 20, 0.15); }
+}
+
+@keyframes glowBlue {
+    0%, 100% { box-shadow: 0 8px 32px rgba(52, 89, 149, 0.3); }
+    50% { box-shadow: 0 8px 32px rgba(52, 89, 149, 0.5), 0 0 60px rgba(52, 89, 149, 0.15); }
+}
+
+/* ===== GOLD MODE — page-wide color scheme ===== */
+
+#calculator-app.gold-mode .params-title {
+    color: #6d5514;
+}
+
+#calculator-app.gold-mode .param-value,
+#calculator-app.gold-mode .level-value {
+    color: #6d5514;
+}
+
+#calculator-app.gold-mode .level-label small {
+    color: #8B6914;
+}
+
+#calculator-app.gold-mode .breakdown-row .val {
+    color: #6d5514;
+}
+
+#calculator-app.gold-mode .calc-params,
+#calculator-app.gold-mode .calc-results,
+#calculator-app.gold-mode .calc-chart {
+    border: 2px solid rgba(139, 105, 20, 0.3);
+    box-shadow: 0 4px 16px rgba(139, 105, 20, 0.12);
+}
+
+#calculator-app.gold-mode .ref-table {
+    border: 1px solid rgba(139, 105, 20, 0.15);
+}
+
+#calculator-app.gold-mode .ref-table tr.highlight {
+    background: #f5e6a3;
+}
+
+#calculator-app.gold-mode .ref-table tr.highlight td {
+    color: #322620;
+}
+
+#calculator-app.gold-mode .ref-table td:last-child {
+    color: #6d5514;
+}
+
+/* Gold mode slider tracks */
+#calculator-app.gold-mode input[type="range"] {
+    accent-color: #8B6914;
+}
+
+#calculator-app.gold-mode input[type="range"]::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #d4a017, #8B6914);
+    border-radius: 3px;
+}
+
+#calculator-app.gold-mode input[type="range"]::-moz-range-track {
+    background: linear-gradient(to right, #d4a017, #8B6914);
+    border-radius: 3px;
+}
+
+#calculator-app.gold-mode input[type="range"]::-webkit-slider-thumb {
+    background: #6d5514;
+    border: 2px solid #f5e6a3;
+}
+
+#calculator-app.gold-mode input[type="range"]::-moz-range-thumb {
+    background: #6d5514;
+    border: 2px solid #f5e6a3;
+}
+
 @media (max-width: 1024px) {
     .calc-grid-compact {
         grid-template-columns: 1fr 1fr;
     }
-    
+
     .calc-chart {
         grid-column: span 2;
         height: 180px;
@@ -398,161 +559,168 @@
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    
+
     .calc-params {
         padding: 0.75rem;
     }
-    
+
     .params-title {
         font-size: 0.85rem;
         margin-bottom: 0.5rem;
     }
-    
+
     .params-grid {
         gap: 0.5rem;
     }
-    
-    /* Компактные параметры - лейбл сверху */
+
     .param-row {
         grid-template-columns: 1fr;
         gap: 0.25rem;
     }
-    
+
     .param-row label {
         font-size: 0.75rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    
+
     .param-control {
         gap: 0.35rem;
     }
-    
+
     .param-value {
         min-width: 40px;
         font-size: 0.8rem;
     }
-    
-    /* Уровни команды ещё компактнее */
+
     .levels-grid {
         gap: 0.35rem;
     }
-    
+
     .level-row {
-        grid-template-columns: 55px 1fr 45px;
+        grid-template-columns: 55px 1fr 55px;
         gap: 0.35rem;
     }
-    
+
     .level-label {
         font-size: 0.7rem;
     }
-    
+
     .level-value {
-        min-width: 40px;
+        min-width: 50px;
         font-size: 0.75rem;
     }
-    
-    /* Результаты */
+
     .calc-results {
         padding: 0.75rem;
     }
-    
+
     .total-box {
         padding: 0.75rem;
         margin-bottom: 0.75rem;
     }
-    
+
     .total-value {
         font-size: 1.75rem;
     }
-    
+
+    .total-box.state-gold .total-value {
+        font-size: 1.85rem;
+    }
+
+    .total-box.state-blue .total-value {
+        font-size: 1.95rem;
+    }
+
     .total-label,
     .total-sub {
         font-size: 0.7rem;
     }
-    
+
     .rank-badge {
         font-size: 0.7rem;
         padding: 0.2rem 0.5rem;
     }
-    
+
+    .gold-badge {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.5rem;
+    }
+
     .breakdown-compact {
         gap: 0.35rem;
     }
-    
+
     .breakdown-row {
         font-size: 0.75rem;
         padding: 0.3rem 0;
         gap: 0.3rem;
     }
-    
+
     .breakdown-row .pct {
         font-size: 0.65rem;
         padding: 0.1rem 0.3rem;
     }
-    
+
     .breakdown-row .val {
         min-width: 40px;
         font-size: 0.75rem;
     }
-    
-    /* График компактнее */
+
     .calc-chart {
         grid-column: auto;
         padding: 0.5rem;
         min-height: 180px;
     }
-    
-    /* Справочные таблицы */
+
     .quick-ref {
         grid-template-columns: 1fr;
         gap: 0.75rem;
         margin-top: 1rem;
     }
-    
+
     .ref-table {
         padding: 0.5rem;
     }
-    
+
     .ref-table h4 {
         font-size: 0.75rem;
         margin-bottom: 0.35rem;
     }
-    
+
     .ref-table table {
         font-size: 0.7rem;
     }
-    
+
     .ref-table td {
         padding: 0.2rem 0;
     }
 }
 
 @media (max-width: 380px) {
-    /* Ещё более компактный режим для маленьких экранов */
     .param-row label {
         font-size: 0.7rem;
     }
-    
+
     .param-value {
         min-width: 35px;
         font-size: 0.75rem;
     }
-    
+
     .level-row {
-        grid-template-columns: 50px 1fr 40px;
+        grid-template-columns: 50px 1fr 50px;
     }
-    
+
     .level-label {
         font-size: 0.65rem;
     }
-    
+
     .level-value {
-        min-width: 35px;
+        min-width: 45px;
         font-size: 0.7rem;
     }
-    
+
     .total-value {
         font-size: 1.5rem;
     }

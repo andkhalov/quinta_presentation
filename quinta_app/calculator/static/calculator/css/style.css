@@ -24,6 +24,11 @@
     --blue-dark: #1f3d6d;
     --red-dark: #9c1e2b;
     --orange-dark: #c16a1c;
+
+    /* Gold variants */
+    --gold: #d4a017;
+    --gold-light: #f5e6a3;
+    --gold-dark: #b8860b;
     
     /* Semantic colors */
     --primary: #17b22a;

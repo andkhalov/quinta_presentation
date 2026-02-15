@@ -403,7 +403,7 @@ class QuintaCalculator {
         if (!ctx) return;
 
         const colors = this.goldMode
-            ? ['#8B6914', '#6d5514', '#f0994a', '#e63946']
+            ? ['#00838F', '#006B78', '#f0994a', '#e63946']
             : ['#17b22a', '#345995', '#f0994a', '#e63946'];
 
         const data = [

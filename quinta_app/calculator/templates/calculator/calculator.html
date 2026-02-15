@@ -428,13 +428,13 @@
     border-color: transparent;
 }
 
-/* Gold: dark gold gradient for white text contrast */
+/* Turquoise: bright teal gradient for 280+ PV */
 .total-box.state-gold {
-    background: linear-gradient(135deg, #8B6914, #5C440D);
+    background: linear-gradient(135deg, #00838F, #004D56);
     color: #fff;
-    box-shadow: 0 8px 32px rgba(139, 105, 20, 0.4);
-    border-color: rgba(212, 160, 23, 0.4);
-    animation: glowGold 3s ease-in-out infinite;
+    box-shadow: 0 8px 32px rgba(0, 131, 143, 0.4);
+    border-color: rgba(0, 172, 193, 0.4);
+    animation: glowTurquoise 3s ease-in-out infinite;
 }
 
 .total-box.state-gold .total-value {
@@ -466,9 +466,9 @@
     font-weight: 700;
 }
 
-@keyframes glowGold {
-    0%, 100% { box-shadow: 0 8px 32px rgba(139, 105, 20, 0.3); }
-    50% { box-shadow: 0 8px 32px rgba(139, 105, 20, 0.5), 0 0 40px rgba(139, 105, 20, 0.15); }
+@keyframes glowTurquoise {
+    0%, 100% { box-shadow: 0 8px 32px rgba(0, 131, 143, 0.3); }
+    50% { box-shadow: 0 8px 32px rgba(0, 131, 143, 0.5), 0 0 40px rgba(0, 131, 143, 0.15); }
 }
 
 @keyframes glowBlue {
@@ -476,38 +476,38 @@
     50% { box-shadow: 0 8px 32px rgba(52, 89, 149, 0.5), 0 0 60px rgba(52, 89, 149, 0.15); }
 }
 
-/* ===== GOLD MODE — page-wide color scheme ===== */
+/* ===== TURQUOISE MODE — page-wide color scheme for 280+ PV ===== */
 
 #calculator-app.gold-mode .params-title {
-    color: #6d5514;
+    color: #006B78;
 }
 
 #calculator-app.gold-mode .param-value,
 #calculator-app.gold-mode .level-value {
-    color: #6d5514;
+    color: #006B78;
 }
 
 #calculator-app.gold-mode .level-label small {
-    color: #8B6914;
+    color: #00838F;
 }
 
 #calculator-app.gold-mode .breakdown-row .val {
-    color: #6d5514;
+    color: #006B78;
 }
 
 #calculator-app.gold-mode .calc-params,
 #calculator-app.gold-mode .calc-results,
 #calculator-app.gold-mode .calc-chart {
-    border: 2px solid rgba(139, 105, 20, 0.3);
-    box-shadow: 0 4px 16px rgba(139, 105, 20, 0.12);
+    border: 2px solid rgba(0, 131, 143, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 131, 143, 0.12);
 }
 
 #calculator-app.gold-mode .ref-table {
-    border: 1px solid rgba(139, 105, 20, 0.15);
+    border: 1px solid rgba(0, 131, 143, 0.15);
 }
 
 #calculator-app.gold-mode .ref-table tr.highlight {
-    background: #f5e6a3;
+    background: #B2EBF2;
 }
 
 #calculator-app.gold-mode .ref-table tr.highlight td {
@@ -515,32 +515,32 @@
 }
 
 #calculator-app.gold-mode .ref-table td:last-child {
-    color: #6d5514;
+    color: #006B78;
 }
 
-/* Gold mode slider tracks */
+/* Turquoise mode slider tracks */
 #calculator-app.gold-mode input[type="range"] {
-    accent-color: #8B6914;
+    accent-color: #00838F;
 }
 
 #calculator-app.gold-mode input[type="range"]::-webkit-slider-runnable-track {
-    background: linear-gradient(to right, #d4a017, #8B6914);
+    background: linear-gradient(to right, #26C6DA, #00838F);
     border-radius: 3px;
 }
 
 #calculator-app.gold-mode input[type="range"]::-moz-range-track {
-    background: linear-gradient(to right, #d4a017, #8B6914);
+    background: linear-gradient(to right, #26C6DA, #00838F);
     border-radius: 3px;
 }
 
 #calculator-app.gold-mode input[type="range"]::-webkit-slider-thumb {
-    background: #6d5514;
-    border: 2px solid #f5e6a3;
+    background: #006B78;
+    border: 2px solid #B2EBF2;
 }
 
 #calculator-app.gold-mode input[type="range"]::-moz-range-thumb {
-    background: #6d5514;
-    border: 2px solid #f5e6a3;
+    background: #006B78;
+    border: 2px solid #B2EBF2;
 }
 
 @media (max-width: 1024px) {

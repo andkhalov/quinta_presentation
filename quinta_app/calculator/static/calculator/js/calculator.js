@@ -8,15 +8,15 @@ const MARKETING_DATA = {
         'Novus': { ltPv: 35, otPv: 0, tPv: 0, ktPv: null, icon: '🌱', name_ru: 'Новус', reward: null },
         'Inceptor': { ltPv: 35, otPv: 1050, tPv: 0, ktPv: null, icon: '🌿', name_ru: 'Инцептор', reward: null },
         'Cognitor': { ltPv: 35, otPv: 3000, tPv: 0, ktPv: null, icon: '🌲', name_ru: 'Когнитор', reward: null },
-        'Doctus': { ltPv: 70, otPv: 10000, tPv: 2500, ktPv: null, icon: '⭐', name_ru: 'Доктус', reward: '500€ подарок' },
-        'Primum': { ltPv: 70, otPv: 10000, tPv: 5000, ktPv: 1500, icon: '✨', name_ru: 'Примум', reward: '2000€ подарок' },
-        'Dux': { ltPv: 70, otPv: 10000, tPv: 11000, ktPv: 1350, icon: '💎', name_ru: 'Дукс', reward: '1000€ / месяц', minPrimum: 1 },
-        'Provectus': { ltPv: 70, otPv: 10000, tPv: 23000, ktPv: 1200, icon: '👑', name_ru: 'Провектус', reward: '2000€ / месяц', minPrimum: 1, minDoctus: 2 },
-        'Grandis': { ltPv: 70, otPv: 10000, tPv: 45000, ktPv: 1100, icon: '🏆', name_ru: 'Грандис', reward: 'Авто / 3500€ мес.', minDux: 1, minPrimum: 1, minDoctus: 2 },
-        'Oraculi': { ltPv: 70, otPv: 10000, tPv: 90000, ktPv: 1100, icon: '🌟', name_ru: 'Оракули', reward: null, minProvectus: 1, minDux: 1, minPrimum: 2 },
-        'Sapiens': { ltPv: 70, otPv: 10000, tPv: 150000, ktPv: 1000, icon: '💫', name_ru: 'Сапиенс', reward: 'Авто премиум', minGrandis: 1, minProvectus: 2, minDux: 2 },
-        'Superator': { ltPv: 70, otPv: 10000, tPv: 280000, ktPv: 1000, icon: '🔮', name_ru: 'Суператор', reward: null, minGrandis: 2, minProvectus: 2 },
-        'Principal': { ltPv: 70, otPv: 10000, tPv: 500000, ktPv: 800, icon: '👸', name_ru: 'Принципал', reward: '3% от оборота', minGrandis: 6 }
+        'Doctus': { ltPv: 70, otPv: 10000, tPv: 2500, ktPv: null, icon: '⭐', name_ru: 'Доктус', reward: '500£ промо' },
+        'Primum': { ltPv: 70, otPv: 10000, tPv: 5000, ktPv: 1500, icon: '✨', name_ru: 'Примум', reward: '100 PV (2 мес подряд)' },
+        'Dux': { ltPv: 70, otPv: 10000, tPv: 11000, ktPv: 1350, icon: '💎', name_ru: 'Дукс', reward: '300 PV (2 мес подряд)', minPrimum: 1 },
+        'Provectus': { ltPv: 70, otPv: 10000, tPv: 23000, ktPv: 1200, icon: '👑', name_ru: 'Провектус', reward: '1 200 PV (2 мес подряд)', minPrimum: 1, minDoctus: 2 },
+        'Grandis': { ltPv: 70, otPv: 10000, tPv: 45000, ktPv: 1100, icon: '🏆', name_ru: 'Грандис', reward: '2 500 PV (2 мес подряд)', minDux: 1, minPrimum: 1, minDoctus: 2 },
+        'Oraculi': { ltPv: 70, otPv: 10000, tPv: 90000, ktPv: 1100, icon: '🌟', name_ru: 'Оракули', reward: 'VIP поездка на двоих (3 из 5 мес)', minProvectus: 1, minDux: 1, minPrimum: 2 },
+        'Sapiens': { ltPv: 70, otPv: 10000, tPv: 150000, ktPv: 1000, icon: '💫', name_ru: 'Сапиенс', reward: 'Часы Rolex/Omega (3 из 5 мес)', minGrandis: 1, minProvectus: 2, minDux: 2 },
+        'Superator': { ltPv: 70, otPv: 10000, tPv: 280000, ktPv: 1000, icon: '🔮', name_ru: 'Суператор', reward: 'Престижное авто (6 из 9 мес)', minGrandis: 2, minProvectus: 2 },
+        'Principal': { ltPv: 70, otPv: 10000, tPv: 500000, ktPv: 800, icon: '👸', name_ru: 'Принципал', reward: 'Недвижимость (6 из 9 мес)', minGrandis: 6 }
     },
 
     cashback: {

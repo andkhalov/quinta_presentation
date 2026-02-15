@@ -98,6 +98,16 @@ def charts(request):
     return render(request, 'calculator/charts.html', context)
 
 
+def calculator_v2(request):
+    """Калькулятор v2 — Doctus-ориентированный"""
+    context = {
+        'ranks': mm.RANKS,
+        'team_bonus': mm.TEAM_BONUS,
+        'pv_to_eur': mm.PV_TO_EUR,
+    }
+    return render(request, 'calculator/calculator_v2.html', context)
+
+
 def presentation(request):
     """Презентация для спикеров"""
     context = {

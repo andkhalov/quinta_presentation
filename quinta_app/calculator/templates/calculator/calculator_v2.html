@@ -1,0 +1,1482 @@
+{% extends 'calculator/base.html' %}
+{% load static %}
+
+{% block title %}Калькулятор 2 — Доход с Doctus{% endblock %}
+
+{% block extra_head %}
+<style>
+/* ===== CALCULATOR V2 — DOCTUS-CENTRIC ===== */
+
+.cv2-page {
+    background: var(--bg-light);
+}
+
+/* Module container */
+.cv2-module {
+    padding: 1.75rem 0;
+    position: relative;
+}
+
+.cv2-module:nth-child(even) {
+    background: white;
+}
+
+.cv2-module .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.cv2-module-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background: var(--green);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.cv2-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--brand-dark);
+    margin: 0 0 0.3rem;
+    line-height: 1.3;
+}
+
+.cv2-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin: 0 0 1.25rem;
+    line-height: 1.4;
+}
+
+/* ===== HERO / MODULE 1 ===== */
+.cv2-hero {
+    background: linear-gradient(135deg, #0a2e1a 0%, #145a32 50%, #1a7a42 100%);
+    padding: 2rem 0;
+    text-align: center;
+    color: white;
+}
+
+.cv2-hero .cv2-title {
+    color: white;
+    font-size: 1.5rem;
+}
+
+.cv2-hero .cv2-subtitle {
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 1.5rem;
+}
+
+.cv2-units {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.cv2-unit-card {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 0.85rem 0.75rem;
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.cv2-unit-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.cv2-unit-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.cv2-unit-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.35rem;
+}
+
+.cv2-unit-value {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #4ade80;
+}
+
+.cv2-unit-desc {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: 0.2rem;
+}
+
+/* Doctus input */
+.cv2-doctus-input {
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 14px;
+    padding: 1.25rem;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.cv2-input-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.cv2-big-number {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #4ade80;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+    transition: all 0.3s;
+}
+
+.cv2-big-label {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.75rem;
+}
+
+.cv2-slider-wrap {
+    position: relative;
+    padding: 0 0.5rem;
+}
+
+.cv2-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.cv2-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    background: #4ade80;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+}
+
+.cv2-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.cv2-slider::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    background: #4ade80;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* Result cards */
+.cv2-results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.cv2-result-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 0.85rem;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.cv2-result-card:hover {
+    transform: translateY(-2px);
+}
+
+.cv2-result-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+}
+
+.cv2-result-label {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.35rem;
+}
+
+.cv2-result-value {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #4ade80;
+}
+
+.cv2-result-sub {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.2rem;
+}
+
+/* ===== MODULE 2: SCALE ===== */
+.cv2-scale-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.cv2-scale-card {
+    background: white;
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    padding: 1rem 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.cv2-scale-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--green);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.cv2-scale-card:hover,
+.cv2-scale-card.active {
+    border-color: var(--green);
+    box-shadow: 0 4px 20px rgba(23, 178, 42, 0.15);
+    transform: translateY(-2px);
+}
+
+.cv2-scale-card.active::before {
+    transform: scaleX(1);
+}
+
+.cv2-scale-doctus {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--green-dark);
+    line-height: 1;
+}
+
+.cv2-scale-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin: 0.15rem 0 0.6rem;
+}
+
+.cv2-scale-turnover {
+    font-size: 0.85rem;
+    color: var(--text-medium);
+    margin-bottom: 0.75rem;
+}
+
+.cv2-scale-turnover strong {
+    color: var(--brand-dark);
+    font-weight: 700;
+}
+
+.cv2-scale-income {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--green);
+}
+
+.cv2-scale-income-annual {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+/* Custom slider module 2 */
+.cv2-scale-slider-wrap {
+    max-width: 600px;
+    margin: 1.25rem auto 0;
+    text-align: center;
+}
+
+.cv2-scale-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(to right, var(--green-light), var(--green), var(--green-dark));
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.cv2-scale-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: var(--green-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.cv2-scale-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: var(--green-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.cv2-scale-display {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    border-radius: 14px;
+    color: white;
+    text-align: center;
+}
+
+.cv2-scale-display-number {
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+.cv2-scale-display-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* ===== MODULE 3: RANKS ===== */
+.cv2-ranks-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.cv2-rank-card {
+    background: white;
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    padding: 1rem 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cv2-rank-card:hover,
+.cv2-rank-card.active {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.cv2-rank-card.active {
+    border-color: var(--green);
+}
+
+.cv2-rank-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+}
+
+.cv2-rank-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    margin-bottom: 0.4rem;
+}
+
+.cv2-rank-income {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--green);
+    line-height: 1.3;
+}
+
+.cv2-rank-income-range {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.cv2-rank-detail {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--bg-light);
+    border-radius: 12px;
+    display: none;
+}
+
+.cv2-rank-detail.visible {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cv2-rank-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    text-align: center;
+}
+
+.cv2-rank-detail-item strong {
+    display: block;
+    font-size: 1.2rem;
+    color: var(--green-dark);
+}
+
+.cv2-rank-detail-item span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ===== MODULE 4: STRUCTURE ===== */
+.cv2-structure-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+}
+
+.cv2-struct-input {
+    text-align: center;
+}
+
+.cv2-struct-input label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+}
+
+.cv2-struct-big {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--green-dark);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.cv2-struct-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(to right, #e0e0e0, var(--green));
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+}
+
+.cv2-struct-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: var(--green-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.cv2-struct-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: var(--green-dark);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.cv2-structure-result {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.cv2-struct-result-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem 0.75rem;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid var(--border-light);
+}
+
+.cv2-struct-result-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.cv2-struct-result-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--green-dark);
+}
+
+.cv2-struct-result-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+/* Leverage explanation */
+.cv2-leverage {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(23,178,42,0.05), rgba(23,178,42,0.12));
+    border-radius: 10px;
+    border-left: 4px solid var(--green);
+    text-align: center;
+}
+
+.cv2-leverage p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-medium);
+}
+
+.cv2-leverage strong {
+    color: var(--green-dark);
+}
+
+/* ===== MODULE 5: GROWTH CHART ===== */
+.cv2-chart-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.cv2-growth-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1.25rem;
+    height: 220px;
+    padding: 0 1rem;
+}
+
+.cv2-growth-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    max-width: 120px;
+}
+
+.cv2-growth-value {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--green-dark);
+    margin-bottom: 0.4rem;
+    white-space: nowrap;
+}
+
+.cv2-growth-fill {
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    min-height: 20px;
+}
+
+.cv2-growth-fill.bar-1 { background: linear-gradient(to top, #86efac, #22c55e); }
+.cv2-growth-fill.bar-2 { background: linear-gradient(to top, #4ade80, #16a34a); }
+.cv2-growth-fill.bar-3 { background: linear-gradient(to top, #22c55e, #15803d); }
+.cv2-growth-fill.bar-4 { background: linear-gradient(to top, #16a34a, #166534); }
+
+.cv2-growth-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+
+.cv2-growth-note {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+/* ===== MODULE 6: PRODUCT SETS ===== */
+.cv2-product-input {
+    text-align: center;
+    max-width: 450px;
+    margin: 0 auto 1.25rem;
+}
+
+.cv2-product-input label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-bottom: 0.75rem;
+}
+
+.cv2-product-big {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--green-dark);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+}
+
+.cv2-product-sublabel {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.cv2-product-results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cv2-product-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem 0.75rem;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid var(--border-light);
+}
+
+.cv2-product-card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.cv2-product-card-value {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--green-dark);
+}
+
+.cv2-product-card-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+}
+
+/* ===== MODULE 7: KEY SCREEN ===== */
+.cv2-key-screen {
+    background: linear-gradient(135deg, #0a2e1a 0%, #145a32 50%, #1a7a42 100%);
+    padding: 2.5rem 0;
+    text-align: center;
+    color: white;
+}
+
+.cv2-key-lines {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cv2-key-line {
+    margin-bottom: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    animation: fadeInUp 0.6s ease both;
+}
+
+.cv2-key-line:last-child {
+    border-bottom: none;
+}
+
+.cv2-key-line:nth-child(1) { animation-delay: 0.1s; }
+.cv2-key-line:nth-child(2) { animation-delay: 0.3s; }
+.cv2-key-line:nth-child(3) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cv2-key-doctus {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.5rem;
+}
+
+.cv2-key-amount {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #4ade80;
+}
+
+.cv2-key-period {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+}
+
+.cv2-key-tagline {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    font-style: italic;
+}
+
+.cv2-key-tagline strong {
+    color: #4ade80;
+}
+
+/* CTA */
+.cv2-cta {
+    text-align: center;
+    padding: 1.5rem 0 0.5rem;
+}
+
+.cv2-cta .btn {
+    font-size: 1rem;
+    padding: 0.85rem 2rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .cv2-module {
+        padding: 1.5rem 0;
+    }
+
+    .cv2-hero {
+        padding: 1.75rem 0;
+    }
+
+    .cv2-title {
+        font-size: 1.2rem;
+    }
+
+    .cv2-hero .cv2-title {
+        font-size: 1.3rem;
+    }
+
+    .cv2-units {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .cv2-unit-card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0 0.75rem;
+        text-align: left;
+        padding: 0.75rem;
+    }
+
+    .cv2-unit-icon {
+        grid-row: span 3;
+        align-self: center;
+        font-size: 1.5rem;
+        margin-bottom: 0;
+    }
+
+    .cv2-big-number {
+        font-size: 2.8rem;
+    }
+
+    .cv2-doctus-input {
+        padding: 1rem;
+    }
+
+    .cv2-results {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .cv2-result-card {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        text-align: left;
+        padding: 0.75rem;
+        gap: 0 0.5rem;
+    }
+
+    .cv2-result-icon {
+        margin-bottom: 0;
+    }
+
+    .cv2-result-value {
+        text-align: right;
+    }
+
+    .cv2-result-sub {
+        grid-column: 3;
+        text-align: right;
+    }
+
+    .cv2-scale-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cv2-scale-doctus {
+        font-size: 1.5rem;
+    }
+
+    .cv2-ranks-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cv2-rank-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .cv2-structure-inputs {
+        gap: 1rem;
+    }
+
+    .cv2-struct-big {
+        font-size: 2rem;
+    }
+
+    .cv2-structure-result {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .cv2-growth-bars {
+        height: 180px;
+        gap: 0.75rem;
+    }
+
+    .cv2-growth-value {
+        font-size: 0.8rem;
+    }
+
+    .cv2-product-big {
+        font-size: 2.2rem;
+    }
+
+    .cv2-product-results {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .cv2-key-amount {
+        font-size: 1.5rem;
+    }
+
+    .cv2-key-doctus {
+        font-size: 0.9rem;
+    }
+
+    .cv2-scale-display-number {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .cv2-big-number {
+        font-size: 2.2rem;
+    }
+
+    .cv2-scale-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .cv2-scale-doctus {
+        font-size: 1.3rem;
+    }
+
+    .cv2-ranks-grid {
+        gap: 0.5rem;
+    }
+
+    .cv2-rank-icon {
+        font-size: 1.5rem;
+    }
+
+    .cv2-rank-income {
+        font-size: 0.95rem;
+    }
+
+    .cv2-key-amount {
+        font-size: 1.3rem;
+    }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="cv2-page">
+
+<!-- ===== MODULE 1: HERO + INCOME FROM 1 DOCTUS ===== -->
+<section class="cv2-hero" id="module1">
+    <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 1.5rem;">
+
+        <div class="cv2-title">Сколько приносит один лидер?</div>
+        <div class="cv2-subtitle">Калькулятор построен вокруг трёх базовых единиц</div>
+
+        <div class="cv2-units">
+            <div class="cv2-unit-card">
+                <div class="cv2-unit-icon">📦</div>
+                <div class="cv2-unit-name">Комплект продукта</div>
+                <div class="cv2-unit-value">280 PV = 280 €</div>
+                <div class="cv2-unit-desc">Базовая единица оборота</div>
+            </div>
+            <div class="cv2-unit-card">
+                <div class="cv2-unit-icon">⭐</div>
+                <div class="cv2-unit-name">Один Doctus</div>
+                <div class="cv2-unit-value">~10 000 PV</div>
+                <div class="cv2-unit-desc">~35 человек в структуре</div>
+            </div>
+            <div class="cv2-unit-card">
+                <div class="cv2-unit-icon">🌳</div>
+                <div class="cv2-unit-name">Лидерская ветка</div>
+                <div class="cv2-unit-value">10K → 100K €</div>
+                <div class="cv2-unit-desc">Doctus + рост структуры</div>
+            </div>
+        </div>
+
+        <!-- Doctus counter -->
+        <div class="cv2-doctus-input">
+            <span class="cv2-input-label">Количество Doctus-партнёров:</span>
+            <div class="cv2-big-number" id="m1-doctus-count">1</div>
+            <div class="cv2-big-label">Doctus</div>
+            <div class="cv2-slider-wrap">
+                <input type="range" class="cv2-slider" id="m1-slider" min="1" max="20" value="1" step="1">
+            </div>
+        </div>
+
+        <div class="cv2-results" id="m1-results">
+            <div class="cv2-result-card">
+                <div class="cv2-result-icon">📊</div>
+                <div class="cv2-result-label">Оборот ветки</div>
+                <div class="cv2-result-value" id="m1-turnover">10 000 €</div>
+                <div class="cv2-result-sub">ежемесячно</div>
+            </div>
+            <div class="cv2-result-card">
+                <div class="cv2-result-icon">💰</div>
+                <div class="cv2-result-label">Ваш доход</div>
+                <div class="cv2-result-value" id="m1-income-month">250 — 750 €</div>
+                <div class="cv2-result-sub">ежемесячно</div>
+            </div>
+            <div class="cv2-result-card">
+                <div class="cv2-result-icon">📅</div>
+                <div class="cv2-result-label">Ваш доход</div>
+                <div class="cv2-result-value" id="m1-income-year">3 000 — 9 000 €</div>
+                <div class="cv2-result-sub">ежегодно</div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== MODULE 2: SCALE — MULTIPLE DOCTUS ===== -->
+<section class="cv2-module" id="module2">
+    <div class="container">
+        <div class="cv2-module-number">2</div>
+        <div class="cv2-title">Масштабируемость дохода</div>
+        <div class="cv2-subtitle">Больше Doctus-партнёров — больше доход. Линейный рост, предсказуемый результат.</div>
+
+        <div class="cv2-scale-grid" id="m2-grid">
+            <!-- filled by JS -->
+        </div>
+
+        <div class="cv2-scale-slider-wrap">
+            <input type="range" class="cv2-scale-slider" id="m2-slider" min="1" max="30" value="5" step="1">
+            <div class="cv2-scale-display">
+                <div class="cv2-scale-display-label">Doctus-партнёров</div>
+                <div class="cv2-scale-display-number" id="m2-display-count">5</div>
+                <div style="margin-top: 0.5rem; font-size: 1.3rem; font-weight: 800;" id="m2-display-income">1 250 — 3 750 €/мес</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== MODULE 3: INCOME BY RANKS ===== -->
+<section class="cv2-module" id="module3">
+    <div class="container">
+        <div class="cv2-module-number">3</div>
+        <div class="cv2-title">Доход по рангам</div>
+        <div class="cv2-subtitle">Типичный диапазон ежемесячного дохода для каждого ранга</div>
+
+        <div class="cv2-ranks-grid">
+            <div class="cv2-rank-card" data-rank="doctus" onclick="selectRank(this)">
+                <div class="cv2-rank-icon">📚</div>
+                <div class="cv2-rank-name">Doctus</div>
+                <div class="cv2-rank-income">1 000 — 2 000 €</div>
+                <div class="cv2-rank-income-range">ежемесячно</div>
+            </div>
+            <div class="cv2-rank-card" data-rank="primum" onclick="selectRank(this)">
+                <div class="cv2-rank-icon">⭐</div>
+                <div class="cv2-rank-name">Primum</div>
+                <div class="cv2-rank-income">2 000 — 10 000 €</div>
+                <div class="cv2-rank-income-range">ежемесячно</div>
+            </div>
+            <div class="cv2-rank-card" data-rank="dux" onclick="selectRank(this)">
+                <div class="cv2-rank-icon">🏅</div>
+                <div class="cv2-rank-name">Dux</div>
+                <div class="cv2-rank-income">5 000 — 25 000 €</div>
+                <div class="cv2-rank-income-range">ежемесячно</div>
+            </div>
+            <div class="cv2-rank-card" data-rank="grandis" onclick="selectRank(this)">
+                <div class="cv2-rank-icon">👑</div>
+                <div class="cv2-rank-name">Grandis</div>
+                <div class="cv2-rank-income">15 000 — 75 000 €</div>
+                <div class="cv2-rank-income-range">ежемесячно</div>
+            </div>
+        </div>
+
+        <div class="cv2-rank-detail" id="rank-detail">
+            <div class="cv2-rank-detail-grid" id="rank-detail-grid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== MODULE 4: STRUCTURE BUILDER ===== -->
+<section class="cv2-module" id="module4">
+    <div class="container">
+        <div class="cv2-module-number">4</div>
+        <div class="cv2-title">Построение структуры</div>
+        <div class="cv2-subtitle">Сколько лично приглашённых партнёров и сколько Doctus вырастет из каждого</div>
+
+        <div class="cv2-structure-inputs">
+            <div class="cv2-struct-input">
+                <label>Лично приглашённых</label>
+                <div class="cv2-struct-big" id="m4-invited">5</div>
+                <input type="range" class="cv2-struct-slider" id="m4-invited-slider" min="1" max="20" value="5" step="1">
+            </div>
+            <div class="cv2-struct-input">
+                <label>Doctus из каждого</label>
+                <div class="cv2-struct-big" id="m4-doctus-each">2</div>
+                <input type="range" class="cv2-struct-slider" id="m4-doctus-slider" min="1" max="10" value="2" step="1">
+            </div>
+        </div>
+
+        <div class="cv2-structure-result">
+            <div class="cv2-struct-result-card">
+                <div class="cv2-struct-result-icon">⭐</div>
+                <div class="cv2-struct-result-value" id="m4-total-doctus">10</div>
+                <div class="cv2-struct-result-label">всего Doctus</div>
+            </div>
+            <div class="cv2-struct-result-card">
+                <div class="cv2-struct-result-icon">📊</div>
+                <div class="cv2-struct-result-value" id="m4-turnover">100 000 €</div>
+                <div class="cv2-struct-result-label">оборот сети</div>
+            </div>
+            <div class="cv2-struct-result-card">
+                <div class="cv2-struct-result-icon">💰</div>
+                <div class="cv2-struct-result-value" id="m4-income">2 500 — 7 500 €</div>
+                <div class="cv2-struct-result-label">ваш доход / мес</div>
+            </div>
+        </div>
+
+        <div class="cv2-leverage" id="m4-leverage">
+            <p>Вы приглашаете <strong id="m4-lev-invited">5</strong> человек. Каждый выращивает <strong id="m4-lev-doctus">2</strong> Doctus. Итого <strong id="m4-lev-total">10</strong> Doctus работают на вас. Это leverage.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== MODULE 5: GROWTH VISUALIZATION ===== -->
+<section class="cv2-module" id="module5">
+    <div class="container">
+        <div class="cv2-module-number">5</div>
+        <div class="cv2-title">Визуализация роста дохода</div>
+        <div class="cv2-subtitle">Как растёт ваш доход по мере развития структуры</div>
+
+        <div class="cv2-chart-wrap">
+            <div class="cv2-growth-bars" id="m5-bars">
+                <div class="cv2-growth-bar">
+                    <div class="cv2-growth-value">500 €</div>
+                    <div class="cv2-growth-fill bar-1" style="height: 2%;"></div>
+                    <div class="cv2-growth-label">Месяц 1</div>
+                </div>
+                <div class="cv2-growth-bar">
+                    <div class="cv2-growth-value">3 000 €</div>
+                    <div class="cv2-growth-fill bar-2" style="height: 12%;"></div>
+                    <div class="cv2-growth-label">Месяц 6</div>
+                </div>
+                <div class="cv2-growth-bar">
+                    <div class="cv2-growth-value">10 000 €</div>
+                    <div class="cv2-growth-fill bar-3" style="height: 40%;"></div>
+                    <div class="cv2-growth-label">Месяц 12</div>
+                </div>
+                <div class="cv2-growth-bar">
+                    <div class="cv2-growth-value">25 000 €</div>
+                    <div class="cv2-growth-fill bar-4" style="height: 100%;"></div>
+                    <div class="cv2-growth-label">Месяц 24</div>
+                </div>
+            </div>
+            <div class="cv2-growth-note">
+                * Средний сценарий при систематической работе по построению команды
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== MODULE 6: PRODUCT SETS ===== -->
+<section class="cv2-module" id="module6">
+    <div class="container">
+        <div class="cv2-module-number">6</div>
+        <div class="cv2-title">Доход с комплектов продукта</div>
+        <div class="cv2-subtitle">Сколько комплектов (280 PV = 280 €) продаётся в вашей сети</div>
+
+        <div class="cv2-product-input">
+            <label>Комплектов продаётся в сети:</label>
+            <div class="cv2-product-big" id="m6-sets">1 000</div>
+            <div class="cv2-product-sublabel">комплектов по 280 €</div>
+            <input type="range" class="cv2-struct-slider" id="m6-slider" min="100" max="5000" value="1000" step="100">
+        </div>
+
+        <div class="cv2-product-results">
+            <div class="cv2-product-card">
+                <div class="cv2-product-card-icon">📊</div>
+                <div class="cv2-product-card-value" id="m6-turnover">280 000 €</div>
+                <div class="cv2-product-card-label">оборот сети</div>
+            </div>
+            <div class="cv2-product-card">
+                <div class="cv2-product-card-icon">💸</div>
+                <div class="cv2-product-card-value" id="m6-payout">до 154 000 €</div>
+                <div class="cv2-product-card-label">выплаты сети (до 55%)</div>
+            </div>
+            <div class="cv2-product-card">
+                <div class="cv2-product-card-icon">💰</div>
+                <div class="cv2-product-card-value" id="m6-your">зависит от позиции</div>
+                <div class="cv2-product-card-label">ваш потенциальный доход</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== MODULE 7: KEY PSYCHOLOGICAL SCREEN ===== -->
+<section class="cv2-key-screen" id="module7">
+    <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 1.5rem;">
+        <div class="cv2-title" style="color: white; font-size: 1.35rem; margin-bottom: 1.5rem;">Математика Quinta Essentia</div>
+
+        <div class="cv2-key-lines">
+            <div class="cv2-key-line">
+                <div class="cv2-key-doctus">1 Doctus приносит вам</div>
+                <div class="cv2-key-amount">до 750 € / мес</div>
+            </div>
+            <div class="cv2-key-line">
+                <div class="cv2-key-doctus">10 Doctus приносят вам</div>
+                <div class="cv2-key-amount">до 7 500 € / мес</div>
+            </div>
+            <div class="cv2-key-line">
+                <div class="cv2-key-doctus">20 Doctus приносят вам</div>
+                <div class="cv2-key-amount">до 15 000 € / мес</div>
+            </div>
+        </div>
+
+        <div class="cv2-key-tagline">
+            Лидеры думают не процентами, а количеством лидеров.<br>
+            Это <strong>математическая модель Quinta Essentia</strong>.
+        </div>
+
+        <div class="cv2-cta">
+            <a href="{% url 'calculator:calculator' %}" class="btn btn-primary btn-lg" style="background: #4ade80; color: #0a2e1a; border: none; font-weight: 700;">
+                Открыть детальный калькулятор →
+            </a>
+        </div>
+    </div>
+</section>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function() {
+    'use strict';
+
+    // === Constants ===
+    const PV_PER_DOCTUS = 10000;
+    const INCOME_LOW_PER_DOCTUS = 250;  // conservative
+    const INCOME_HIGH_PER_DOCTUS = 750; // optimistic
+    const SET_PV = 280;
+
+    // === Utility ===
+    function fmt(n) {
+        if (n >= 1000000) return (n / 1000000).toFixed(1).replace('.0', '') + ' M';
+        return n.toLocaleString('ru-RU');
+    }
+
+    function fmtEur(n) {
+        return fmt(n) + ' €';
+    }
+
+    function fmtRange(low, high) {
+        return fmt(low) + ' — ' + fmt(high) + ' €';
+    }
+
+    // === MODULE 1: Single Doctus income ===
+    const m1Slider = document.getElementById('m1-slider');
+    const m1Count = document.getElementById('m1-doctus-count');
+    const m1Turnover = document.getElementById('m1-turnover');
+    const m1IncomeMonth = document.getElementById('m1-income-month');
+    const m1IncomeYear = document.getElementById('m1-income-year');
+
+    function updateModule1() {
+        const d = parseInt(m1Slider.value);
+        m1Count.textContent = d;
+
+        const turnover = d * PV_PER_DOCTUS;
+        const incLow = d * INCOME_LOW_PER_DOCTUS;
+        const incHigh = d * INCOME_HIGH_PER_DOCTUS;
+
+        m1Turnover.textContent = fmtEur(turnover);
+        m1IncomeMonth.textContent = fmtRange(incLow, incHigh);
+        m1IncomeYear.textContent = fmtRange(incLow * 12, incHigh * 12);
+    }
+
+    m1Slider.addEventListener('input', updateModule1);
+
+    // === MODULE 2: Scale cards ===
+    const SCALE_PRESETS = [1, 5, 10, 20];
+    const m2Grid = document.getElementById('m2-grid');
+    const m2Slider = document.getElementById('m2-slider');
+    const m2DisplayCount = document.getElementById('m2-display-count');
+    const m2DisplayIncome = document.getElementById('m2-display-income');
+
+    function buildScaleCards() {
+        m2Grid.innerHTML = '';
+        SCALE_PRESETS.forEach(function(d) {
+            const turnover = d * PV_PER_DOCTUS;
+            const incLow = d * INCOME_LOW_PER_DOCTUS;
+            const incHigh = d * INCOME_HIGH_PER_DOCTUS;
+
+            const card = document.createElement('div');
+            card.className = 'cv2-scale-card';
+            card.dataset.doctus = d;
+            card.innerHTML =
+                '<div class="cv2-scale-doctus">' + d + '</div>' +
+                '<div class="cv2-scale-label">Doctus</div>' +
+                '<div class="cv2-scale-turnover">Оборот: <strong>' + fmtEur(turnover) + '</strong></div>' +
+                '<div class="cv2-scale-income">' + fmtRange(incLow, incHigh) + '</div>' +
+                '<div class="cv2-scale-income-annual">' + fmtRange(incLow * 12, incHigh * 12) + ' / год</div>';
+
+            card.addEventListener('click', function() {
+                m2Slider.value = d;
+                updateModule2();
+                highlightScaleCard(d);
+            });
+
+            m2Grid.appendChild(card);
+        });
+        highlightScaleCard(parseInt(m2Slider.value));
+    }
+
+    function highlightScaleCard(d) {
+        document.querySelectorAll('.cv2-scale-card').forEach(function(c) {
+            c.classList.toggle('active', parseInt(c.dataset.doctus) === d);
+        });
+    }
+
+    function updateModule2() {
+        const d = parseInt(m2Slider.value);
+        const incLow = d * INCOME_LOW_PER_DOCTUS;
+        const incHigh = d * INCOME_HIGH_PER_DOCTUS;
+
+        m2DisplayCount.textContent = d;
+        m2DisplayIncome.textContent = fmtRange(incLow, incHigh) + '/мес';
+
+        // Highlight closest preset
+        let closest = SCALE_PRESETS[0];
+        SCALE_PRESETS.forEach(function(p) {
+            if (Math.abs(p - d) < Math.abs(closest - d)) closest = p;
+        });
+        highlightScaleCard(closest);
+    }
+
+    m2Slider.addEventListener('input', updateModule2);
+    buildScaleCards();
+
+    // === MODULE 3: Ranks ===
+    const RANK_DATA = {
+        doctus: {
+            incomeRange: '1 000 — 2 000 €',
+            details: [
+                { label: 'Оборот структуры', value: '~2 500 PV' },
+                { label: 'Команда', value: '~35 человек' },
+                { label: 'Уровни бонуса', value: '5 + deep' }
+            ]
+        },
+        primum: {
+            incomeRange: '2 000 — 10 000 €',
+            details: [
+                { label: 'Оборот структуры', value: '~5 000 PV' },
+                { label: 'Лидерский бонус', value: '1 уровень (2.5%)' },
+                { label: 'Награда', value: '100 PV' }
+            ]
+        },
+        dux: {
+            incomeRange: '5 000 — 25 000 €',
+            details: [
+                { label: 'Оборот структуры', value: '~11 000 PV' },
+                { label: 'Лидерский бонус', value: '2 уровня (5%)' },
+                { label: 'Награда', value: '300 PV' }
+            ]
+        },
+        grandis: {
+            incomeRange: '15 000 — 75 000 €',
+            details: [
+                { label: 'Оборот структуры', value: '~45 000 PV' },
+                { label: 'Лидерский бонус', value: '4 уровня (10%)' },
+                { label: 'Награда', value: '2 500 PV' }
+            ]
+        }
+    };
+
+    window.selectRank = function(el) {
+        const rank = el.dataset.rank;
+        const data = RANK_DATA[rank];
+
+        // Toggle active
+        document.querySelectorAll('.cv2-rank-card').forEach(function(c) {
+            c.classList.remove('active');
+        });
+        el.classList.add('active');
+
+        // Show detail
+        const detail = document.getElementById('rank-detail');
+        const grid = document.getElementById('rank-detail-grid');
+
+        grid.innerHTML = '';
+        data.details.forEach(function(d) {
+            var item = document.createElement('div');
+            item.className = 'cv2-rank-detail-item';
+            item.innerHTML = '<strong>' + d.value + '</strong><span>' + d.label + '</span>';
+            grid.appendChild(item);
+        });
+
+        detail.classList.add('visible');
+    };
+
+    // === MODULE 4: Structure builder ===
+    const m4InvitedSlider = document.getElementById('m4-invited-slider');
+    const m4DoctusSlider = document.getElementById('m4-doctus-slider');
+
+    function updateModule4() {
+        const invited = parseInt(m4InvitedSlider.value);
+        const doctusEach = parseInt(m4DoctusSlider.value);
+        const totalDoctus = invited * doctusEach;
+        const turnover = totalDoctus * PV_PER_DOCTUS;
+        const incLow = totalDoctus * INCOME_LOW_PER_DOCTUS;
+        const incHigh = totalDoctus * INCOME_HIGH_PER_DOCTUS;
+
+        document.getElementById('m4-invited').textContent = invited;
+        document.getElementById('m4-doctus-each').textContent = doctusEach;
+        document.getElementById('m4-total-doctus').textContent = totalDoctus;
+        document.getElementById('m4-turnover').textContent = fmtEur(turnover);
+        document.getElementById('m4-income').textContent = fmtRange(incLow, incHigh);
+
+        document.getElementById('m4-lev-invited').textContent = invited;
+        document.getElementById('m4-lev-doctus').textContent = doctusEach;
+        document.getElementById('m4-lev-total').textContent = totalDoctus;
+    }
+
+    m4InvitedSlider.addEventListener('input', updateModule4);
+    m4DoctusSlider.addEventListener('input', updateModule4);
+
+    // === MODULE 5: Growth chart animation ===
+    function animateGrowthBars() {
+        const bars = document.querySelectorAll('.cv2-growth-fill');
+        const heights = [2, 12, 40, 100];
+        bars.forEach(function(bar, i) {
+            bar.style.height = '0%';
+            setTimeout(function() {
+                bar.style.height = heights[i] + '%';
+            }, 200 + i * 200);
+        });
+    }
+
+    // Observe when Module 5 enters viewport
+    const m5Observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                animateGrowthBars();
+                m5Observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    var m5Section = document.getElementById('module5');
+    if (m5Section) m5Observer.observe(m5Section);
+
+    // === MODULE 6: Product sets ===
+    const m6Slider = document.getElementById('m6-slider');
+
+    function updateModule6() {
+        const sets = parseInt(m6Slider.value);
+        const turnover = sets * SET_PV;
+        const payout = Math.round(turnover * 0.55);
+
+        document.getElementById('m6-sets').textContent = fmt(sets);
+        document.getElementById('m6-turnover').textContent = fmtEur(turnover);
+        document.getElementById('m6-payout').textContent = 'до ' + fmtEur(payout);
+    }
+
+    m6Slider.addEventListener('input', updateModule6);
+
+    // === MODULE 7: Animate key lines on scroll ===
+    const m7Observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.cv2-key-line').forEach(function(line) {
+                    line.style.animationPlayState = 'running';
+                });
+                m7Observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    var m7Section = document.getElementById('module7');
+    if (m7Section) m7Observer.observe(m7Section);
+
+    // Initial renders
+    updateModule1();
+    updateModule2();
+    updateModule4();
+    updateModule6();
+
+})();
+</script>
+{% endblock %}

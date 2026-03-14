@@ -19,12 +19,12 @@ SECRET_KEY = 'django-insecure-quinta-essentia-calculator-dev-key-change-in-produ
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = ["calculator.quinta.pro", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["mlm.qe.life", "calculator.quinta.pro", "127.0.0.1", "localhost"]
 
 
 # когда будет nginx + https:
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-CSRF_TRUSTED_ORIGINS = ["https://calculator.quinta.pro"]
+CSRF_TRUSTED_ORIGINS = ["https://mlm.qe.life", "https://calculator.quinta.pro"]
 
 # Application definition
 

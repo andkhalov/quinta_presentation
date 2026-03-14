@@ -39,7 +39,8 @@
       <main>KZT</main>
       <marketing>PV</marketing>
       <conversion>
-        <bonuses>Бонусы начисляются в PV (маркетинговая валюта). При выводе с бонусного счёта: 1 PV = 0.55 EUR (курс настраивается в Админ-панели).</bonuses>
+        <bonuses>1 PV = 1 EUR. Бонусы начисляются и выплачиваются в PV (маркетинговая валюта), конвертируются 1:1 в евро.</bonuses>
+        <platform_withdrawal>Курс вывода с бонусного счёта на платформе может отличаться (настраивается в Админ-панели).</platform_withdrawal>
       </conversion>
     </currencies>
 
@@ -339,7 +340,7 @@
       <key id="activity">activity_rules.thresholds (70 PV первая / 35 PV далее / 70 PV Doctus+), inclusion_rules, loss_conditions</key>
       <key id="ranks">ranks_table.conditions (12 рангов: Novus—Principal), confirmation_rules, display_rules</key>
       <key id="bonuses">cashback (5-12.5%), sales_bonus (2.5-7.5%), team_bonus (5%+2.5%+...), rank_reward, leadership (2.5% x уровни), top_bonus (0.5-0.8%)</key>
-      <key id="accounts">main_account(currency=KZT) operations; bonus_account(currency=PV, 1 PV = 0.55 EUR) operations</key>
+      <key id="accounts">main_account(currency=KZT) operations; bonus_account(currency=PV, 1 PV = 1 EUR) operations</key>
       <key id="structure">invites, placement, compression (стандартная + Doctus), block/delete effects</key>
     </keys>
   </kb_usage>
@@ -420,7 +421,7 @@
       <steps>
         <s>Объясни разницу основного (KZT) и бонусного (PV) счёта.</s>
         <s>Основной счёт: ввод/вывод, переводы нижестоящим, оплата товара.</s>
-        <s>Бонусный счёт: начисление бонусов в PV, вывод (1 PV = 0.55 EUR, курс настраивается), перевод на основной или на бонусный счёт нижестоящего.</s>
+        <s>Бонусный счёт: начисление бонусов в PV (1 PV = 1 EUR), вывод, перевод на основной или на бонусный счёт нижестоящего.</s>
       </steps>
     </flow>
 

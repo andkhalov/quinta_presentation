@@ -58,6 +58,73 @@
         font-size: 1.2rem;
     }
 }
+
+/* Бонус-Буст: двухэтажная карточка */
+.bonus-card--double {
+    display: flex;
+    flex-direction: column;
+}
+.bonus-boost-sub {
+    margin-top: 0.75rem;
+    padding: 0.85rem;
+    background: linear-gradient(135deg, #B8860B 0%, #DAA520 50%, #FFD700 100%);
+    border-radius: 0 0 10px 10px;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-bottom: -1rem;
+    border-top: 2px solid rgba(255, 215, 0, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+.bonus-boost-sub::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Cpath d='M10 10.5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1z'/%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+}
+.boost-header {
+    font-size: 1rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    position: relative;
+}
+.boost-desc {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.9);
+    margin: 0 0 0.5rem;
+    position: relative;
+}
+.boost-rates {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    position: relative;
+}
+.boost-rate {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    padding: 0.25rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: #fff;
+    white-space: nowrap;
+    border: 1px solid rgba(255,255,255,0.3);
+    font-weight: 500;
+}
+.boost-rate strong {
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+.bonus-boost-sub .bonus-example {
+    position: relative;
+}
+.bonus-boost-sub .bonus-example small {
+    color: rgba(255,255,255,0.85);
+}
 </style>
 {% endblock extra_head %}
 
@@ -78,7 +145,7 @@
                 <span class="stat-label">Рангов</span>
             </div>
             <div class="stat-card">
-                <span class="stat-number">6</span>
+                <span class="stat-number">7</span>
                 <span class="stat-label">Видов бонусов</span>
             </div>
             <div class="stat-card">
@@ -173,7 +240,7 @@
 <section class="section section-dark">
     <div class="container">
         <h2 class="section-title">🎯 Виды доходов</h2>
-        <p class="section-subtitle">6 источников заработка в Quinta Essentia</p>
+        <p class="section-subtitle">7 источников заработка в Quinta Essentia</p>
         
         <div class="bonus-grid">
             <div class="bonus-card">
@@ -192,7 +259,7 @@
                 </div>
             </div>
             
-            <div class="bonus-card">
+            <div class="bonus-card bonus-card--double">
                 <div class="bonus-icon" style="background: linear-gradient(135deg, var(--orange), var(--orange-dark));">📈</div>
                 <h3>Бонус продаж</h3>
                 <p>Процент от оборота лично приглашённых консультантов. Растёт с количеством приглашённых и вашим ЛТ</p>
@@ -205,6 +272,19 @@
                 </div>
                 <div class="bonus-example">
                     <small>Пример: 10 партнёров по 70 PV = 52.5 EUR/мес</small>
+                </div>
+                <!-- Бонус-Буст: второй этаж -->
+                <div class="bonus-boost-sub">
+                    <div class="boost-header">⚡ Бонус-Буст!</div>
+                    <p class="boost-desc">Экстра % от ЛП с пакетами от 280 PV</p>
+                    <div class="boost-rates">
+                        <span class="boost-rate">70 PV → <strong>5.6%</strong></span>
+                        <span class="boost-rate">140 PV → <strong>7.5%</strong></span>
+                        <span class="boost-rate">280 PV → <strong>11.3%</strong></span>
+                    </div>
+                    <div class="bonus-example">
+                        <small>От первых 10 партнёров в 1 линии</small>
+                    </div>
                 </div>
             </div>
             
@@ -255,6 +335,22 @@
             </div>
             
             <div class="bonus-card">
+                <div class="bonus-icon" style="background: linear-gradient(135deg, #10B981, #059669);">🏷️</div>
+                <h3>Скидка 30%</h3>
+                <p>На всю продукцию сразу после регистрации. Покупайте для себя и близких по специальной цене консультанта</p>
+                <div class="bonus-range">
+                    <span class="range-min">сразу</span>
+                    <div class="range-bar">
+                        <div class="range-fill" style="width: 100%; background: linear-gradient(90deg, #10B981, #059669);"></div>
+                    </div>
+                    <span class="range-max">−30%</span>
+                </div>
+                <div class="bonus-example">
+                    <small>Доступна с момента регистрации — без условий</small>
+                </div>
+            </div>
+
+            <div class="bonus-card">
                 <div class="bonus-icon" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED);">🌟</div>
                 <h3>ТОП бонус</h3>
                 <p>Ежеквартальная доля от оборота компании для топ-лидеров (Sapiens и выше). Общий пул: 2%</p>
@@ -269,12 +365,41 @@
                     <small>Sapiens: 0.8% • Superator: 0.7% • Principal: 0.5%</small>
                 </div>
             </div>
+
+            <div class="bonus-card">
+                <div class="bonus-icon" style="background: linear-gradient(135deg, #D4A017, #8B6914);">🎁</div>
+                <h3>Подарки за карьеру</h3>
+                <p>Эксклюзивные награды за достижение рангов: от денежных бонусов до недвижимости. Общая сумма подарков — до 129 000 EUR</p>
+                <div class="bonus-rewards">
+                    <span>100 PV</span>
+                    <span>→</span>
+                    <span>Недвижимость</span>
+                </div>
+                <div class="bonus-example">
+                    <small>VIP-поездка • Rolex/Omega • Престиж-авто • Недвижимость</small>
+                </div>
+            </div>
         </div>
         
         <div class="section-cta">
             <a href="{% url 'calculator:bonuses' %}" class="btn btn-light btn-lg">
                 Подробнее о бонусах →
             </a>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="padding: 2.5rem 0;">
+    <div class="container">
+        <div style="background: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%); border-radius: 16px; padding: 2.5rem; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.06\' fill-rule=\'evenodd\'%3E%3Cpath d=\'M20 20.5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1z\'/%3E%3C/g%3E%3C/svg%3E'); pointer-events: none;"></div>
+            <div style="display: flex; align-items: center; gap: 2rem; position: relative; z-index: 1; flex-wrap: wrap; justify-content: center;">
+                <div style="font-size: 4.5rem; font-weight: 800; color: white; line-height: 1; text-shadow: 0 4px 12px rgba(0,0,0,0.2); flex-shrink: 0;">−30%</div>
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="color: white; font-size: 1.5rem; margin: 0 0 0.5rem;">Скидка на всю продукцию</h3>
+                    <p style="color: rgba(255,255,255,0.9); margin: 0; font-size: 1rem;">Скидка 30% на весь ассортимент продукции доступна вам сразу после регистрации в качестве консультанта. Покупайте для себя и рекомендуйте близким по лучшей цене.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -354,11 +479,11 @@
                 <div class="step-number">1</div>
                 <div class="step-content">
                     <h3>Регистрация</h3>
-                    <p>Станьте консультантом с минимальным входом 35 PV (= 35 EUR)</p>
+                    <p>Станьте консультантом с первой активацией 70 PV (= 70 EUR). Далее — от 35 PV/мес</p>
                     <div class="step-highlight">
-                        <span>35 PV</span>
+                        <span>70 PV</span>
                         <span>=</span>
-                        <span>€35</span>
+                        <span>€70</span>
                     </div>
                 </div>
             </div>
